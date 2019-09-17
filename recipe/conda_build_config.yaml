@@ -1,0 +1,1 @@
+docker_image: condaforge/linux-anvil-cuda:10.0
