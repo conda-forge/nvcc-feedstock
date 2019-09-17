@@ -13,7 +13,7 @@ jobs:
       linux_target_platformlinux-64:
         CONFIG: linux_target_platformlinux-64
         UPLOAD_PACKAGES: True
-        DOCKER_IMAGE: condaforge/linux-anvil-comp7
+        DOCKER_IMAGE: condaforge/linux-anvil-cuda:10.0
   steps:
   # configure qemu binfmt-misc running.  This allows us to run docker containers
   # embedded qemu-static
