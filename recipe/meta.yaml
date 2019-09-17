@@ -1,5 +1,5 @@
 {% set name = "nvcc" %}
-{% set version = environ.get("CUDA_VER", "9.2") %}
+{% set version = environ.get("CUDA_VER", "10.0") %}
 
 package:
   name: "{{ name }}"
