@@ -1,5 +1,4 @@
 {% set name = "nvcc" %}
-{% set version = environ.get("CUDA_VER", "10.0") %}
 
 package:
   name: "{{ name }}"
@@ -10,7 +9,7 @@ build:
 
 outputs:
   - name: "{{ name }}_{{ target_platform }}"
-    version: "{{ version }}"
+    version: "{{ CUDA_VER }}"
     script: install_nvcc.sh
     build:
       script_env:
@@ -19,7 +18,7 @@ outputs:
         - libgcc-ng
       run_exports:
         strong:
-          - cudatoolkit {{ version }}|{{ version }}.*
+          - cudatoolkit {{ CUDA_VER }}|{{ CUDA_VER }}.*
     requirements:
       host:
         # Needed to symlink libcuda into sysroot libs.
