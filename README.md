@@ -66,7 +66,7 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-nvcc_linux--64-green.svg)](https://anaconda.org/conda-forge/nvcc_linux-64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/nvcc_linux-64.svg)](https://anaconda.org/conda-forge/nvcc_linux-64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/nvcc_linux-64.svg)](https://anaconda.org/conda-forge/nvcc_linux-64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/nvcc_linux-64.svg)](https://anaconda.org/conda-forge/nvcc_linux-64) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-nvcc_osx--64-green.svg)](https://anaconda.org/conda-forge/nvcc_osx-64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/nvcc_osx-64.svg)](https://anaconda.org/conda-forge/nvcc_osx-64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/nvcc_osx-64.svg)](https://anaconda.org/conda-forge/nvcc_osx-64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/nvcc_osx-64.svg)](https://anaconda.org/conda-forge/nvcc_osx-64) |
 
 Installing nvcc
 ===============
@@ -77,16 +77,16 @@ Installing `nvcc` from the `conda-forge` channel can be achieved by adding `cond
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `nvcc_linux-64` can be installed with:
+Once the `conda-forge` channel has been enabled, `nvcc_osx-64` can be installed with:
 
 ```
-conda install nvcc_linux-64
+conda install nvcc_osx-64
 ```
 
-It is possible to list all of the versions of `nvcc_linux-64` available on your platform with:
+It is possible to list all of the versions of `nvcc_osx-64` available on your platform with:
 
 ```
-conda search nvcc_linux-64 --channel conda-forge
+conda search nvcc_osx-64 --channel conda-forge
 ```
 
 
@@ -153,6 +153,10 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
+* [@dillon-cullinan](https://github.com/dillon-cullinan/)
 * [@isuruf](https://github.com/isuruf/)
 * [@jakirkham](https://github.com/jakirkham/)
+* [@kkraus14](https://github.com/kkraus14/)
+* [@mike-wendt](https://github.com/mike-wendt/)
+* [@raydouglass](https://github.com/raydouglass/)
 
