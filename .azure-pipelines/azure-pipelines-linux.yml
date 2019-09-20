@@ -10,10 +10,18 @@ jobs:
   strategy:
     maxParallel: 8
     matrix:
-      linux_target_platformlinux-64:
-        CONFIG: linux_target_platformlinux-64
+      linux_CUDA_VER10.0target_platformlinux-64:
+        CONFIG: linux_CUDA_VER10.0target_platformlinux-64
         UPLOAD_PACKAGES: True
-        DOCKER_IMAGE: condaforge/linux-anvil-comp7
+        DOCKER_IMAGE: condaforge/linux-anvil-cuda:10.0
+      linux_CUDA_VER10.1target_platformlinux-64:
+        CONFIG: linux_CUDA_VER10.1target_platformlinux-64
+        UPLOAD_PACKAGES: True
+        DOCKER_IMAGE: condaforge/linux-anvil-cuda:10.1
+      linux_CUDA_VER9.2target_platformlinux-64:
+        CONFIG: linux_CUDA_VER9.2target_platformlinux-64
+        UPLOAD_PACKAGES: True
+        DOCKER_IMAGE: condaforge/linux-anvil-cuda:9.2
   steps:
   # configure qemu binfmt-misc running.  This allows us to run docker containers
   # embedded qemu-static
