@@ -7,10 +7,13 @@ mkdir -p "${PREFIX}/etc/conda/activate.d"
 cat >"${PREFIX}/etc/conda/activate.d/${PKG_NAME}_activate.sh" <<EOF
 #!/bin/bash
 
+CUDA_HOME_UNSET=0
+
 # Default to using \$(cuda-gdb) to specify \$(CUDA_HOME).
 if [ -z \${CUDA_HOME+x} ]
 then
     CUDA_HOME="\$(dirname \$(dirname \$(which cuda-gdb)))"
+    CUDA_HOME_UNSET=1
 fi
 
 if [[ ! -d "\${CUDA_HOME}" ]]
@@ -30,6 +33,7 @@ then
     exit 1
 fi
 
+export CUDA_HOME_UNSET=\${CUDA_HOME_UNSET}
 export CUDA_HOME="\${CUDA_HOME}"
 export CFLAGS="\${CFLAGS} -I\${CUDA_HOME}/include"
 export CPPFLAGS="\${CPPFLAGS} -I\${CUDA_HOME}/include"
@@ -48,7 +52,12 @@ EOF
 mkdir -p "${PREFIX}/etc/conda/deactivate.d"
 cat >"${PREFIX}/etc/conda/deactivate.d/${PKG_NAME}_deactivate.sh" <<EOF
 #!/bin/bash
-unset CUDA_HOME
+
+if [[ "$CUDA_HOME_UNSET" -eq "1" ]]
+then
+    unset CUDA_HOME
+fi
+unset CUDA_HOME_UNSET
 unset CFLAGS
 unset CPPFLAGS
 unset CXXFLAGS

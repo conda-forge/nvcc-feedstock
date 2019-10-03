@@ -25,6 +25,8 @@ outputs:
         - {{ compiler("c") }}
       run:
     test:
+      script_env:
+        - PATH
       requires:
         - {{ compiler("c") }}
         # Host code is forwarded to a C++ compiler
