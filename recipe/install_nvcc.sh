@@ -40,7 +40,7 @@ export CPPFLAGS="\${CPPFLAGS} -I\${CUDA_HOME}/include"
 export CXXFLAGS="\${CXXFLAGS} -I\${CUDA_HOME}/include"
 
 # Add \$(libcuda.so) shared object stub to the compiler sysroot.
-# Needed for things that want to link to $(libcuda.so).
+# Needed for things that want to link to \$(libcuda.so).
 # Stub is used to avoid getting driver code linked into binaries.
 
 CONDA_ENV_SYSROOT="\$(\${CC} --print-sysroot)"
@@ -53,7 +53,7 @@ mkdir -p "${PREFIX}/etc/conda/deactivate.d"
 cat >"${PREFIX}/etc/conda/deactivate.d/${PKG_NAME}_deactivate.sh" <<EOF
 #!/bin/bash
 
-if [[ "$CUDA_HOME_UNSET" -eq "1" ]]
+if [[ "\$CUDA_HOME_UNSET" -eq "1" ]]
 then
     unset CUDA_HOME
 fi
