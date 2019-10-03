@@ -12,8 +12,6 @@ outputs:
     version: "{{ CUDA_VER }}"
     script: install_nvcc.sh
     build:
-      script_env:
-        - PATH
       ignore_run_exports:
         - libgcc-ng
       run_exports:
@@ -25,8 +23,6 @@ outputs:
         - {{ compiler("c") }}
       run:
     test:
-      script_env:
-        - PATH
       requires:
         - {{ compiler("c") }}
         # Host code is forwarded to a C++ compiler

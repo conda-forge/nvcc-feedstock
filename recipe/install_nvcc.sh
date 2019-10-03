@@ -12,6 +12,7 @@ CUDA_HOME_UNSET=0
 # Default to using \$(cuda-gdb) to specify \$(CUDA_HOME).
 if [ -z \${CUDA_HOME+x} ]
 then
+    echo "PATH: \$PATH"
     CUDA_HOME="\$(dirname \$(dirname \$(which cuda-gdb)))"
     CUDA_HOME_UNSET=1
 fi
