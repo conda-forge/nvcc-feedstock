@@ -37,11 +37,28 @@ outputs:
         - test -f "${PREFIX}/etc/conda/{{ state }}.d/{{ PKG_NAME }}_{{ state }}.sh"
         {% endfor %}
         # Try using the activation scripts.
-        - if [ -z ${CUDA_HOME+x} ]; then echo "CUDA_HOME is unset after activation" && exit 1; else echo "CUDA_HOME is set to '$CUDA_HOME'"; fi
+        - |
+          if [ -z ${CUDA_HOME+x} ]; then
+            echo "CUDA_HOME is unset after activation" && exit 1
+          else
+            echo "CUDA_HOME is set to '$CUDA_HOME', CUDA_HOME_UNSET is set to '$CUDA_HOME_UNSET'"
+          fi
         - source ${PREFIX}/etc/conda/deactivate.d/{{ PKG_NAME }}_deactivate.sh
-        - if [ -z ${CUDA_HOME+x} ]; then echo "CUDA_HOME is unset after deactivation "; else echo "CUDA_HOME is set to '$CUDA_HOME' after deactivation" && exit 1; fi
+        - |
+          if [ ! -z "${CUDA_HOME+x}" ] && [[ "$CUDA_HOME_UNSET" -eq "1" ]]; then
+            echo "CUDA_HOME correctly unset after deactivation"
+          elif [ ! -z "${CUDA_HOME+x}" ] && [[ "$CUDA_HOME_UNSET" -eq "0" ]]; then
+            echo "CUDA_HOME correctly maintained as '$CUDA_HOME' after deactivation"
+          else
+            echo "CUDA_HOME is incorrectly set to '$CUDA_HOME' after deactivation" && exit 1
+          fi
         - source ${PREFIX}/etc/conda/activate.d/{{ PKG_NAME }}_activate.sh
-        - if [ -z ${CUDA_HOME+x} ]; then echo "CUDA_HOME is unset after activation" && exit 1; else echo "CUDA_HOME is set to '$CUDA_HOME'"; fi
+        - |
+          if [ -z ${CUDA_HOME+x} ]; then
+            echo "CUDA_HOME is unset after activation" && exit 1
+          else
+            echo "CUDA_HOME is set to '$CUDA_HOME', CUDA_HOME_UNSET is set to '$CUDA_HOME_UNSET'"
+          fi
         # Try building something.
         - nvcc test.cu
     about:

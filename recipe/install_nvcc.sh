@@ -12,7 +12,6 @@ CUDA_HOME_UNSET=0
 # Default to using \$(cuda-gdb) to specify \$(CUDA_HOME).
 if [ -z \${CUDA_HOME+x} ]
 then
-    echo "PATH: \$PATH"
     CUDA_HOME="\$(dirname \$(dirname \$(which cuda-gdb)))"
     CUDA_HOME_UNSET=1
 fi
@@ -54,7 +53,7 @@ mkdir -p "${PREFIX}/etc/conda/deactivate.d"
 cat >"${PREFIX}/etc/conda/deactivate.d/${PKG_NAME}_deactivate.sh" <<EOF
 #!/bin/bash
 
-if [[ "\$CUDA_HOME_UNSET" -eq "1" ]]
+if [[ "\${CUDA_HOME_UNSET}" -eq "1" ]]
 then
     unset CUDA_HOME
 fi
@@ -70,7 +69,7 @@ EOF
 
 # Create `nvcc` script in `bin` so it can be easily run.
 mkdir -p "${PREFIX}/bin"
-cat >"${PREFIX}/bin/nvcc" <<'EOF'
+cat >"${PREFIX}/bin/nvcc" <<EOF
 #!/bin/bash
 "\${CUDA_HOME}/bin/nvcc" -ccbin "\${CXX}" \$@
 EOF
