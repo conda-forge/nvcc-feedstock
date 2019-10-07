@@ -7,13 +7,21 @@ mkdir -p "${PREFIX}/etc/conda/activate.d"
 cat >"${PREFIX}/etc/conda/activate.d/${PKG_NAME}_activate.sh" <<EOF
 #!/bin/bash
 
-CUDA_HOME_UNSET=0
+export CUDA_HOME_CONDA_NVCC_BACKUP="\${CUDA_HOME:-}"
+export CFLAGS_CONDA_NVCC_BACKUP="\${CFLAGS:-}"
+export CPPFLAGS_CONDA_NVCC_BACKUP="\${CPPFLAGS:-}"
+export CXXFLAGS_CONDA_NVCC_BACKUP="\${CXXFLAGS:-}"
 
 # Default to using \$(cuda-gdb) to specify \$(CUDA_HOME).
 if [ -z \${CUDA_HOME+x} ]
 then
-    CUDA_HOME="\$(dirname \$(dirname \$(which cuda-gdb)))"
-    CUDA_HOME_UNSET=1
+    CUDA_GDB_EXECUTABLE=\$(which cuda-gdb)
+    if [ -n "\$CUDA_GDB_EXECUTABLE" ]; then
+        CUDA_HOME=\$(dirname \$(dirname \$CUDA_GDB_EXECUTABLE))
+    else
+        echo "Cannot determine CUDA_HOME: cuda-gdb not in PATH"
+        exit 1
+    fi
 fi
 
 if [[ ! -d "\${CUDA_HOME}" ]]
@@ -21,19 +29,18 @@ then
     echo "Cannot find: \${CUDA_HOME}"
     exit 1
 fi
+
 if [[ ! -f "\${CUDA_HOME}/lib64/stubs/libcuda.so" ]]
 then
     echo "Cannot find: \${CUDA_HOME}/lib64/stubs/libcuda.so"
     exit 1
 fi
-grep "CUDA Version ${PKG_VERSION}" \${CUDA_HOME}/version.txt &>/dev/null
-if [[ \$? -ne 0 ]]
-then
+
+if [[ \$(grep -q "CUDA Version ${PKG_VERSION}" \${CUDA_HOME}/version.txt) -ne 0 ]]; then
     echo "Version of installed CUDA didn't match package"
     exit 1
 fi
 
-export CUDA_HOME_UNSET=\${CUDA_HOME_UNSET}
 export CUDA_HOME="\${CUDA_HOME}"
 export CFLAGS="\${CFLAGS} -I\${CUDA_HOME}/include"
 export CPPFLAGS="\${CPPFLAGS} -I\${CUDA_HOME}/include"
@@ -53,14 +60,30 @@ mkdir -p "${PREFIX}/etc/conda/deactivate.d"
 cat >"${PREFIX}/etc/conda/deactivate.d/${PKG_NAME}_deactivate.sh" <<EOF
 #!/bin/bash
 
-if [[ "\${CUDA_HOME_UNSET}" -eq "1" ]]
-then
+export CUDA_HOME="\${CUDA_HOME_CONDA_NVCC_BACKUP}"
+export CFLAGS="\${CFLAGS_CONDA_NVCC_BACKUP}"
+export CPPFLAGS="\${CPPFLAGS_CONDA_NVCC_BACKUP}"
+export CXXFLAGS="\${CXXFLAGS_CONDA_NVCC_BACKUP}"
+unset CUDA_HOME_CONDA_NVCC_BACKUP
+unset CFLAGS_CONDA_NVCC_BACKUP
+unset CPPFLAGS_CONDA_NVCC_BACKUP
+unset CXXFLAGS_CONDA_NVCC_BACKUP
+
+if [ -z "\${CUDA_HOME}" ]; then
     unset CUDA_HOME
 fi
-unset CUDA_HOME_UNSET
-unset CFLAGS
-unset CPPFLAGS
-unset CXXFLAGS
+
+if [ -z "\${CFLAGS}" ]; then
+    unset CFLAGS
+fi
+
+if [ -z "\${CPPFLAGS}" ]; then
+    unset CPPFLAGS
+fi
+
+if [ -z "\${CXXFLAGS}" ]; then
+    unset CXXFLAGS
+fi
 
 # Remove \$(libcuda.so) shared object stub from the compiler sysroot.
 CONDA_ENV_SYSROOT="\$(\${CC} --print-sysroot)"
