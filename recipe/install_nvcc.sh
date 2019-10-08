@@ -26,13 +26,13 @@ fi
 
 if [[ ! -d "\${CUDA_HOME}" ]]
 then
-    echo "Cannot find: \${CUDA_HOME}"
+    echo "Directory \${CUDA_HOME} doesn't exist"
     exit 1
 fi
 
 if [[ ! -f "\${CUDA_HOME}/lib64/stubs/libcuda.so" ]]
 then
-    echo "Cannot find: \${CUDA_HOME}/lib64/stubs/libcuda.so"
+    echo "File \${CUDA_HOME}/lib64/stubs/libcuda.so doesn't exist"
     exit 1
 fi
 
@@ -69,19 +69,19 @@ unset CFLAGS_CONDA_NVCC_BACKUP
 unset CPPFLAGS_CONDA_NVCC_BACKUP
 unset CXXFLAGS_CONDA_NVCC_BACKUP
 
-if [ -z "\${CUDA_HOME}" ]; then
+if [ -z "\${CUDA_HOME+x}" ]; then
     unset CUDA_HOME
 fi
 
-if [ -z "\${CFLAGS}" ]; then
+if [ -z "\${CFLAGS+x}" ]; then
     unset CFLAGS
 fi
 
-if [ -z "\${CPPFLAGS}" ]; then
+if [ -z "\${CPPFLAGS+x}" ]; then
     unset CPPFLAGS
 fi
 
-if [ -z "\${CXXFLAGS}" ]; then
+if [ -z "\${CXXFLAGS+x}" ]; then
     unset CXXFLAGS
 fi
 

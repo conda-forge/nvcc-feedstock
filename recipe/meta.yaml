@@ -30,8 +30,6 @@ outputs:
       files:
         - test.cu
       commands:
-        # Get intial state of $CUDA_HOME
-        - export TEST_CUDA_HOME_INITIAL=$CUDA_HOME
         # Verify the symlink to the libcuda stub library exists.
         - test -f "$(${CC} --print-sysroot)/lib/libcuda.so"
         # Verify the activation scripts are in-place.
@@ -54,17 +52,32 @@ outputs:
           else
             echo "CUDA_HOME is incorrectly set to '$CUDA_HOME' after deactivation" && exit 1
           fi
+        # Set some CFLAGS to make sure we're not causing side effects
+        - |
+          export CFLAGS_CONDA_NVCC_TEST_BACKUP="${CFLAGS}"
+          export CFLAGS="${CFLAGS} -I/path/to/test/include"
+        # Manually trigger the activation script
         - source ${PREFIX}/etc/conda/activate.d/{{ PKG_NAME }}_activate.sh
+        # Check activation worked as expected, then deactivate
         - |
           if [ -z ${CUDA_HOME+x} ]; then
             echo "CUDA_HOME is unset after activation" && exit 1
           else
-            echo "CUDA_HOME is set to '$CUDA_HOME'"
+            echo "CUDA_HOME is set to '${CUDA_HOME}'"
           fi
-        # Try building something.
+          source ${PREFIX}/etc/conda/deactivate.d/{{ PKG_NAME }}_deactivate.sh
+        # Make sure there's no side effects
+        - |
+          if [[ "${CFLAGS}" -eq "${CFLAGS_CONDA_NVCC_TEST_BACKUP}" ]]; then
+            echo "CFLAGS correctly maintained as '${CFLAGS}'"
+            unset CFLAGS_CONDA_NVCC_TEST_BACKUP
+          else
+            echo "CFLAGS is incorrectly set to '${CFLAGS}', should be set to '${CFLAGS_CONDA_NVCC_TEST_BACKUP}'" && exit 1
+          fi
+        # Reactivate
+        - source ${PREFIX}/etc/conda/activate.d/{{ PKG_NAME }}_activate.sh
+        # Try building something
         - nvcc test.cu
-        # Cleanup after ourselves
-        - unset TEST_CUDA_HOME_INITIAL
     about:
       home: https://github.com/conda-forge/nvcc-feedstock
       license: BSD 3-Clause
