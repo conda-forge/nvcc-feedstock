@@ -56,6 +56,7 @@ outputs:
         - |
           export CFLAGS_CONDA_NVCC_TEST_BACKUP="${CFLAGS}"
           export CFLAGS="${CFLAGS} -I/path/to/test/include"
+          export CFLAGS_CONDA_NVCC_TEST="${CFLAGS}"
         # Manually trigger the activation script
         - source ${PREFIX}/etc/conda/activate.d/{{ PKG_NAME }}_activate.sh
         # Check activation worked as expected, then deactivate
@@ -68,11 +69,13 @@ outputs:
           source ${PREFIX}/etc/conda/deactivate.d/{{ PKG_NAME }}_deactivate.sh
         # Make sure there's no side effects
         - |
-          if [[ "${CFLAGS}" -eq "${CFLAGS_CONDA_NVCC_TEST_BACKUP}" ]]; then
+          if [[ "${CFLAGS}" == "${CFLAGS_CONDA_NVCC_TEST}" ]]; then
             echo "CFLAGS correctly maintained as '${CFLAGS}'"
+            unset CFLAGS_CONDA_NVCC_TEST
+            export CFLAGS="${CFLAGS_CONDA_NVCC_TEST_BACKUP}"
             unset CFLAGS_CONDA_NVCC_TEST_BACKUP
           else
-            echo "CFLAGS is incorrectly set to '${CFLAGS}', should be set to '${CFLAGS_CONDA_NVCC_TEST_BACKUP}'" && exit 1
+            echo "CFLAGS is incorrectly set to '${CFLAGS}', should be set to '${CFLAGS_CONDA_NVCC_TEST}'" && exit 1
           fi
         # Reactivate
         - source ${PREFIX}/etc/conda/activate.d/{{ PKG_NAME }}_activate.sh

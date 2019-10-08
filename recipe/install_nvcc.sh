@@ -4,7 +4,7 @@ set -xeuo pipefail
 
 # Set `CUDA_HOME` in an activation script.
 mkdir -p "${PREFIX}/etc/conda/activate.d"
-cat >"${PREFIX}/etc/conda/activate.d/${PKG_NAME}_activate.sh" <<EOF
+cat > "${PREFIX}/etc/conda/activate.d/${PKG_NAME}_activate.sh" <<EOF
 #!/bin/bash
 
 export CUDA_HOME_CONDA_NVCC_BACKUP="\${CUDA_HOME:-}"
@@ -57,7 +57,7 @@ EOF
 
 # Unset `CUDA_HOME` in a deactivation script.
 mkdir -p "${PREFIX}/etc/conda/deactivate.d"
-cat >"${PREFIX}/etc/conda/deactivate.d/${PKG_NAME}_deactivate.sh" <<EOF
+cat > "${PREFIX}/etc/conda/deactivate.d/${PKG_NAME}_deactivate.sh" <<EOF
 #!/bin/bash
 
 export CUDA_HOME="\${CUDA_HOME_CONDA_NVCC_BACKUP}"
@@ -92,7 +92,7 @@ EOF
 
 # Create `nvcc` script in `bin` so it can be easily run.
 mkdir -p "${PREFIX}/bin"
-cat >"${PREFIX}/bin/nvcc" <<EOF
+cat > "${PREFIX}/bin/nvcc" <<EOF
 #!/bin/bash
 "\${CUDA_HOME}/bin/nvcc" -ccbin "\${CXX}" \$@
 EOF
