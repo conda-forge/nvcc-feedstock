@@ -13,7 +13,7 @@ export CPPFLAGS_CONDA_NVCC_BACKUP="\${CPPFLAGS:-}"
 export CXXFLAGS_CONDA_NVCC_BACKUP="\${CXXFLAGS:-}"
 
 # Default to using \$(cuda-gdb) to specify \$(CUDA_HOME).
-if [ -z \${CUDA_HOME+x} ]
+if [ -z "\${CUDA_HOME+x}" ]
 then
     CUDA_GDB_EXECUTABLE=\$(which cuda-gdb)
     if [ -n "\$CUDA_GDB_EXECUTABLE" ]; then
