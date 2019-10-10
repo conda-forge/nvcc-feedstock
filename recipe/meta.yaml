@@ -1,15 +1,17 @@
 {% set name = "nvcc" %}
+{% set number = 1 %}
 
 package:
   name: "{{ name }}"
 
 build:
-  number: 1
+  number: {{ number }}
   skip: true  # [not linux]
 
 outputs:
   - name: "{{ name }}_{{ target_platform }}"
     version: "{{ CUDA_VER }}"
+    number: {{ number }}
     script: install_nvcc.sh
     build:
       ignore_run_exports:
