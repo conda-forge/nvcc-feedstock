@@ -10,7 +10,7 @@ build:
 
 outputs:
   - name: "{{ name }}_{{ target_platform }}"
-    version: "{{ CUDA_VER }}"
+    version: "{{ cuda_compiler_version }}"
     number: {{ number }}
     script: install_nvcc.sh
     build:
@@ -18,7 +18,7 @@ outputs:
         - libgcc-ng
       run_exports:
         strong:
-          - cudatoolkit {{ CUDA_VER }}|{{ CUDA_VER }}.*
+          - cudatoolkit {{ cuda_compiler_version }}|{{ cuda_compiler_version }}.*
     requirements:
       host:
         # Needed to symlink libcuda into sysroot libs.
