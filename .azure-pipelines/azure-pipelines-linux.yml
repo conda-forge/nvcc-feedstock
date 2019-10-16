@@ -10,16 +10,16 @@ jobs:
   strategy:
     maxParallel: 8
     matrix:
-      linux_CUDA_VER10.0target_platformlinux-64:
-        CONFIG: linux_CUDA_VER10.0target_platformlinux-64
+      linux_cuda_compiler_version10.0target_platformlinux-64:
+        CONFIG: linux_cuda_compiler_version10.0target_platformlinux-64
         UPLOAD_PACKAGES: True
         DOCKER_IMAGE: condaforge/linux-anvil-cuda:10.0
-      linux_CUDA_VER10.1target_platformlinux-64:
-        CONFIG: linux_CUDA_VER10.1target_platformlinux-64
+      linux_cuda_compiler_version10.1target_platformlinux-64:
+        CONFIG: linux_cuda_compiler_version10.1target_platformlinux-64
         UPLOAD_PACKAGES: True
         DOCKER_IMAGE: condaforge/linux-anvil-cuda:10.1
-      linux_CUDA_VER9.2target_platformlinux-64:
-        CONFIG: linux_CUDA_VER9.2target_platformlinux-64
+      linux_cuda_compiler_version9.2target_platformlinux-64:
+        CONFIG: linux_cuda_compiler_version9.2target_platformlinux-64
         UPLOAD_PACKAGES: True
         DOCKER_IMAGE: condaforge/linux-anvil-cuda:9.2
   steps:
@@ -34,7 +34,7 @@ jobs:
   - script: |
         export CI=azure
         export GIT_BRANCH=$BUILD_SOURCEBRANCHNAME
-        .azure-pipelines/run_docker_build.sh
+        .scripts/run_docker_build.sh
     displayName: Run docker build
     env:
       BINSTAR_TOKEN: $(BINSTAR_TOKEN)
