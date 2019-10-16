@@ -29,24 +29,24 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_CUDA_VER10.0target_platformlinux-64</td>
+              <td>linux_cuda_compiler_version10.0target_platformlinux-64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=master&jobName=linux&configuration=linux_CUDA_VER10.0target_platformlinux-64" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=master&jobName=linux&configuration=linux_cuda_compiler_version10.0target_platformlinux-64" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_CUDA_VER10.1target_platformlinux-64</td>
+              <td>linux_cuda_compiler_version10.1target_platformlinux-64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=master&jobName=linux&configuration=linux_CUDA_VER10.1target_platformlinux-64" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=master&jobName=linux&configuration=linux_cuda_compiler_version10.1target_platformlinux-64" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>linux_CUDA_VER9.2target_platformlinux-64</td>
+              <td>linux_cuda_compiler_version9.2target_platformlinux-64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=master">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=master&jobName=linux&configuration=linux_CUDA_VER9.2target_platformlinux-64" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=master&jobName=linux&configuration=linux_cuda_compiler_version9.2target_platformlinux-64" alt="variant">
                 </a>
               </td>
             </tr>
