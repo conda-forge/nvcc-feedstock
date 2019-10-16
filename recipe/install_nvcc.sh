@@ -52,7 +52,7 @@ export CXXFLAGS="\${CXXFLAGS} -I\${CUDA_HOME}/include"
 
 CONDA_ENV_SYSROOT="\$(\${CC} --print-sysroot)"
 mkdir -p "\${CONDA_ENV_SYSROOT}/lib"
-ln -s "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_ENV_SYSROOT}/lib/libcuda.so"
+ln -sf "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_ENV_SYSROOT}/lib/libcuda.so"
 EOF
 
 # Unset `CUDA_HOME` in a deactivation script.
