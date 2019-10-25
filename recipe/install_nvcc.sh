@@ -20,25 +20,25 @@ then
         CUDA_HOME=\$(dirname \$(dirname \$CUDA_GDB_EXECUTABLE))
     else
         echo "Cannot determine CUDA_HOME: cuda-gdb not in PATH"
-        exit 1
+        return 1
     fi
 fi
 
 if [[ ! -d "\${CUDA_HOME}" ]]
 then
     echo "Directory \${CUDA_HOME} doesn't exist"
-    exit 1
+    return 1
 fi
 
 if [[ ! -f "\${CUDA_HOME}/lib64/stubs/libcuda.so" ]]
 then
     echo "File \${CUDA_HOME}/lib64/stubs/libcuda.so doesn't exist"
-    exit 1
+    return 1
 fi
 
 if [[ \$(grep -q "CUDA Version ${PKG_VERSION}" \${CUDA_HOME}/version.txt) -ne 0 ]]; then
     echo "Version of installed CUDA didn't match package"
-    exit 1
+    return 1
 fi
 
 export CUDA_HOME="\${CUDA_HOME}"
