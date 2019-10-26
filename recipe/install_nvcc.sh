@@ -42,9 +42,9 @@ if [[ \$(grep -q "CUDA Version ${PKG_VERSION}" \${CUDA_HOME}/version.txt) -ne 0 
 fi
 
 export CUDA_HOME="\${CUDA_HOME}"
-export CFLAGS="\${CFLAGS} -I\${CUDA_HOME}/include"
-export CPPFLAGS="\${CPPFLAGS} -I\${CUDA_HOME}/include"
-export CXXFLAGS="\${CXXFLAGS} -I\${CUDA_HOME}/include"
+export CFLAGS="\${CFLAGS} -I\${CUDA_HOME}/include -I/usr/include"
+export CPPFLAGS="\${CPPFLAGS} -I\${CUDA_HOME}/include -I/usr/include"
+export CXXFLAGS="\${CXXFLAGS} -I\${CUDA_HOME}/include -I/usr/include"
 
 # Add \$(libcuda.so) shared object stub to the compiler sysroot.
 # Needed for things that want to link to \$(libcuda.so).
