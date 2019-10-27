@@ -23,7 +23,7 @@ then
   export CPPFLAGS_CONDA_NVCC_BACKUP="\${CPPFLAGS:-}"
 fi
 
-if [[ ! -z "\${CXXFLAGS+x}" ]
+if [[ ! -z "\${CXXFLAGS+x}" ]]
 then
   export CXXFLAGS_CONDA_NVCC_BACKUP="\${CXXFLAGS:-}"
 fi
