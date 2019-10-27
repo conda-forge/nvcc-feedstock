@@ -7,10 +7,26 @@ mkdir -p "${PREFIX}/etc/conda/activate.d"
 cat > "${PREFIX}/etc/conda/activate.d/${PKG_NAME}_activate.sh" <<EOF
 #!/bin/bash
 
-export CUDA_HOME_CONDA_NVCC_BACKUP="\${CUDA_HOME:-}"
-export CFLAGS_CONDA_NVCC_BACKUP="\${CFLAGS:-}"
-export CPPFLAGS_CONDA_NVCC_BACKUP="\${CPPFLAGS:-}"
-export CXXFLAGS_CONDA_NVCC_BACKUP="\${CXXFLAGS:-}"
+# Backup environment variables (only if the variables are set)
+if [[ ! -z "\${CUDA_HOME+x}" ]]
+then
+  export CUDA_HOME_CONDA_NVCC_BACKUP="\${CUDA_HOME:-}"
+fi
+
+if [[ ! -z "\${CFLAGS+x}" ]]
+then
+  export CFLAGS_CONDA_NVCC_BACKUP="\${CFLAGS:-}"
+fi
+
+if [[ ! -z "\${CPPFLAGS+x}" ]]
+then
+  export CPPFLAGS_CONDA_NVCC_BACKUP="\${CPPFLAGS:-}"
+fi
+
+if [[ ! -z "\${CXXFLAGS+x}" ]
+then
+  export CXXFLAGS_CONDA_NVCC_BACKUP="\${CXXFLAGS:-}"
+fi
 
 # Default to using \$(cuda-gdb) to specify \$(CUDA_HOME).
 if [ -z "\${CUDA_HOME+x}" ]
@@ -26,7 +42,7 @@ fi
 
 if [[ ! -d "\${CUDA_HOME}" ]]
 then
-    echo "Directory \${CUDA_HOME} doesn't exist"
+    echo "Directory specified in CUDA_HOME(=\${CUDA_HOME}) doesn't exist"
     return 1
 fi
 
@@ -52,7 +68,15 @@ export CXXFLAGS="\${CXXFLAGS} -I\${CUDA_HOME}/include"
 
 CONDA_ENV_SYSROOT="\$(\${CC} --print-sysroot)"
 mkdir -p "\${CONDA_ENV_SYSROOT}/lib"
-ln -sf "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_ENV_SYSROOT}/lib/libcuda.so"
+
+# Make a backup of \$(libcuda.so) if it exists
+if [[ -f "\${CONDA_ENV_SYSROOT}/lib/libcuda.so" ]]
+then
+  LIBCUDA_SO_CONDA_NVCC_BACKUP="\${CONDA_ENV_SYSROOT}/lib/libcuda.so-conda-nvcc-backup"
+  mv "\${CONDA_ENV_SYSROOT}/lib/libcuda.so" "\${LIBCUDA_SO_CONDA_NVCC_BACKUP}"
+fi
+ln -s "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_ENV_SYSROOT}/lib/libcuda.so"
+
 EOF
 
 # Unset `CUDA_HOME` in a deactivation script.
@@ -60,34 +84,38 @@ mkdir -p "${PREFIX}/etc/conda/deactivate.d"
 cat > "${PREFIX}/etc/conda/deactivate.d/${PKG_NAME}_deactivate.sh" <<EOF
 #!/bin/bash
 
-export CUDA_HOME="\${CUDA_HOME_CONDA_NVCC_BACKUP}"
-export CFLAGS="\${CFLAGS_CONDA_NVCC_BACKUP}"
-export CPPFLAGS="\${CPPFLAGS_CONDA_NVCC_BACKUP}"
-export CXXFLAGS="\${CXXFLAGS_CONDA_NVCC_BACKUP}"
-unset CUDA_HOME_CONDA_NVCC_BACKUP
-unset CFLAGS_CONDA_NVCC_BACKUP
-unset CPPFLAGS_CONDA_NVCC_BACKUP
-unset CXXFLAGS_CONDA_NVCC_BACKUP
-
-if [ -z "\${CUDA_HOME+x}" ]; then
-    unset CUDA_HOME
+# Restore environment variables (if there is anything to restore)
+if [[ ! -z "\${CUDA_HOME_CONDA_NVCC_BACKUP+x}" ]]
+then
+  export CUDA_HOME="\${CUDA_HOME_CONDA_NVCC_BACKUP}"
+  unset CUDA_HOME_CONDA_NVCC_BACKUP
 fi
 
-if [ -z "\${CFLAGS+x}" ]; then
-    unset CFLAGS
+if [[ ! -z "\${CFLAGS_CONDA_NVCC_BACKUP+x}" ]]
+then
+  export CFLAGS="\${CFLAGS_CONDA_NVCC_BACKUP}"
+  unset CFLAGS_CONDA_NVCC_BACKUP
 fi
 
-if [ -z "\${CPPFLAGS+x}" ]; then
-    unset CPPFLAGS
+if [[ ! -z "\${CPPFLAGS_CONDA_NVCC_BACKUP+x}" ]]
+  export CPPFLAGS="\${CPPFLAGS_CONDA_NVCC_BACKUP}"
+  unset CPPFLAGS_CONDA_NVCC_BACKUP
+fi
+if [[ ! -z "\${CXXFLAGS_CONDA_NVCC_BACKUP+x}" ]]
+  export CXXFLAGS="\${CXXFLAGS_CONDA_NVCC_BACKUP}"
+  unset CXXFLAGS_CONDA_NVCC_BACKUP
 fi
 
-if [ -z "\${CXXFLAGS+x}" ]; then
-    unset CXXFLAGS
-fi
 
-# Remove \$(libcuda.so) shared object stub from the compiler sysroot.
+# Remove or restore \$(libcuda.so) shared object stub from the compiler sysroot.
 CONDA_ENV_SYSROOT="\$(\${CC} --print-sysroot)"
-rm -f "\${CONDA_ENV_SYSROOT}/lib/libcuda.so"
+LIBCUDA_SO_CONDA_NVCC_BACKUP="\${CONDA_ENV_SYSROOT}/lib/libcuda.so-conda-nvcc-backup"
+if [[ -f ""\${LIBCUDA_SO_CONDA_NVCC_BACKUP}"" ]]
+then
+  mv -f "\${LIBCUDA_SO_CONDA_NVCC_BACKUP}" "\${CONDA_ENV_SYSROOT}/lib/libcuda.so"
+else
+  rm -f "\${CONDA_ENV_SYSROOT}/lib/libcuda.so"
+fi
 EOF
 
 # Create `nvcc` script in `bin` so it can be easily run.
