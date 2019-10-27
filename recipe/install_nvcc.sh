@@ -29,10 +29,11 @@ then
 fi
 
 # Default to using \$(cuda-gdb) to specify \$(CUDA_HOME).
-if [ -z "\${CUDA_HOME+x}" ]
+if [[ -z "\${CUDA_HOME+x}" ]]
 then
     CUDA_GDB_EXECUTABLE=\$(which cuda-gdb)
-    if [ -n "\$CUDA_GDB_EXECUTABLE" ]; then
+    if [[ -n "\$CUDA_GDB_EXECUTABLE" ]]
+    then
         CUDA_HOME=\$(dirname \$(dirname \$CUDA_GDB_EXECUTABLE))
     else
         echo "Cannot determine CUDA_HOME: cuda-gdb not in PATH"
@@ -52,7 +53,8 @@ then
     return 1
 fi
 
-if [[ \$(grep -q "CUDA Version ${PKG_VERSION}" \${CUDA_HOME}/version.txt) -ne 0 ]]; then
+if [[ \$(grep -q "CUDA Version ${PKG_VERSION}" \${CUDA_HOME}/version.txt) -ne 0 ]]
+then
     echo "Version of installed CUDA didn't match package"
     return 1
 fi
@@ -98,10 +100,13 @@ then
 fi
 
 if [[ ! -z "\${CPPFLAGS_CONDA_NVCC_BACKUP+x}" ]]
+then
   export CPPFLAGS="\${CPPFLAGS_CONDA_NVCC_BACKUP}"
   unset CPPFLAGS_CONDA_NVCC_BACKUP
 fi
+
 if [[ ! -z "\${CXXFLAGS_CONDA_NVCC_BACKUP+x}" ]]
+then
   export CXXFLAGS="\${CXXFLAGS_CONDA_NVCC_BACKUP}"
   unset CXXFLAGS_CONDA_NVCC_BACKUP
 fi
