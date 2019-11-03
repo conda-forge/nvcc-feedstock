@@ -65,14 +65,11 @@ export CPPFLAGS="\${CPPFLAGS} -I\${CUDA_HOME}/include"
 export CXXFLAGS="\${CXXFLAGS} -I\${CUDA_HOME}/include"
 
 CONDA_ENV_SYSROOT=${PREFIX}/${HOST}/sysroot
-
-echo "ACTIVATE NVCC: CONDA_ENV_SYSROOT=\${CONDA_ENV_SYSROOT}"
+mkdir -p "\${CONDA_ENV_SYSROOT}/lib"
 
 # Add \$(libcuda.so) shared object stub to the compiler sysroot.
 # Needed for things that want to link to \$(libcuda.so).
 # Stub is used to avoid getting driver code linked into binaries.
-
-mkdir -p "\${CONDA_ENV_SYSROOT}/lib"
 
 # Make a backup of \$(libcuda.so) if it exists
 if [[ -f "\${CONDA_ENV_SYSROOT}/lib/libcuda.so" ]]
