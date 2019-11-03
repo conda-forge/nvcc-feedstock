@@ -64,11 +64,20 @@ export CFLAGS="\${CFLAGS} -I\${CUDA_HOME}/include"
 export CPPFLAGS="\${CPPFLAGS} -I\${CUDA_HOME}/include"
 export CXXFLAGS="\${CXXFLAGS} -I\${CUDA_HOME}/include"
 
+echo "ACTIVATE NVCC"
+env
+
+if [[ "\${CONDA_BUILD:-0}" = "1" ]]
+then
+  CONDA_ENV_SYSROOT=\${PREFIX}/\${HOST}/sysroot
+else
+  CONDA_ENV_SYSROOT="\$(\${CC} --print-sysroot)"
+fi
+
 # Add \$(libcuda.so) shared object stub to the compiler sysroot.
 # Needed for things that want to link to \$(libcuda.so).
 # Stub is used to avoid getting driver code linked into binaries.
 
-CONDA_ENV_SYSROOT="\$(\${CC} --print-sysroot)"
 mkdir -p "\${CONDA_ENV_SYSROOT}/lib"
 
 # Make a backup of \$(libcuda.so) if it exists
@@ -111,9 +120,14 @@ then
   unset CXXFLAGS_CONDA_NVCC_BACKUP
 fi
 
+if [[ "\${CONDA_BUILD:-0}" = "1" ]]
+then
+  CONDA_ENV_SYSROOT=\${PREFIX}/\${HOST}/sysroot
+else
+  CONDA_ENV_SYSROOT="\$(\${CC} --print-sysroot)"
+fi
 
 # Remove or restore \$(libcuda.so) shared object stub from the compiler sysroot.
-CONDA_ENV_SYSROOT="\$(\${CC} --print-sysroot)"
 LIBCUDA_SO_CONDA_NVCC_BACKUP="\${CONDA_ENV_SYSROOT}/lib/libcuda.so-conda-nvcc-backup"
 if [[ -f ""\${LIBCUDA_SO_CONDA_NVCC_BACKUP}"" ]]
 then
