@@ -33,7 +33,8 @@ outputs:
         - test.cu
       commands:
         # Verify the symlink to the libcuda stub library exists.
-        - test -f "$(${CC} --print-sysroot)/lib/libcuda.so"
+        - test -f "$(${CC} --print-sysroot)/lib/libcuda.so" || (echo "$(${CC} --print-sysroot)/lib/libcuda.so is not a file" && exit 1)
+        - test -f "${CONDA_BUILD_SYSROOT}/lib/libcuda.so" || (echo "${CONDA_BUILD_SYSROOT}/lib/libcuda.so is not a file" && exit 1)
         # Verify the activation scripts are in-place.
         {% for state in ["activate", "deactivate"] %}
         - test -f "${PREFIX}/etc/conda/{{ state }}.d/{{ PKG_NAME }}_{{ state }}.sh"
