@@ -127,6 +127,6 @@ EOF
 mkdir -p "${PREFIX}/bin"
 cat > "${PREFIX}/bin/nvcc" <<EOF
 #!/bin/bash
-"\${CUDA_HOME}/bin/nvcc" -ccbin "\${CXX}" -I\${PREFIX}/include \$@
+"\${CUDA_HOME}/bin/nvcc" -ccbin "\${CXX}" -I\${CONDA_PREFIX}/include \$@
 EOF
 chmod +x "${PREFIX}/bin/nvcc"
