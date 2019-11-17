@@ -31,7 +31,7 @@ fi
 # Default to using \$(cuda-gdb) to specify \$(CUDA_HOME).
 if [[ -z "\${CUDA_HOME+x}" ]]
 then
-    CUDA_GDB_EXECUTABLE=\$(which cuda-gdb)
+    CUDA_GDB_EXECUTABLE=\$(which cuda-gdb || exit 0)
     if [[ -n "\$CUDA_GDB_EXECUTABLE" ]]
     then
         CUDA_HOME=\$(dirname \$(dirname \$CUDA_GDB_EXECUTABLE))
