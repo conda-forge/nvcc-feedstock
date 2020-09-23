@@ -20,6 +20,8 @@ outputs:
         strong:
           - cudatoolkit {{ cuda_compiler_version }}|{{ cuda_compiler_version }}.*
     requirements:
+      build:
+        - sysroot_linux-64 2.17  # [cuda_compiler_version == "11.0"]
       host:
         # Needed to symlink libcuda into sysroot libs.
         - {{ compiler("c") }}
