@@ -19,6 +19,7 @@ outputs:
       run_exports:
         strong:
           - cudatoolkit {{ cuda_compiler_version }}|{{ cuda_compiler_version }}.*
+          - __glibc >=2.17  # [cuda_compiler_version == "11.0"]
     requirements:
       host:
         # Needed to symlink libcuda into sysroot libs.
