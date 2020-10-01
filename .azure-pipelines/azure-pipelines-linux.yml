@@ -20,6 +20,10 @@ jobs:
         CONFIG: linux_64_cuda_compiler_version10.2target_platformlinux-64
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-cuda:10.2
+      linux_64_cuda_compiler_version11.0target_platformlinux-64:
+        CONFIG: linux_64_cuda_compiler_version11.0target_platformlinux-64
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: condaforge/linux-anvil-cuda:11.0
       linux_64_cuda_compiler_version9.2target_platformlinux-64:
         CONFIG: linux_64_cuda_compiler_version9.2target_platformlinux-64
         UPLOAD_PACKAGES: 'True'
