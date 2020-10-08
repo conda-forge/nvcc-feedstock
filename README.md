@@ -5,11 +5,9 @@ Home: https://github.com/conda-forge/nvcc-feedstock
 
 Package license: BSD-3-Clause
 
-Feedstock license: BSD-3-Clause
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/nvcc-feedstock/blob/master/LICENSE.txt)
 
 Summary: A meta-package to enable the right nvcc.
-
-
 
 Current build status
 ====================
@@ -169,7 +167,4 @@ Feedstock Maintainers
 * [@kkraus14](https://github.com/kkraus14/)
 * [@mike-wendt](https://github.com/mike-wendt/)
 * [@raydouglass](https://github.com/raydouglass/)
-
-
-<!-- dummy commit to enable rerendering -->
 
