@@ -3,6 +3,10 @@ if defined CUDA_HOME (
   set "CUDA_HOME_CONDA_NVCC_BACKUP=%CUDA_HOME%"
 )
 
+if defined CUDA_PATH (
+  set "CUDA_PATH_CONDA_NVCC_BACKUP=%CUDA_PATH%"
+)
+
 if defined CFLAGS (
   set "CFLAGS_CONDA_NVCC_BACKUP=%CFLAGS%"
 )
@@ -16,33 +20,34 @@ if defined CXXFLAGS (
 )
 
 :: Default to using \$(cuda-gdb) to specify \$(CUDA_HOME).
-if not defined CUDA_HOME (
+if not defined CUDA_PATH (
     for /f "usebackq tokens=*" %%a in (`where cuda-gdb`) do set "CUDA_GDB_EXECUTABLE=%%a" || goto :error
     if "%CUDA_GDB_EXECUTABLE%"=="" (
-        echo "Cannot determine CUDA_HOME: cuda-gdb not in PATH"
+        echo "Cannot determine CUDA_PATH: cuda-gdb not in PATH"
         exit /b 1
     ) else (
-        for /f "usebackq tokens=*" %%a in (`python -c "from pathlib import Path; print(Path('%CUDA_GDB_EXECUTABLE%').parents[1])"`) do set "CUDA_HOME=%%a" || goto :error
+        for /f "usebackq tokens=*" %%a in (`python -c "from pathlib import Path; print(Path('%CUDA_GDB_EXECUTABLE%').parents[1])"`) do set "CUDA_PATH=%%a" || goto :error
     )
 )
 
-if not exist "%CUDA_HOME%\" (
-    echo "Directory specified in CUDA_HOME(=%CUDA_HOME%) doesn't exist"
+if not exist "%CUDA_PATH%\" (
+    echo "Directory specified in CUDA_PATH(=%CUDA_PATH%) doesn't exist"
     exit /b 1
 )
 
-if not exist "%CUDA_HOME%/lib64/stubs/libcuda.so" (
-    echo "File %CUDA_HOME%/lib64/stubs/libcuda.so doesn't exist"
+if not exist "%CUDA_PATH%/lib64/stubs/libcuda.so" (
+    echo "File %CUDA_PATH%/lib64/stubs/libcuda.so doesn't exist"
     exit /b 1
 )
 
-grep -q "CUDA Version %PKG_VERSION%" %CUDA_HOME%/version.txt
+grep -q "CUDA Version %PKG_VERSION%" %CUDA_PATH%/version.txt
 if errorlevel 1 (
     echo "Version of installed CUDA didn't match package"
     exit /b 1
 )
 
-set "CUDA_HOME=%CUDA_HOME%"
+set "CUDA_PATH=%CUDA_PATH%"
+set "CUDA_HOME=%CUDA_PATH%"
 set "CFLAGS=%CFLAGS% -I%CUDA_HOME%\include"
 set "CPPFLAGS=%CPPFLAGS% -I%CUDA_HOME%\include"
 set "CXXFLAGS=%CXXFLAGS% -I%CUDA_HOME%\include"

@@ -40,7 +40,7 @@ outputs:
         - test.cu
       commands:
         - bash test_nvcc.sh  # [linux]
-        - windows\test_nvcc.bat  # [windows]
+        - windows\test_nvcc.bat  # [win]
     about:
       home: https://github.com/conda-forge/nvcc-feedstock
       license: BSD-3-Clause
