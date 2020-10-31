@@ -18,18 +18,13 @@ if "%CUDA_VERSION%" == "None" (
     goto after_cuda
 )
 
-set /a CUDA_VER=%CUDA_VERSION%
-set CUDA_VER_MAJOR=%CUDA_VERSION:~0,-1%
-set CUDA_VER_MINOR=%CUDA_VERSION:~-1,1%
-set CUDA_VERSION_STR=%CUDA_VER_MAJOR%.%CUDA_VER_MINOR%
+if "%CUDA_VERSION%" == "9.2" goto cuda92
+if "%CUDA_VERSION%" == "10.0" goto cuda100
+if "%CUDA_VERSION%" == "10.1" goto cuda101
+if "%CUDA_VERSION%" == "10.2" goto cuda102
+if "%CUDA_VERSION%" == "11.0" goto cuda110
 
-if %CUDA_VER% EQU 92 goto cuda92
-if %CUDA_VER% EQU 100 goto cuda100
-if %CUDA_VER% EQU 101 goto cuda101
-if %CUDA_VER% EQU 102 goto cuda102
-if %CUDA_VER% EQU 110 goto cuda110
-
-echo CUDA %CUDA_VERSION_STR% is not supported
+echo CUDA %CUDA_VERSION% is not supported
 exit /b 1
 
 :: Define URLs per version
