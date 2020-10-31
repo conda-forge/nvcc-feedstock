@@ -2,6 +2,7 @@
 
 set CUDA_VERSION=None
 
+conda.exe install -yq shyaml
 shyaml -h || echo ERROR! shyaml not installed but is required!
 
 :: Pipe $CONFIG.yaml into shyaml and output `cuda_compiler_version` to temporary file `cuda.version`
