@@ -3,17 +3,17 @@
 :: Verify the symlink to the libcuda stub library exists.
 if not exist "%LIBRARY_LIB%\cuda.lib" (
     echo "%LIBRARY_LIB%\cuda.lib is not a file"
-    exit \b 1
+    exit 1
 )
 
 if not exist "%PREFIX%\etc\conda\activate.d\%PKG_NAME%_activate.bat" (
     echo "%PREFIX%\etc\conda\activate.d\%PKG_NAME%_activate.bat is not a file"
-    exit \b 1
+    exit 1
 )
 
 if not exist "%PREFIX%\etc\conda\deactivate.d\%PKG_NAME%_deactivate.bat" (
     echo "%PREFIX%\etc\conda\deactivate.d\%PKG_NAME%_deactivate.bat is not a file"
-    exit \b 1
+    exit 1
 )
 
 :: Try using the activation scripts.
@@ -21,10 +21,11 @@ if defined CUDA_HOME (
     echo "CUDA_HOME is set to '%CUDA_HOME%'"
 ) else (
     echo "CUDA_HOME is unset after activation"
-    exit \b 1
+    exit 1
 )
 
 call %PREFIX%\etc\conda\deactivate.d\%PKG_NAME%_deactivate.bat
+if errorlevel 1 exit 1
 
 if "%CUDA_HOME%"=="" (
     if "%TEST_CUDA_HOME_INITIAL%"=="" (
@@ -35,8 +36,9 @@ if "%CUDA_HOME%"=="" (
         echo "CUDA_HOME correctly maintained as '%CUDA_HOME%' after deactivation"
     ) else (
         echo "CUDA_HOME is incorrectly set to '%CUDA_HOME%' after deactivation"
-        exit \b 1
+        exit 1
     )
+
 )
 
 
@@ -47,15 +49,17 @@ set "CFLAGS_CONDA_NVCC_TEST=%CFLAGS%"
 
 :: Manually trigger the activation script
 call %PREFIX%\etc\conda\activate.d\%PKG_NAME%_activate.bat
+if errorlevel 1 exit 1
 
 :: Check activation worked as expected, then deactivate
 if "%CUDA_HOME%"=="" (
     echo "CUDA_HOME is unset after activation"
-    exit \b 1
+    exit 1
 ) else (
     echo "CUDA_HOME is set to '%CUDA_HOME%'"
 )
 call %PREFIX%\etc\conda\deactivate.d\%PKG_NAME%_deactivate.bat
+if errorlevel 1 exit 1
 
 :: Make sure there's no side effects
 if "%CFLAGS%"=="%CFLAGS_CONDA_NVCC_TEST%" (
@@ -65,12 +69,12 @@ if "%CFLAGS%"=="%CFLAGS_CONDA_NVCC_TEST%" (
     set "CFLAGS_CONDA_NVCC_TEST_BACKUP="
 ) else (
     echo "CFLAGS is incorrectly set to '%CFLAGS%', should be set to '%CFLAGS_CONDA_NVCC_TEST%'"
-    exit \b 1
+    exit 1
 )
 
 :: Reactivate
 call %PREFIX%\etc\conda\activate.d\%PKG_NAME%_activate.bat
-
+if errorlevel 1 exit 1
 
 :: Try building something
 nvcc test.cu
