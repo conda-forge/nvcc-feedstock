@@ -85,7 +85,7 @@ jobs:
     # JRG: Install CUDA
     - script: |
         call activate base
-        recipe\install_cuda.bat
+        recipe\windows\install_cuda.bat
       displayName: Install CUDA (if needed)
       condition: contains(variables['CONFIG'], 'cuda_compiler_version')
     # /JRG
