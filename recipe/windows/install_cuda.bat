@@ -1,4 +1,4 @@
-@echo off
+@echo on
 
 set CUDA_VERSION=None
 
@@ -30,7 +30,7 @@ exit /b 1
 :: Define URLs per version
 :cuda92
 set "CUDA_INSTALLER_URL=https://developer.nvidia.com/compute/cuda/9.2/Prod2/local_installers2/cuda_9.2.148_win10"
-set "CUDA_INSTALLER_CHECKSUM=2bf9ae67016867b68f361bf50d2b9e7b"
+set "CUDA_INSTALLER_CHECKSUM=f6c170a7452098461070dbba3e6e58f1"
 set "CUDA_PATCH_URL=https://developer.nvidia.com/compute/cuda/9.2/Prod2/patches/1/cuda_9.2.148.1_windows"
 set "CUDA_PATCH_CHECKSUM=09e20653f1346d2461a9f8f1a7178ba2"
 goto cuda_common
