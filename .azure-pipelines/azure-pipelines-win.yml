@@ -81,7 +81,13 @@ jobs:
         call activate base
         run_conda_forge_build_setup
       displayName: conda-forge build setup
-    
+
+    # JRG: Install CUDA
+    - script: |
+        recipe\install_cuda.bat
+      displayName: Install CUDA (if needed)
+      condition: contains(variables['CONFIG'], 'cuda_compiler_version')
+    # /JRG
 
     # Special cased version setting some more things!
     - script: |
