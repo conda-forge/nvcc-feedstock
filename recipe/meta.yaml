@@ -38,6 +38,8 @@ outputs:
         - sysroot_linux-64 2.17  # [linux and cuda_compiler_version == "11.0"]
       files:
         - test.cu
+        - test_nvcc.sh  # [linux]
+        - windows\test_nvcc.bat  # [win]
       commands:
         - bash test_nvcc.sh  # [linux]
         - windows\test_nvcc.bat  # [win]

@@ -24,19 +24,18 @@ if defined CUDA_HOME (
     exit \b 1
 )
 
-%PREFIX%\etc\conda\deactivate.d\%PKG_NAME%_deactivate.bat
+call %PREFIX%\etc\conda\deactivate.d\%PKG_NAME%_deactivate.bat
+
 if "%CUDA_HOME%"=="" (
     if "%TEST_CUDA_HOME_INITIAL%"=="" (
         echo "CUDA_HOME correctly unset after deactivation"
     )
 ) else (
-    if not "%CUDA_HOME%"=="" (
-        if not "%TEST_CUDA_HOME_INITIAL%"=="" (
-            echo "CUDA_HOME correctly maintained as '%CUDA_HOME%' after deactivation"
-        ) else (
-            echo "CUDA_HOME is incorrectly set to '%CUDA_HOME%' after deactivation"
-            exit \b 1
-        )
+    if not "%TEST_CUDA_HOME_INITIAL%"=="" (
+        echo "CUDA_HOME correctly maintained as '%CUDA_HOME%' after deactivation"
+    ) else (
+        echo "CUDA_HOME is incorrectly set to '%CUDA_HOME%' after deactivation"
+        exit \b 1
     )
 )
 
@@ -47,7 +46,7 @@ set "CFLAGS=%CFLAGS% -I\path\to\test\include"
 set "CFLAGS_CONDA_NVCC_TEST=%CFLAGS%"
 
 :: Manually trigger the activation script
-%PREFIX%\etc\conda\activate.d\%PKG_NAME%_activate.bat
+call %PREFIX%\etc\conda\activate.d\%PKG_NAME%_activate.bat
 
 :: Check activation worked as expected, then deactivate
 if "%CUDA_HOME%"=="" (
@@ -56,7 +55,7 @@ if "%CUDA_HOME%"=="" (
 ) else (
     echo "CUDA_HOME is set to '%CUDA_HOME%'"
 )
-%PREFIX%\etc\conda\deactivate.d\%PKG_NAME%_deactivate.bat
+call %PREFIX%\etc\conda\deactivate.d\%PKG_NAME%_deactivate.bat
 
 :: Make sure there's no side effects
 if "%CFLAGS%"=="%CFLAGS_CONDA_NVCC_TEST%" (
@@ -70,8 +69,8 @@ if "%CFLAGS%"=="%CFLAGS_CONDA_NVCC_TEST%" (
 )
 
 :: Reactivate
-%PREFIX%\etc\conda\activate.d\%PKG_NAME%_activate.bat
+call %PREFIX%\etc\conda\activate.d\%PKG_NAME%_activate.bat
 
 
 :: Try building something
-nvcc ..\test.cu
+nvcc test.cu

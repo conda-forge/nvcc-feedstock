@@ -5,6 +5,9 @@ if defined CUDA_HOME (
 
 if defined CUDA_PATH (
     set "CUDA_PATH_CONDA_NVCC_BACKUP=%CUDA_PATH%"
+    if not defined CUDA_HOME (
+        set "CUDA_HOME=%CUDA_PATH%"
+    )
 )
 
 if defined CFLAGS (
@@ -35,12 +38,12 @@ if not exist "%CUDA_PATH%\" (
     exit /b 1
 )
 
-if not exist "%CUDA_PATH%/lib64/stubs/libcuda.so" (
-    echo "File %CUDA_PATH%/lib64/stubs/libcuda.so doesn't exist"
+if not exist "%CUDA_PATH%\lib\x64\cuda.lib" (
+    echo "File '%CUDA_PATH%\lib\x64\cuda.lib' doesn't exist"
     exit /b 1
 )
 
-grep -q "CUDA Version %PKG_VERSION%" %CUDA_PATH%/version.txt
+grep -q "CUDA Version %PKG_VERSION%" "%CUDA_PATH%\version.txt"
 if errorlevel 1 (
     echo "Version of installed CUDA didn't match package"
     exit /b 1
@@ -62,4 +65,11 @@ if exist %LIBRARY_LIB%\cuda.lib (
     ren "%LIBRARY_LIB%\cuda.lib" "%LIBCUDA_SO_CONDA_NVCC_BACKUP%"
 )
 
-mklink "%LIBRARY_LIB%\cuda.lib" "%CUDA_HOME%\lib\x64\cuda.lib%"
+mkdir %LIBRARY_LIB%
+:: symlinking requires admin access or developer mode ON
+:: we fallback to a standard copy if mklink fails
+mklink "%LIBRARY_LIB%\cuda.lib" "%CUDA_HOME%\lib\x64\cuda.lib" || copy "%CUDA_HOME%\lib\x64\cuda.lib" "%LIBRARY_LIB%\cuda.lib"
+if errorlevel 1 (
+    echo "Could not create link nor fallback copy"
+    exit /b 1
+)
