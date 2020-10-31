@@ -1,9 +1,8 @@
 @echo on
 
 :: Verify the symlink to the libcuda stub library exists.
-test "$(realpath $(%CC% --print-sysroot))" = "$(realpath %CONDA_BUILD_SYSROOT%)"
-if not exist "%CONDA_BUILD_SYSROOT%\lib\libcuda.so"(
-    echo "%CONDA_BUILD_SYSROOT%\lib\libcuda.so is not a file"
+if not exist "%LIBRARY_LIB%\cuda.lib" (
+    echo "%LIBRARY_LIB%\cuda.lib is not a file"
     exit \b 1
 )
 
@@ -19,7 +18,7 @@ if not exist "%PREFIX%\etc\conda\deactivate.d\%PKG_NAME%_deactivate.bat" (
 
 :: Try using the activation scripts.
 if defined CUDA_HOME (
-    echo "CUDA_HOME is set to %CUDA_HOME%"
+    echo "CUDA_HOME is set to '%CUDA_HOME%'"
 ) else (
     echo "CUDA_HOME is unset after activation"
     exit \b 1
@@ -56,8 +55,7 @@ if "%CUDA_HOME%"=="" (
     exit \b 1
 ) else (
     echo "CUDA_HOME is set to '%CUDA_HOME%'"
-fi
-
+)
 %PREFIX%\etc\conda\deactivate.d\%PKG_NAME%_deactivate.bat
 
 :: Make sure there's no side effects

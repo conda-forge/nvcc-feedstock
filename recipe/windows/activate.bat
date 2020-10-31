@@ -1,22 +1,22 @@
 :: Backup environment variables (only if the variables are set)
 if defined CUDA_HOME (
-  set "CUDA_HOME_CONDA_NVCC_BACKUP=%CUDA_HOME%"
+    set "CUDA_HOME_CONDA_NVCC_BACKUP=%CUDA_HOME%"
 )
 
 if defined CUDA_PATH (
-  set "CUDA_PATH_CONDA_NVCC_BACKUP=%CUDA_PATH%"
+    set "CUDA_PATH_CONDA_NVCC_BACKUP=%CUDA_PATH%"
 )
 
 if defined CFLAGS (
-  set "CFLAGS_CONDA_NVCC_BACKUP=%CFLAGS%"
+    set "CFLAGS_CONDA_NVCC_BACKUP=%CFLAGS%"
 )
 
 if defined CPPFLAGS (
-  set "CPPFLAGS_CONDA_NVCC_BACKUP=%CPPFLAGS%"
+    set "CPPFLAGS_CONDA_NVCC_BACKUP=%CPPFLAGS%"
 )
 
 if defined CXXFLAGS (
-  set "CXXFLAGS_CONDA_NVCC_BACKUP=%CXXFLAGS%"
+    set "CXXFLAGS_CONDA_NVCC_BACKUP=%CXXFLAGS%"
 )
 
 :: Default to using \$(cuda-gdb) to specify \$(CUDA_HOME).
@@ -52,20 +52,14 @@ set "CFLAGS=%CFLAGS% -I%CUDA_HOME%\include"
 set "CPPFLAGS=%CPPFLAGS% -I%CUDA_HOME%\include"
 set "CXXFLAGS=%CXXFLAGS% -I%CUDA_HOME%\include"
 
-:: JRG: Do we need this on Windows?
-
-:: JRG: Should CONDA_BUILD_SYSROOT be replaced with LIBRARY_PREFIX?
-:: set "CONDA_BUILD_SYSROOT=%CONDA_PREFIX%"
-mkdir "%CONDA_BUILD_SYSROOT%\lib"
-
 :: Add `cuda.lib` shared object stub to the compiler sysroot.
 :: Needed for things that want to link to `cuda.lib`.
 :: Stub is used to avoid getting driver code linked into binaries.
 
 :: Make a backup of `cuda.lib` if it exists
-if exist %CONDA_BUILD_SYSROOT%\lib\x64\cuda.lib (
-  set "LIBCUDA_SO_CONDA_NVCC_BACKUP=%CONDA_BUILD_SYSROOT%\lib\x64\cuda.lib-conda-nvcc-backup"
-  mv "%CONDA_BUILD_SYSROOT%\lib\x64\cuda.lib" "%LIBCUDA_SO_CONDA_NVCC_BACKUP%"
-
+if exist %LIBRARY_LIB%\cuda.lib (
+    set "LIBCUDA_SO_CONDA_NVCC_BACKUP=%LIBRARY_LIB%\cuda.lib-conda-nvcc-backup"
+    ren "%LIBRARY_LIB%\cuda.lib" "%LIBCUDA_SO_CONDA_NVCC_BACKUP%"
 )
-copy "%CUDA_HOME%\lib\x64\cuda.lib%" "%CONDA_BUILD_SYSROOT%\lib\x64\cuda.lib"
+
+mklink "%LIBRARY_LIB%\cuda.lib" "%CUDA_HOME%\lib\x64\cuda.lib%"
