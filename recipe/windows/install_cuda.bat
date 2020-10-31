@@ -61,7 +61,7 @@ goto cuda_common
 :: The actual installation logic
 :cuda_common
 
-echo Downloading CUDA version %CUDA_VERSION_STR% installer from %CUDA_INSTALLER_URL%
+echo Downloading CUDA version %CUDA_VERSION% installer from %CUDA_INSTALLER_URL%
 echo Expected SHA256: %CUDA_INSTALLER_CHECKSUM%
 
 :: Download installer
