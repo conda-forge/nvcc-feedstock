@@ -47,7 +47,7 @@ source ${PREFIX}/etc/conda/deactivate.d/${PKG_NAME}_deactivate.sh
 if [[ "${CFLAGS}" == "${CFLAGS_CONDA_NVCC_TEST}" ]]; then
     echo "CFLAGS correctly maintained as '${CFLAGS}'"
     unset CFLAGS_CONDA_NVCC_TEST
-export CFLAGS="${CFLAGS_CONDA_NVCC_TEST_BACKUP}"
+    export CFLAGS="${CFLAGS_CONDA_NVCC_TEST_BACKUP}"
     unset CFLAGS_CONDA_NVCC_TEST_BACKUP
 else
     echo "CFLAGS is incorrectly set to '${CFLAGS}', should be set to '${CFLAGS_CONDA_NVCC_TEST}'" && exit 1

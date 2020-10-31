@@ -13,7 +13,7 @@ outputs:
     version: "{{ cuda_compiler_version }}"
     number: {{ number }}
     script: install_nvcc.sh   # [linux]
-    script: install_nvcc.bat  # [win]
+    script: windows\install_nvcc.bat  # [win]
     build:
       ignore_run_exports:
         - libgcc-ng
@@ -38,6 +38,9 @@ outputs:
         - sysroot_linux-64 2.17  # [linux and cuda_compiler_version == "11.0"]
       files:
         - test.cu
+      commands:
+        - bash test_nvcc.sh  # [linux]
+        - windows\test_nvcc.bat  # [windows]
     about:
       home: https://github.com/conda-forge/nvcc-feedstock
       license: BSD-3-Clause
