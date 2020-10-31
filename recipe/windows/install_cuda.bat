@@ -29,32 +29,42 @@ exit /b 1
 
 :: Define URLs per version
 :cuda92
-set "CUDA_INSTALLER_URL=https://developer.nvidia.com/compute/cuda/9.2/Prod2/network_installers2/cuda_9.2.148_win10_network"
-set "CUDA_INSTALLER_CHECKSUM=a4e122df19d8fa20ec45d2ffebcf81cdcf8f44544dd67f7590ee613596f4634c"
+set "CUDA_INSTALLER_URL=https://developer.nvidia.com/compute/cuda/9.2/Prod2/local_installers2/cuda_9.2.148_win10"
+set "CUDA_INSTALLER_CHECKSUM=2bf9ae67016867b68f361bf50d2b9e7b"
+set "CUDA_PATCH_URL=https://developer.nvidia.com/compute/cuda/9.2/Prod2/patches/1/cuda_9.2.148.1_windows"
+set "CUDA_PATCH_CHECKSUM=09e20653f1346d2461a9f8f1a7178ba2"
 goto cuda_common
 
 
 :cuda100
-set "CUDA_INSTALLER_URL=https://developer.nvidia.com/compute/cuda/10.0/Prod/network_installers/cuda_10.0.130_win10_network"
-set "CUDA_INSTALLER_CHECKSUM=903bbcc079fc2db04be82e9df9d5b925ffbb36f2df6a77e9706c3a8797decc22"
+set "CUDA_INSTALLER_URL=https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda_10.0.130_411.31_win10"
+set "CUDA_INSTALLER_CHECKSUM=90fafdfe2167ac25432db95391ca954e"
 goto cuda_common
 
 
 :cuda101
-set "CUDA_INSTALLER_URL=http://developer.download.nvidia.com/compute/cuda/10.1/Prod/network_installers/cuda_10.1.243_win10_network.exe"
-set "CUDA_INSTALLER_CHECKSUM=9eee3c596aae4c001376a0e793f28f88d438cefe50af0c727d6fe9d80db19df2"
+set "CUDA_INSTALLER_URL=http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.243_426.00_win10.exe"
+set "CUDA_INSTALLER_CHECKSUM=b54cf32683f93e787321dcc2e692ff69"
 goto cuda_common
 
 
 :cuda102
-set "CUDA_INSTALLER_URL=http://developer.download.nvidia.com/compute/cuda/10.2/Prod/network_installers/cuda_10.2.89_win10_network.exe"
-set "CUDA_INSTALLER_CHECKSUM=548dbd2ac5698d93ebecd8d19518dd6ee012612c692bb64b43643165bb715953"
+set "CUDA_INSTALLER_URL=http://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda_10.2.89_441.22_win10.exe"
+set "CUDA_INSTALLER_CHECKSUM=d9f5b9f24c3d3fc456a3c789f9b43419"
+set "CUDA_PATCH_URL=http://developer.download.nvidia.com/compute/cuda/10.2/Prod/patches/1/cuda_10.2.1_win10.exe"
+set "CUDA_PATCH_CHECKSUM=9d751ae129963deb7202f1d85149c69d"
 goto cuda_common
 
 
 :cuda110
-set "CUDA_INSTALLER_URL=http://developer.download.nvidia.com/compute/cuda/11.0.3/network_installers/cuda_11.0.3_win10_network.exe"
-set "CUDA_INSTALLER_CHECKSUM=598eec64474952f4caa0283398b2e584f8a80db4699075eab65bdf93eb1904b5"
+set "CUDA_INSTALLER_URL=http://developer.download.nvidia.com/compute/cuda/11.0.3/local_installers/cuda_11.0.3_451.82_win10.exe"
+set "CUDA_INSTALLER_CHECKSUM=80ae0fdbe04759123f3cab81f2aadabd"
+goto cuda_common
+
+
+:cuda111
+set "CUDA_INSTALLER_URL=https://developer.download.nvidia.com/compute/cuda/11.1.1/local_installers/cuda_11.1.1_456.81_win10.exe"
+set "CUDA_INSTALLER_CHECKSUM=a89dfad35fc1adf02a848a9c06cfff15"
 goto cuda_common
 
 
@@ -62,7 +72,7 @@ goto cuda_common
 :cuda_common
 
 echo Downloading CUDA version %CUDA_VERSION% installer from %CUDA_INSTALLER_URL%
-echo Expected SHA256: %CUDA_INSTALLER_CHECKSUM%
+echo Expected MD5: %CUDA_INSTALLER_CHECKSUM%
 
 :: Download installer
 curl -k -L %CUDA_INSTALLER_URL% --output cuda_installer.exe
@@ -71,8 +81,8 @@ if errorlevel 1 (
     exit /b 1
 )
 
-:: Check sha256
-openssl sha256 cuda_installer.exe | findstr %CUDA_INSTALLER_CHECKSUM%
+:: Check md5
+openssl md5 cuda_installer.exe | findstr %CUDA_INSTALLER_CHECKSUM%
 if errorlevel 1 (
     echo Checksum does not match!
     exit /b 1
@@ -83,6 +93,26 @@ cuda_installer.exe -s
 if errorlevel 1 (
     echo Problem running installer...
     exit /b 1
+)
+
+:: If patches are needed, download and apply
+if not "%CUDA_PATCH_URL%"=="" (
+    echo This version requires an additional patch
+    curl -k -L %CUDA_PATCH_URL% --output cuda_patch.exe
+    if errorlevel 1 (
+        echo Problem downloading patch installer...
+        exit /b 1
+    )
+    openssl md5 cuda_patch.exe | findstr %CUDA_PATCH_CHECKSUM%
+    if errorlevel 1 (
+        echo Checksum does not match!
+        exit /b 1
+    )
+    cuda_patch.exe -s
+    if errorlevel 1 (
+        echo Problem running patch installer...
+        exit /b 1
+    )
 )
 
 :after_cuda
