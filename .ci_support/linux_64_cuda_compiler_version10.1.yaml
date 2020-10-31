@@ -2,6 +2,8 @@ c_compiler:
 - gcc
 c_compiler_version:
 - '7'
+cdt_name:
+- cos6
 channel_sources:
 - conda-forge,defaults
 channel_targets:
@@ -9,15 +11,17 @@ channel_targets:
 cuda_compiler:
 - nvcc
 cuda_compiler_version:
-- '10.0'
+- '10.1'
 cxx_compiler:
 - gxx
 cxx_compiler_version:
 - '7'
 docker_image:
-- condaforge/linux-anvil-cuda:10.0
+- condaforge/linux-anvil-cuda:10.1
 target_platform:
 - linux-64
 zip_keys:
+- - c_compiler_version
+  - cxx_compiler_version
 - - cuda_compiler_version
   - docker_image
