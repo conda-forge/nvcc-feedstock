@@ -22,14 +22,14 @@ if defined CXXFLAGS (
     set "CXXFLAGS_CONDA_NVCC_BACKUP=%CXXFLAGS%"
 )
 
-:: Default to using \$(cuda-gdb) to specify \$(CUDA_HOME).
+:: Default to using nvcc.exe to specify %CUDA_HOME%
 if not defined CUDA_PATH (
-    for /f "usebackq tokens=*" %%a in (`where cuda-gdb`) do set "CUDA_GDB_EXECUTABLE=%%a" || goto :error
-    if "%CUDA_GDB_EXECUTABLE%"=="" (
-        echo "Cannot determine CUDA_PATH: cuda-gdb not in PATH"
+    for /f "usebackq tokens=*" %%a in (`where nvcc.exe`) do set "CUDA_NVCC_EXECUTABLE=%%a" || goto :error
+    if "%CUDA_NVCC_EXECUTABLE%"=="" (
+        echo "Cannot determine CUDA_PATH: nvcc.exe not in PATH"
         exit /b 1
     ) else (
-        for /f "usebackq tokens=*" %%a in (`python -c "from pathlib import Path; print(Path('%CUDA_GDB_EXECUTABLE%').parents[1])"`) do set "CUDA_PATH=%%a" || goto :error
+        for /f "usebackq tokens=*" %%a in (`python -c "from pathlib import Path; print(Path('%CUDA_NVCC_EXECUTABLE%').parents[1])"`) do set "CUDA_PATH=%%a" || goto :error
     )
 )
 
@@ -43,7 +43,7 @@ if not exist "%CUDA_PATH%\lib\x64\cuda.lib" (
     exit /b 1
 )
 
-grep -q "CUDA Version %PKG_VERSION%" "%CUDA_PATH%\version.txt"
+findstr /c:"CUDA Version %PKG_VERSION%" "%CUDA_PATH%\version.txt"
 if errorlevel 1 (
     echo "Version of installed CUDA didn't match package"
     exit /b 1
