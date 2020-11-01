@@ -117,9 +117,12 @@ if not "%CUDA_PATCH_URL%"=="" (
 
 :: Add to PATH
 set "CUDA_PATH=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v%CUDA_VERSION%"
-echo "##vso[task.prependpath]%CUDA_PATH%\bin"
-echo "##vso[task.setvariable variable=CUDA_PATH]%CUDA_PATH%"
-echo "##vso[task.setvariable variable=CUDA_HOME]%CUDA_PATH%"
+
+if "%CI%" == "azure" (
+    echo ##vso[task.prependpath]%CUDA_PATH%\bin
+    echo ##vso[task.setvariable variable=CUDA_PATH]%CUDA_PATH%
+    echo ##vso[task.setvariable variable=CUDA_HOME]%CUDA_PATH%
+)
 
 :after_cuda
 echo Continuing with rest of the script...
