@@ -1,5 +1,5 @@
 c_compiler:
-- vs2017
+- vs2015
 channel_sources:
 - conda-forge,defaults
 channel_targets:
@@ -9,6 +9,6 @@ cuda_compiler:
 cuda_compiler_version:
 - '9.2'
 cxx_compiler:
-- vs2017
+- vs2015
 target_platform:
 - win-64
