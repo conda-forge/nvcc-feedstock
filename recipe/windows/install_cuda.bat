@@ -93,14 +93,14 @@ echo Downloading CUDA version %CUDA_VERSION% installer from %CUDA_INSTALLER_URL%
 echo Expected MD5: %CUDA_INSTALLER_CHECKSUM%
 
 :: Download installer
-curl -k -L %CUDA_NETWORK_INSTALLER_URL% --output cuda_installer.exe
+curl -k -L %CUDA_INSTALLER_URL% --output cuda_installer.exe
 if errorlevel 1 (
     echo Problem downloading installer...
     exit /b 1
 )
 
 :: Check md5
-openssl md5 cuda_installer.exe | findstr %CUDA_NETWORK_INSTALLER_CHECKSUM%
+openssl md5 cuda_installer.exe | findstr %CUDA_INSTALLER_CHECKSUM%
 if errorlevel 1 (
     echo Checksum does not match!
     exit /b 1
