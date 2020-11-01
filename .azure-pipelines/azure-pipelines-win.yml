@@ -84,6 +84,7 @@ jobs:
 
     # JRG: Install CUDA
     - script: |
+        set "CI=azure"
         call activate base
         recipe\windows\install_cuda.bat
       displayName: Install CUDA (if needed)

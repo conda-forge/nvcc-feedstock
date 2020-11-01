@@ -18,6 +18,12 @@ if "%CUDA_VERSION%" == "None" (
     goto after_cuda
 )
 
+:: Define a default subset of components to be installed
+:: This speeds up the installation subtly; the other ones are provided by the cudatoolkit anyway
+:: Overwrite for individual versions if needed
+
+set "CUDA_COMPONENTS=nvcc_11.1 Display.Driver"
+
 if "%CUDA_VERSION%" == "9.2" goto cuda92
 if "%CUDA_VERSION%" == "10.0" goto cuda100
 if "%CUDA_VERSION%" == "10.1" goto cuda101
@@ -89,7 +95,7 @@ if errorlevel 1 (
 )
 
 :: Run installer
-cuda_installer.exe -s
+cuda_installer.exe -s %CUDA_COMPONENTS%
 if errorlevel 1 (
     echo Problem running installer...
     exit /b 1
@@ -118,10 +124,6 @@ if not "%CUDA_PATCH_URL%"=="" (
 :: Add to PATH
 set "CUDA_PATH=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v%CUDA_VERSION%"
 
-
-:: Pipe %CONFIG%.yaml into shyaml and output `CI` to temporary file `CI.envvar`
-<.ci_support\%CONFIG%.yaml shyaml get-value CI.0 None > CI.envvar
-<CI.envvar set /p CI=
 if "%CI%" == "azure" (
     echo Exporting and adding $CUDA_PATH ('%CUDA_PATH%') to $PATH
     @echo off
