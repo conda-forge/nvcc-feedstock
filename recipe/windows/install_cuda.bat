@@ -118,13 +118,18 @@ if not "%CUDA_PATCH_URL%"=="" (
 :: Add to PATH
 set "CUDA_PATH=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v%CUDA_VERSION%"
 
-@echo off
+
+:: Pipe %CONFIG%.yaml into shyaml and output `CI` to temporary file `CI.envvar`
+<.ci_support\%CONFIG%.yaml shyaml get-value CI.0 None > CI.envvar
+<CI.envvar set /p CI=
 if "%CI%" == "azure" (
+    echo Exporting and adding $CUDA_PATH ('%CUDA_PATH%') to $PATH
+    @echo off
     echo ##vso[task.prependpath]%CUDA_PATH%\bin
     echo ##vso[task.setvariable variable=CUDA_PATH;]%CUDA_PATH%
     echo ##vso[task.setvariable variable=CUDA_HOME;]%CUDA_PATH%
+    @echo on
 )
-@echo on
 
 :after_cuda
 echo Continuing with rest of the script...
