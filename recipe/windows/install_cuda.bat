@@ -18,11 +18,11 @@ if "%CUDA_VERSION%" == "None" (
     goto after_cuda
 )
 
+:: If a faster installation is needed, this could work:
 :: Define a default subset of components to be installed
 :: This speeds up the installation subtly; the other ones are provided by the cudatoolkit anyway
 :: Overwrite for individual versions if needed
-
-set "CUDA_COMPONENTS=nvcc_11.1 Display.Driver"
+:: set "CUDA_COMPONENTS=nvcc_%CUDA_VERSION% Display.Driver"
 
 if "%CUDA_VERSION%" == "9.2" goto cuda92
 if "%CUDA_VERSION%" == "10.0" goto cuda100
@@ -125,7 +125,7 @@ if not "%CUDA_PATCH_URL%"=="" (
 set "CUDA_PATH=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v%CUDA_VERSION%"
 
 if "%CI%" == "azure" (
-    echo Exporting and adding $CUDA_PATH ('%CUDA_PATH%') to $PATH
+    echo "Exporting and adding $CUDA_PATH ('%CUDA_PATH%') to $PATH"
     @echo off
     echo ##vso[task.prependpath]%CUDA_PATH%\bin
     echo ##vso[task.setvariable variable=CUDA_PATH;]%CUDA_PATH%
