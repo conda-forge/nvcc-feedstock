@@ -106,8 +106,8 @@ if errorlevel 1 (
     exit /b 1
 )
 
-:: Run installer
-cuda_installer.exe -s %CUDA_COMPONENTS%
+:: Run installer (TODO: add %CUDA_COMPONENTS% arg for speedups)
+cuda_installer.exe -s
 if errorlevel 1 (
     echo Problem running installer...
     exit /b 1
