@@ -45,8 +45,13 @@ if not exist "%CUDA_PATH%\lib\x64\cuda.lib" (
 
 findstr /c:"CUDA Version %PKG_VERSION%" "%CUDA_PATH%\version.txt"
 if errorlevel 1 (
-    echo "Version of installed CUDA didn't match package"
-    exit /b 1
+    :: CUDA 11 does not package a version.txt, so maybe it failed due to
+    :: that. Let's double check with the output of nvcc.exe --version
+    "%CUDA_PATH%\bin\nvcc.exe" --version | findstr /C:"release %PKG_VERSION%"
+    if errorlevel 1 (
+        echo "Version of installed CUDA didn't match package or could not be determined."
+        exit /b 1
+    )
 )
 
 set "CUDA_PATH=%CUDA_PATH%"
