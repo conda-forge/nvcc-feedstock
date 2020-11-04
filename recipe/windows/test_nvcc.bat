@@ -71,6 +71,13 @@ if "%CFLAGS%"=="%CFLAGS_CONDA_NVCC_TEST%" (
     echo "CFLAGS is incorrectly set to '%CFLAGS%', should be set to '%CFLAGS_CONDA_NVCC_TEST%'"
     exit 1
 )
+:: If no previous cuda.lib was present, there shouldn't be any!
+if "%CUDALIB_CONDA_NVCC_BACKUP%" == "" (
+    if exist "%LIBRARY_LIB%\cuda.lib" (
+        echo "%LIBRARY_LIB%\cuda.lib" should not exist!
+        exit 1
+    )
+)
 
 :: Reactivate
 call %PREFIX%\etc\conda\activate.d\%PKG_NAME%_activate.bat
