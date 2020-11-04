@@ -13,7 +13,7 @@ outputs:
     version: "{{ cuda_compiler_version }}"
     number: {{ number }}
     script: install_nvcc.sh   # [linux]
-    script: windows\install_nvcc.bat  # [win]
+    script: windows/install_nvcc.bat  # [win]
     build:
       ignore_run_exports:
         - libgcc-ng

@@ -17,8 +17,8 @@ jobs:
       win_64_cuda_compiler_version10.2:
         CONFIG: win_64_cuda_compiler_version10.2
         UPLOAD_PACKAGES: 'True'
-      win_64_cuda_compiler_version9.2:
-        CONFIG: win_64_cuda_compiler_version9.2
+      win_64_cuda_compiler_version11.0:
+        CONFIG: win_64_cuda_compiler_version11.0
         UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
   variables:
@@ -81,15 +81,7 @@ jobs:
         call activate base
         run_conda_forge_build_setup
       displayName: conda-forge build setup
-
-    # JRG: Install CUDA
-    - script: |
-        set "CI=azure"
-        call activate base
-        recipe\windows\install_cuda.bat
-      displayName: Install CUDA (if needed)
-      condition: contains(variables['CONFIG'], 'cuda_compiler_version')
-    # /JRG
+    
 
     # Special cased version setting some more things!
     - script: |
