@@ -1,6 +1,6 @@
 @echo on
 
-:: Verify the symlink to the libcuda stub library exists.
+:: Verify the cuda stub library exists.
 if not exist "%LIBRARY_LIB%\cuda.lib" (
     echo "%LIBRARY_LIB%\cuda.lib is not a file"
     exit 1
@@ -71,13 +71,13 @@ if "%CFLAGS%"=="%CFLAGS_CONDA_NVCC_TEST%" (
     echo "CFLAGS is incorrectly set to '%CFLAGS%', should be set to '%CFLAGS_CONDA_NVCC_TEST%'"
     exit 1
 )
-:: If no previous cuda.lib was present, there shouldn't be any!
-if "%CUDALIB_CONDA_NVCC_BACKUP%" == "" (
-    if exist "%LIBRARY_LIB%\cuda.lib" (
-        echo "%LIBRARY_LIB%\cuda.lib" should not exist!
-        exit 1
-    )
-)
+@REM :: If no previous cuda.lib was present, there shouldn't be any!
+@REM if "%CUDALIB_CONDA_NVCC_BACKUP%" == "" (
+@REM     if exist "%LIBRARY_LIB%\cuda.lib" (
+@REM         echo "%LIBRARY_LIB%\cuda.lib" should not exist!
+@REM         exit 1
+@REM     )
+@REM )
 
 :: Reactivate
 call %PREFIX%\etc\conda\activate.d\%PKG_NAME%_activate.bat
