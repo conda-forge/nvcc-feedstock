@@ -13,10 +13,9 @@ copy %RECIPE_DIR%\windows\deactivate.bat %PREFIX%\etc\conda\deactivate.d\%PKG_NA
 mkdir %LIBRARY_PREFIX%\bin
 copy %RECIPE_DIR%\windows\nvcc_windows.bat %LIBRARY_PREFIX%\bin\nvcc.bat || goto :error
 
-:: generate cuda.lib stub
+:: copy cuda.lib stub
 mkdir %LIBRARY_PREFIX%\lib
-call %RECIPE_DIR%\windows\generate_stub.bat || goto :error
-copy cuda.stub.lib  %LIBRARY_PREFIX%\lib\cuda.lib || goto :error
+copy %RECIPE_DIR%\windows\nvcuda.stub.lib %LIBRARY_PREFIX%\lib\cuda.lib || goto :error
 
 goto :EOF
 
