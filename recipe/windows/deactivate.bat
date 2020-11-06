@@ -29,17 +29,15 @@ if not "%CXXFLAGS_CONDA_NVCC_BACKUP%"=="" (
     set "CXXFLAGS_CONDA_NVCC_BACKUP="
 )
 
-:: JRG: Should CONDA_BUILD_SYSROOT be replaced with LIBRARY_PREFIX?
-:: set "CONDA_BUILD_SYSROOT=%CONDA_PREFIX%"
-
-@REM :: Remove or restore `cuda.lib` from the compiler sysroot.
-@REM set "CUDALIB_CONDA_NVCC_BACKUP=%LIBRARY_LIB%\cuda.lib-conda-nvcc-backup"
-@REM if exist "%CUDALIB_CONDA_NVCC_BACKUP%" (
-@REM     ren "%CUDALIB_CONDA_NVCC_BACKUP%" "%LIBRARY_LIB%\cuda.lib"
-@REM ) else (
-@REM     del "%LIBRARY_LIB%\cuda.lib"
-@REM     if errorlevel 1 (
-@REM         echo Could not remove link/copy of `cuda.lib`!
-@REM         exit /b 1
-@REM     )
-@REM )
+:: Remove or restore `cuda.lib` from the compiler sysroot.
+set "CUDALIB_CONDA_NVCC_BACKUP=%LIBRARY_LIB%\cuda.lib-conda-nvcc-backup"
+if exist "%CUDALIB_CONDA_NVCC_BACKUP%" (
+    ren "%CUDALIB_CONDA_NVCC_BACKUP%" "%LIBRARY_LIB%\cuda.lib"
+) else (
+    :: We shouldn't need this because we did create an empty one just in case
+    del "%LIBRARY_LIB%\cuda.lib"
+    if errorlevel 1 (
+        echo Could not remove link/copy of `cuda.lib`!
+        exit /b 1
+    )
+)

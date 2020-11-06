@@ -13,9 +13,10 @@ copy %RECIPE_DIR%\windows\deactivate.bat %PREFIX%\etc\conda\deactivate.d\%PKG_NA
 mkdir %LIBRARY_PREFIX%\bin
 copy %RECIPE_DIR%\windows\nvcc_windows.bat %LIBRARY_PREFIX%\bin\nvcc.bat || goto :error
 
-:: copy cuda.lib stub
+:: create an empty cuda.lib stub -- this should prevent accidental packaging of the real cuda.lib
+:: using >> guarantees an existing %LIBRARY_PREFIX%\lib\cuda.lib will not get overwritten
 mkdir %LIBRARY_PREFIX%\lib
-copy %RECIPE_DIR%\windows\nvcuda.stub.lib %LIBRARY_PREFIX%\lib\cuda.lib || goto :error
+type nul >> %LIBRARY_PREFIX%\lib\cuda.lib || goto :error
 
 goto :EOF
 

@@ -60,21 +60,21 @@ set "CFLAGS=%CFLAGS% -I%CUDA_HOME%\include"
 set "CPPFLAGS=%CPPFLAGS% -I%CUDA_HOME%\include"
 set "CXXFLAGS=%CXXFLAGS% -I%CUDA_HOME%\include"
 
-@REM :: Add `cuda.lib` shared object stub to the compiler sysroot.
-@REM :: Needed for things that want to link to `cuda.lib`.
-@REM :: Stub is used to avoid getting driver code linked into binaries.
+:: Add `cuda.lib` shared object stub to the compiler sysroot.
+:: Needed for things that want to link to `cuda.lib`.
+:: Stub is used to avoid getting driver code linked into binaries.
 
-@REM :: Make a backup of `cuda.lib` if it exists
-@REM if exist %LIBRARY_LIB%\cuda.lib (
-@REM     set "LIBCUDA_SO_CONDA_NVCC_BACKUP=%LIBRARY_LIB%\cuda.lib-conda-nvcc-backup"
-@REM     ren "%LIBRARY_LIB%\cuda.lib" "%LIBCUDA_SO_CONDA_NVCC_BACKUP%"
-@REM )
+:: Make a backup of `cuda.lib` if it exists -- we make sure this is the case in install_nvcc.bat
+if exist %LIBRARY_LIB%\cuda.lib (
+    set "LIBCUDA_SO_CONDA_NVCC_BACKUP=%LIBRARY_LIB%\cuda.lib-conda-nvcc-backup"
+    ren "%LIBRARY_LIB%\cuda.lib" "%LIBCUDA_SO_CONDA_NVCC_BACKUP%"
+)
 
-@REM mkdir %LIBRARY_LIB%
-@REM :: symlinking requires admin access or developer mode ON
-@REM :: we fallback to a standard copy if mklink fails
-@REM mklink "%LIBRARY_LIB%\cuda.lib" "%CUDA_HOME%\lib\x64\cuda.lib" || copy "%CUDA_HOME%\lib\x64\cuda.lib" "%LIBRARY_LIB%\cuda.lib"
-@REM if errorlevel 1 (
-@REM     echo "Could not create link nor fallback copy"
-@REM     exit /b 1
-@REM )
+mkdir %LIBRARY_LIB%
+:: symlinking requires admin access or developer mode ON
+:: we fallback to a standard copy if mklink fails
+mklink "%LIBRARY_LIB%\cuda.lib" "%CUDA_HOME%\lib\x64\cuda.lib" || copy "%CUDA_HOME%\lib\x64\cuda.lib" "%LIBRARY_LIB%\cuda.lib"
+if errorlevel 1 (
+    echo "Could not create link nor fallback copy"
+    exit /b 1
+)
