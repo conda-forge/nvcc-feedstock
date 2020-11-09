@@ -8,27 +8,26 @@ jobs:
     vmImage: ubuntu-16.04
   strategy:
     matrix:
-      linux_64_cuda_compiler_version10.0target_platformlinux-64:
-        CONFIG: linux_64_cuda_compiler_version10.0target_platformlinux-64
+      linux_64_cuda_compiler_version10.0:
+        CONFIG: linux_64_cuda_compiler_version10.0
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-cuda:10.0
-      linux_64_cuda_compiler_version10.1target_platformlinux-64:
-        CONFIG: linux_64_cuda_compiler_version10.1target_platformlinux-64
+      linux_64_cuda_compiler_version10.1:
+        CONFIG: linux_64_cuda_compiler_version10.1
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-cuda:10.1
-      linux_64_cuda_compiler_version10.2target_platformlinux-64:
-        CONFIG: linux_64_cuda_compiler_version10.2target_platformlinux-64
+      linux_64_cuda_compiler_version10.2:
+        CONFIG: linux_64_cuda_compiler_version10.2
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-cuda:10.2
-      linux_64_cuda_compiler_version11.0target_platformlinux-64:
-        CONFIG: linux_64_cuda_compiler_version11.0target_platformlinux-64
+      linux_64_cuda_compiler_version11.0:
+        CONFIG: linux_64_cuda_compiler_version11.0
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-cuda:11.0
-      linux_64_cuda_compiler_version9.2target_platformlinux-64:
-        CONFIG: linux_64_cuda_compiler_version9.2target_platformlinux-64
+      linux_64_cuda_compiler_version9.2:
+        CONFIG: linux_64_cuda_compiler_version9.2
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: condaforge/linux-anvil-cuda:9.2
-    maxParallel: 8
   timeoutInMinutes: 360
 
   steps:

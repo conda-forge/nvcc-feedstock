@@ -1,0 +1,1 @@
+"%CUDA_HOME%\bin\nvcc.exe" -ccbin "%CXX%" %*

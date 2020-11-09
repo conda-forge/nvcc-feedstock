@@ -1,95 +1,48 @@
 {% set name = "nvcc" %}
-{% set number = 6 %}
+{% set number = 7 %}
 
 package:
   name: "{{ name }}"
 
 build:
   number: {{ number }}
-  skip: true  # [not linux or cuda_compiler_version == "None"]
+  skip: true  # [osx or cuda_compiler_version == "None"]
 
 outputs:
   - name: "{{ name }}_{{ target_platform }}"
     version: "{{ cuda_compiler_version }}"
     number: {{ number }}
-    script: install_nvcc.sh
+    script: install_nvcc.sh   # [linux]
+    script: windows/install_nvcc.bat  # [win]
     build:
       ignore_run_exports:
         - libgcc-ng
       run_exports:
         strong:
           - cudatoolkit {{ cuda_compiler_version }}|{{ cuda_compiler_version }}.*
-          - __glibc >=2.17  # [cuda_compiler_version == "11.0"]
+          - __glibc >=2.17  # [linux and cuda_compiler_version == "11.0"]
     requirements:
       host:
         # Needed to symlink libcuda into sysroot libs.
         - {{ compiler("c") }}
-        - sysroot_linux-64 2.17  # [cuda_compiler_version == "11.0"]
-        - __glibc >=2.17         # [cuda_compiler_version == "11.0"]
+        - sysroot_linux-64 2.17  # [linux and cuda_compiler_version == "11.0"]
+        - __glibc >=2.17         # [linux and cuda_compiler_version == "11.0"]
       run:
-        - sysroot_linux-64 2.17  # [cuda_compiler_version == "11.0"]
-        - __glibc >=2.17         # [cuda_compiler_version == "11.0"]
+        - sysroot_linux-64 2.17  # [linux and cuda_compiler_version == "11.0"]
+        - __glibc >=2.17         # [linux and cuda_compiler_version == "11.0"]
     test:
       requires:
         - {{ compiler("c") }}
         # Host code is forwarded to a C++ compiler
         - {{ compiler("cxx") }}
-        - sysroot_linux-64 2.17  # [cuda_compiler_version == "11.0"]
+        - sysroot_linux-64 2.17  # [linux and cuda_compiler_version == "11.0"]
       files:
         - test.cu
+        - test_nvcc.sh  # [linux]
+        - windows\test_nvcc.bat  # [win]
       commands:
-        # Verify the symlink to the libcuda stub library exists.
-        - test "$(realpath $(${CC} --print-sysroot))" = "$(realpath ${CONDA_BUILD_SYSROOT})"
-        - test -f "${CONDA_BUILD_SYSROOT}/lib/libcuda.so" || (echo "${CONDA_BUILD_SYSROOT}/lib/libcuda.so is not a file" && exit 1)
-        # Verify the activation scripts are in-place.
-        {% for state in ["activate", "deactivate"] %}
-        - test -f "${PREFIX}/etc/conda/{{ state }}.d/{{ PKG_NAME }}_{{ state }}.sh"
-        {% endfor %}
-        # Try using the activation scripts.
-        - |
-          if [ -z ${CUDA_HOME+x} ]; then
-            echo "CUDA_HOME is unset after activation" && exit 1
-          else
-            echo "CUDA_HOME is set to '$CUDA_HOME'"
-          fi
-        - source ${PREFIX}/etc/conda/deactivate.d/{{ PKG_NAME }}_deactivate.sh
-        - |
-          if [ ! -z "${CUDA_HOME+x}" ] && [ ! -z "${TEST_CUDA_HOME_INITIAL+x}" ]; then
-            echo "CUDA_HOME correctly unset after deactivation"
-          elif [ ! -z "${CUDA_HOME+x}" ] && [ -z "${TEST_CUDA_HOME_INITIAL+x}" ]; then
-            echo "CUDA_HOME correctly maintained as '$CUDA_HOME' after deactivation"
-          else
-            echo "CUDA_HOME is incorrectly set to '$CUDA_HOME' after deactivation" && exit 1
-          fi
-        # Set some CFLAGS to make sure we're not causing side effects
-        - |
-          export CFLAGS_CONDA_NVCC_TEST_BACKUP="${CFLAGS}"
-          export CFLAGS="${CFLAGS} -I/path/to/test/include"
-          export CFLAGS_CONDA_NVCC_TEST="${CFLAGS}"
-        # Manually trigger the activation script
-        - source ${PREFIX}/etc/conda/activate.d/{{ PKG_NAME }}_activate.sh
-        # Check activation worked as expected, then deactivate
-        - |
-          if [ -z ${CUDA_HOME+x} ]; then
-            echo "CUDA_HOME is unset after activation" && exit 1
-          else
-            echo "CUDA_HOME is set to '${CUDA_HOME}'"
-          fi
-          source ${PREFIX}/etc/conda/deactivate.d/{{ PKG_NAME }}_deactivate.sh
-        # Make sure there's no side effects
-        - |
-          if [[ "${CFLAGS}" == "${CFLAGS_CONDA_NVCC_TEST}" ]]; then
-            echo "CFLAGS correctly maintained as '${CFLAGS}'"
-            unset CFLAGS_CONDA_NVCC_TEST
-            export CFLAGS="${CFLAGS_CONDA_NVCC_TEST_BACKUP}"
-            unset CFLAGS_CONDA_NVCC_TEST_BACKUP
-          else
-            echo "CFLAGS is incorrectly set to '${CFLAGS}', should be set to '${CFLAGS_CONDA_NVCC_TEST}'" && exit 1
-          fi
-        # Reactivate
-        - source ${PREFIX}/etc/conda/activate.d/{{ PKG_NAME }}_activate.sh
-        # Try building something
-        - nvcc test.cu
+        - bash test_nvcc.sh  # [linux]
+        - windows\test_nvcc.bat  # [win]
     about:
       home: https://github.com/conda-forge/nvcc-feedstock
       license: BSD-3-Clause
