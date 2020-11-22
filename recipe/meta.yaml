@@ -1,16 +1,6 @@
 {% set name = "nvcc" %}
 {% set number = 8 %}
 
-{% if environ.get("cuda_compiler_version") %}
-{% set cuda_major = environ.get("cuda_compiler_version").split(".")[0]|int %}
-{% set cuda_minor = environ.get("cuda_compiler_version").split(".")[1]|int %}
-{% else %}
-{% set cuda_major = None %}
-{% set cuda_minor = None %}
-{% endif %}
-
-{% set cuda_major_minor = (cuda_major, cuda_minor) %}
-
 package:
   name: "{{ name }}"
 
@@ -30,22 +20,22 @@ outputs:
       run_exports:
         strong:
           - cudatoolkit {{ cuda_compiler_version }}|{{ cuda_compiler_version }}.*
-          - __glibc >=2.17  # [linux and cuda_major >= 11]
+          - __glibc >=2.17  # [linux and cuda_compiler_version.startswith("11.")]
     requirements:
       host:
         # Needed to symlink libcuda into sysroot libs.
         - {{ compiler("c") }}
-        - sysroot_linux-64 2.17  # [linux and cuda_major >= 11]
-        - __glibc >=2.17         # [linux and cuda_major >= 11]
+        - sysroot_linux-64 2.17  # [linux and cuda_compiler_version.startswith("11.")]
+        - __glibc >=2.17         # [linux and cuda_compiler_version.startswith("11.")]
       run:
-        - sysroot_linux-64 2.17  # [linux and cuda_major >= 11]
-        - __glibc >=2.17         # [linux and cuda_major >= 11]
+        - sysroot_linux-64 2.17  # [linux and cuda_compiler_version.startswith("11.")]
+        - __glibc >=2.17         # [linux and cuda_compiler_version.startswith("11.")]
     test:
       requires:
         - {{ compiler("c") }}
         # Host code is forwarded to a C++ compiler
         - {{ compiler("cxx") }}
-        - sysroot_linux-64 2.17  # [linux and cuda_major >= 11]
+        - sysroot_linux-64 2.17  # [linux and cuda_compiler_version.startswith("11.")]
       files:
         - test.cu
         - test_nvcc.sh  # [linux]
