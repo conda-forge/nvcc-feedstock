@@ -20,22 +20,22 @@ outputs:
       run_exports:
         strong:
           - cudatoolkit {{ cuda_compiler_version }}|{{ cuda_compiler_version }}.*
-          - __glibc >=2.17  # [linux and cuda_compiler_version.startswith("11.")]
+          - __glibc >=2.17  # [linux and cdt_name == "cos7"]
     requirements:
       host:
         # Needed to symlink libcuda into sysroot libs.
         - {{ compiler("c") }}
-        - sysroot_linux-64 2.17  # [linux and cuda_compiler_version.startswith("11.")]
-        - __glibc >=2.17         # [linux and cuda_compiler_version.startswith("11.")]
+        - sysroot_linux-64 2.17  # [linux and cdt_name == "cos7"]
+        - __glibc >=2.17         # [linux and cdt_name == "cos7"]
       run:
-        - sysroot_linux-64 2.17  # [linux and cuda_compiler_version.startswith("11.")]
-        - __glibc >=2.17         # [linux and cuda_compiler_version.startswith("11.")]
+        - sysroot_linux-64 2.17  # [linux and cdt_name == "cos7"]
+        - __glibc >=2.17         # [linux and cdt_name == "cos7"]
     test:
       requires:
         - {{ compiler("c") }}
         # Host code is forwarded to a C++ compiler
         - {{ compiler("cxx") }}
-        - sysroot_linux-64 2.17  # [linux and cuda_compiler_version.startswith("11.")]
+        - sysroot_linux-64 2.17  # [linux and cdt_name == "cos7"]
       files:
         - test.cu
         - test_nvcc.sh  # [linux]
