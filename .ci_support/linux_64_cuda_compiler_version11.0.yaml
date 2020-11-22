@@ -3,7 +3,7 @@ c_compiler:
 c_compiler_version:
 - '7'
 cdt_name:
-- cos7
+- cos6
 channel_sources:
 - conda-forge,defaults
 channel_targets:
@@ -17,7 +17,7 @@ cxx_compiler:
 cxx_compiler_version:
 - '7'
 docker_image:
-- condaforge/linux-anvil-cuda:11.0
+- quay.io/condaforge/linux-anvil-cuda:11.0
 target_platform:
 - linux-64
 zip_keys:
@@ -25,4 +25,3 @@ zip_keys:
   - cxx_compiler_version
 - - cuda_compiler_version
   - docker_image
-  - cdt_name
