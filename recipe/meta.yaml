@@ -1,11 +1,8 @@
 {% set name = "nvcc" %}
 {% set number = 8 %}
-{% set cuda_compiler_version = environ.get("cuda_compiler_version")|default("11.1") %}
-{% if cuda_compiler_version != None %}  # needed for the linter
-{% set cuda_major = cuda_compiler_version.split(".")[0]|int %}
-{% set cuda_minor = cuda_compiler_version.split(".")[1]|int %}
+{% set cuda_major = environ.get("cuda_compiler_version", "11.1").split(".")[0]|int %}
+{% set cuda_minor = environ.get("cuda_compiler_version", "11.1").split(".")[1]|int %}
 {% set cuda_major_minor = (cuda_major, cuda_minor) %}
-{% endif %}
 
 package:
   name: "{{ name }}"
