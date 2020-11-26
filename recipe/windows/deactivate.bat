@@ -30,12 +30,12 @@ if not "%CXXFLAGS_CONDA_NVCC_BACKUP%"=="" (
 )
 
 :: Remove or restore `cuda.lib` from the compiler sysroot.
-set "CUDALIB_CONDA_NVCC_BACKUP=%LIBRARY_LIB%\cuda.lib-conda-nvcc-backup"
+set "CUDALIB_CONDA_NVCC_BACKUP=__LIBRARY_LIB__\cuda.lib-conda-nvcc-backup"
 if exist "%CUDALIB_CONDA_NVCC_BACKUP%" (
-    ren "%CUDALIB_CONDA_NVCC_BACKUP%" "%LIBRARY_LIB%\cuda.lib"
+    ren "%CUDALIB_CONDA_NVCC_BACKUP%" "__LIBRARY_LIB__\cuda.lib"
 ) else (
     :: We shouldn't need this because we did create an empty one just in case
-    del "%LIBRARY_LIB%\cuda.lib"
+    del "__LIBRARY_LIB__\cuda.lib"
     if errorlevel 1 (
         echo Could not remove link/copy of `cuda.lib`!
         exit /b 1

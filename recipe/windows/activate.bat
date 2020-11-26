@@ -38,16 +38,16 @@ if not exist "%CUDA_PATH%\" (
     exit /b 1
 )
 
-@REM if not exist "%CUDA_PATH%\lib\x64\cuda.lib" (
-@REM     echo "File '%CUDA_PATH%\lib\x64\cuda.lib' doesn't exist"
-@REM     exit /b 1
-@REM )
+if not exist "%CUDA_PATH%\lib\x64\cuda.lib" (
+    echo "File '%CUDA_PATH%\lib\x64\cuda.lib' doesn't exist"
+    exit /b 1
+)
 
-findstr /c:"CUDA Version %PKG_VERSION%" "%CUDA_PATH%\version.txt"
+findstr /c:"CUDA Version __PKG_VERSION__" "%CUDA_PATH%\version.txt"
 if errorlevel 1 (
     :: CUDA 11 does not package a version.txt, so maybe it failed due to
     :: that. Let's double check with the output of nvcc.exe --version
-    "%CUDA_PATH%\bin\nvcc.exe" --version | findstr /C:"release %PKG_VERSION%"
+    "%CUDA_PATH%\bin\nvcc.exe" --version | findstr /C:"release __PKG_VERSION__"
     if errorlevel 1 (
         echo "Version of installed CUDA didn't match package or could not be determined."
         exit /b 1
@@ -65,15 +65,15 @@ set "CXXFLAGS=%CXXFLAGS% -I%CUDA_HOME%\include"
 :: Stub is used to avoid getting driver code linked into binaries.
 
 :: Make a backup of `cuda.lib` if it exists -- we make sure this is the case in install_nvcc.bat
-if exist %LIBRARY_LIB%\cuda.lib (
-    set "LIBCUDA_SO_CONDA_NVCC_BACKUP=%LIBRARY_LIB%\cuda.lib-conda-nvcc-backup"
-    ren "%LIBRARY_LIB%\cuda.lib" "%LIBCUDA_SO_CONDA_NVCC_BACKUP%"
+if exist __LIBRARY_LIB__\cuda.lib (
+    set "LIBCUDA_SO_CONDA_NVCC_BACKUP=__LIBRARY_LIB__\cuda.lib-conda-nvcc-backup"
+    ren "__LIBRARY_LIB__\cuda.lib" "%LIBCUDA_SO_CONDA_NVCC_BACKUP%"
 )
 
-mkdir %LIBRARY_LIB%
+mkdir __LIBRARY_LIB__
 :: symlinking requires admin access or developer mode ON
 :: we fallback to a standard copy if mklink fails
-mklink "%LIBRARY_LIB%\cuda.lib" "%CUDA_HOME%\lib\x64\cuda.lib" || copy "%CUDA_HOME%\lib\x64\cuda.lib" "%LIBRARY_LIB%\cuda.lib"
+mklink "__LIBRARY_LIB__\cuda.lib" "%CUDA_HOME%\lib\x64\cuda.lib" || copy "%CUDA_HOME%\lib\x64\cuda.lib" "__LIBRARY_LIB__\cuda.lib"
 if errorlevel 1 (
     echo "Could not create link nor fallback copy"
     exit /b 1
