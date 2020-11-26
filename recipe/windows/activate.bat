@@ -43,7 +43,7 @@ if not exist "%CUDA_PATH%\lib\x64\cuda.lib" (
     exit /b 1
 )
 
-findstr /c:"CUDA Version __PKG_VERSION__" "%CUDA_PATH%\version.txt"
+findstr /C:"CUDA Version __PKG_VERSION__" "%CUDA_PATH%\version.txt"
 if errorlevel 1 (
     :: CUDA 11 does not package a version.txt, so maybe it failed due to
     :: that. Let's double check with the output of nvcc.exe --version
@@ -65,12 +65,12 @@ set "CXXFLAGS=%CXXFLAGS% -I%CUDA_HOME%\include"
 :: Stub is used to avoid getting driver code linked into binaries.
 
 :: Make a backup of `cuda.lib` if it exists -- we make sure this is the case in install_nvcc.bat
-if exist __LIBRARY_LIB__\cuda.lib (
+if exist "__LIBRARY_LIB__\cuda.lib" (
     set "LIBCUDA_SO_CONDA_NVCC_BACKUP=__LIBRARY_LIB__\cuda.lib-conda-nvcc-backup"
     ren "__LIBRARY_LIB__\cuda.lib" "%LIBCUDA_SO_CONDA_NVCC_BACKUP%"
 )
 
-mkdir __LIBRARY_LIB__
+mkdir "__LIBRARY_LIB__"
 :: symlinking requires admin access or developer mode ON
 :: we fallback to a standard copy if mklink fails
 mklink "__LIBRARY_LIB__\cuda.lib" "%CUDA_HOME%\lib\x64\cuda.lib" || copy "%CUDA_HOME%\lib\x64\cuda.lib" "__LIBRARY_LIB__\cuda.lib"
