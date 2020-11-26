@@ -1,5 +1,5 @@
 {% set name = "nvcc" %}
-{% set number = 8 %}
+{% set number = 9 %}
 
 package:
   name: "{{ name }}"
