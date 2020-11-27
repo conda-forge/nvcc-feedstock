@@ -4,13 +4,11 @@ setlocal enableextensions enabledelayedexpansion || goto :error
 :: Activation script
 mkdir %PREFIX%\etc\conda\activate.d
 :: Render conda-build env vars
-sed -i "s/__LIBRARY_LIB__/%LIBRARY_LIB%/g;s/__PKG_VERSION__/%PKG_VERSION%/g" %RECIPE_DIR%\windows\activate.bat
+sed -i "s/__PKG_VERSION__/%PKG_VERSION%/g" %RECIPE_DIR%\windows\activate.bat
 copy %RECIPE_DIR%\windows\activate.bat %PREFIX%\etc\conda\activate.d\%PKG_NAME%_activate.bat || goto :error
 
 :: Deactivation script
 mkdir %PREFIX%\etc\conda\deactivate.d
-:: Render conda-build env vars
-sed -i "s/__LIBRARY_LIB__/%LIBRARY_LIB%/g" %RECIPE_DIR%\windows\deactivate.bat
 copy %RECIPE_DIR%\windows\deactivate.bat %PREFIX%\etc\conda\deactivate.d\%PKG_NAME%_deactivate.bat || goto :error
 
 :: nvcc executable wrapper

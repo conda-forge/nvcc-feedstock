@@ -65,15 +65,15 @@ set "CXXFLAGS=%CXXFLAGS% -I%CUDA_HOME%\include"
 :: Stub is used to avoid getting driver code linked into binaries.
 
 :: Make a backup of `cuda.lib` if it exists -- we make sure this is the case in install_nvcc.bat
-if exist "__LIBRARY_LIB__\cuda.lib" (
-    set "LIBCUDA_SO_CONDA_NVCC_BACKUP=__LIBRARY_LIB__\cuda.lib-conda-nvcc-backup"
-    ren "__LIBRARY_LIB__\cuda.lib" "%LIBCUDA_SO_CONDA_NVCC_BACKUP%"
+if exist "%CONDA_PREFIX%\Library\lib\cuda.lib" (
+    set "LIBCUDA_SO_CONDA_NVCC_BACKUP=%CONDA_PREFIX%\Library\lib\cuda.lib-conda-nvcc-backup"
+    ren "%CONDA_PREFIX%\Library\lib\cuda.lib" "%LIBCUDA_SO_CONDA_NVCC_BACKUP%"
 )
 
-mkdir "__LIBRARY_LIB__"
+mkdir "%CONDA_PREFIX%\Library\lib"
 :: symlinking requires admin access or developer mode ON
 :: we fallback to a standard copy if mklink fails
-mklink "__LIBRARY_LIB__\cuda.lib" "%CUDA_HOME%\lib\x64\cuda.lib" || copy "%CUDA_HOME%\lib\x64\cuda.lib" "__LIBRARY_LIB__\cuda.lib"
+mklink "%CONDA_PREFIX%\Library\lib\cuda.lib" "%CUDA_HOME%\lib\x64\cuda.lib" || copy "%CUDA_HOME%\lib\x64\cuda.lib" "%CONDA_PREFIX%\Library\lib\cuda.lib"
 if errorlevel 1 (
     echo "Could not create link nor fallback copy"
     exit /b 1
