@@ -37,7 +37,7 @@ if exist "%CUDALIB_CONDA_NVCC_BACKUP%" (
     :: We shouldn't need this because we did create an empty one just in case
     del "%CONDA_PREFIX%\Library\lib\cuda.lib"
     if errorlevel 1 (
-        echo Could not remove link/copy of `cuda.lib`!
+        echo Could not remove `cuda.lib` stub!
         exit /b 1
     )
 )
