@@ -124,6 +124,11 @@ EOF
 mkdir -p "${PREFIX}/bin"
 cat > "${PREFIX}/bin/nvcc" <<EOF
 #!/bin/bash
+for i ; do
+  case \$i in -ccbin)
+    exec "\${CUDA_HOME}/bin/nvcc" "\${@}"
+  esac
+done
 exec "\${CUDA_HOME}/bin/nvcc" -ccbin "\${CXX}" "\${@}"
 EOF
 chmod +x "${PREFIX}/bin/nvcc"
