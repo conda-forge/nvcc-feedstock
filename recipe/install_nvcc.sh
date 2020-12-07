@@ -122,13 +122,14 @@ EOF
 
 # Create `nvcc` script in `bin` so it can be easily run.
 mkdir -p "${PREFIX}/bin"
-cat > "${PREFIX}/bin/nvcc" <<EOF
+cat > "${PREFIX}/bin/nvcc" <<'EOF'
 #!/bin/bash
-for i ; do
-  case \$i in -ccbin)
-    exec "\${CUDA_HOME}/bin/nvcc" "\${@}"
+for arg in "${@}" ; do
+  case ${arg} in -ccbin)
+    # If -ccbin argument is already provided, don't add an additional one.
+    exec "${CUDA_HOME}/bin/nvcc" "${@}"
   esac
 done
-exec "\${CUDA_HOME}/bin/nvcc" -ccbin "\${CXX}" "\${@}"
+exec "${CUDA_HOME}/bin/nvcc" -ccbin "${CXX}" "${@}"
 EOF
 chmod +x "${PREFIX}/bin/nvcc"
