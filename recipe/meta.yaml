@@ -24,12 +24,7 @@ outputs:
     requirements:
       host:
         # Needed to symlink libcuda into sysroot libs.
-        # FIXME: nvcc 9.* and 10.* don't work with GCC 9.
-        #        Adding custom GCC versions via conda_build_config.yaml fails
-        #        due to https://github.com/conda/conda-build/issues/3974
-        #        => use hardcoded compiler package names to workaround that.
-        - {{ compiler("c") }}    # [not (linux64 and (cuda_compiler_version or "").startswith(("9.", "10.")))]
-        - gcc_linux-64 7         # [linux64 and (cuda_compiler_version or "").startswith(("9.", "10."))]
+        - {{ compiler("c") }}
         - sysroot_linux-64 2.17  # [linux and cuda_compiler_version == "11.0"]
         - __glibc >=2.17         # [linux and cuda_compiler_version == "11.0"]
       run:
@@ -37,11 +32,9 @@ outputs:
         - __glibc >=2.17         # [linux and cuda_compiler_version == "11.0"]
     test:
       requires:
-        - {{ compiler("c") }}    # [not (linux64 and (cuda_compiler_version or "").startswith(("9.", "10.")))]
-        - gcc_linux-64 7         # [linux64 and (cuda_compiler_version or "").startswith(("9.", "10."))]
+        - {{ compiler("c") }}
         # Host code is forwarded to a C++ compiler
-        - {{ compiler("cxx") }}  # [not (linux64 and (cuda_compiler_version or "").startswith(("9.", "10.")))]
-        - gxx_linux-64 7         # [linux64 and (cuda_compiler_version or "").startswith(("9.", "10."))]
+        - {{ compiler("cxx") }}
         - sysroot_linux-64 2.17  # [linux and cuda_compiler_version == "11.0"]
       files:
         - test.cu
