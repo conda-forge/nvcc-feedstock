@@ -26,7 +26,7 @@ if defined CXXFLAGS (
 :: Things we try:
 :: 1) CUDA_PATH might be defined already in the env, use it in that case
 :: 2) Try to locate nvcc.exe in PATH and calculate CUDA_PATH from there (two levels up)
-:: 3) Look if nvcc.exe can be foudn in the default CUDA installation path and calculate CUDA_PATH from there (two levels up)
+:: 3) Look if nvcc.exe can be found in the default CUDA installation path and calculate CUDA_PATH from there (two levels up)
 
 :: Try (1)
 if not defined CUDA_PATH (
