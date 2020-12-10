@@ -22,12 +22,24 @@ if defined CXXFLAGS (
     set "CXXFLAGS_CONDA_NVCC_BACKUP=%CXXFLAGS%"
 )
 
-:: Default to using nvcc.exe to specify %CUDA_HOME%
+:: Default to using nvcc.exe to specify %CUDA_PATH%
+:: Things we try:
+:: 1) CUDA_PATH might be defined already in the env, use it in that case
+:: 2) Try to locate nvcc.exe in PATH and calculate CUDA_PATH from there (two levels up)
+:: 3) Look if nvcc.exe can be foudn in the default CUDA installation path and calculate CUDA_PATH from there (two levels up)
+
+:: Try (1)
 if not defined CUDA_PATH (
-    for /f "usebackq tokens=*" %%a in (`where nvcc.exe`) do set "CUDA_NVCC_EXECUTABLE=%%a" || goto :error
+    :: Try (2)
+    for /f "usebackq tokens=*" %%a in (`where nvcc.exe`) do set "CUDA_NVCC_EXECUTABLE=%%a"
     if "%CUDA_NVCC_EXECUTABLE%"=="" (
-        echo "Cannot determine CUDA_PATH: nvcc.exe not in PATH"
-        exit /b 1
+        :: Try (3)
+        if exist "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v__PKG_VERSION__\bin\nvcc.exe" (
+            set "CUDA_PATH=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v__PKG_VERSION__"
+        ) else (
+            echo "Cannot determine CUDA_PATH: nvcc.exe not in PATH or default location..."
+            exit /b 1
+        )
     ) else (
         for /f "usebackq tokens=*" %%a in (`python -c "from pathlib import Path; print(Path('%CUDA_NVCC_EXECUTABLE%').parents[1])"`) do set "CUDA_PATH=%%a" || goto :error
     )
