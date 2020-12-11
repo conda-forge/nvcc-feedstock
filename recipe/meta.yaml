@@ -1,5 +1,5 @@
 {% set name = "nvcc" %}
-{% set number = 8 %}
+{% set number = 9 %}
 
 package:
   name: "{{ name }}"
@@ -22,6 +22,8 @@ outputs:
           - cudatoolkit {{ cuda_compiler_version }}|{{ cuda_compiler_version }}.*
           - __glibc >=2.17  # [linux and cuda_compiler_version == "11.0"]
     requirements:
+      build:      # [win]
+        - m2-sed  # [win]
       host:
         # Needed to symlink libcuda into sysroot libs.
         - {{ compiler("c") }}
@@ -63,3 +65,4 @@ extra:
     - kkraus14
     - mike-wendt
     - raydouglass
+    - jaimergp

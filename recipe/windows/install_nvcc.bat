@@ -3,6 +3,8 @@ setlocal enableextensions enabledelayedexpansion || goto :error
 
 :: Activation script
 mkdir %PREFIX%\etc\conda\activate.d
+:: Render conda-build env vars
+sed -i "s/__PKG_VERSION__/%PKG_VERSION%/g" %RECIPE_DIR%\windows\activate.bat
 copy %RECIPE_DIR%\windows\activate.bat %PREFIX%\etc\conda\activate.d\%PKG_NAME%_activate.bat || goto :error
 
 :: Deactivation script
