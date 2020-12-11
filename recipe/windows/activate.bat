@@ -68,9 +68,10 @@ if errorlevel 1 (
 
 set "CUDA_PATH=%CUDA_PATH%"
 set "CUDA_HOME=%CUDA_PATH%"
-set "CFLAGS=%CFLAGS% -I%CUDA_HOME%\include"
-set "CPPFLAGS=%CPPFLAGS% -I%CUDA_HOME%\include"
-set "CXXFLAGS=%CXXFLAGS% -I%CUDA_HOME%\include"
+
+(set CFLAGS=%CFLAGS% -I"%CUDA_HOME%\include")
+(set CPPFLAGS=%CPPFLAGS% -I"%CUDA_HOME%\include")
+(set CXXFLAGS=%CXXFLAGS% -I"%CUDA_HOME%\include")
 
 :: Add `cuda.lib` shared object stub to the compiler sysroot.
 :: Needed for things that want to link to `cuda.lib`.
