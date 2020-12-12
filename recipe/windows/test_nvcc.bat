@@ -43,9 +43,11 @@ if "%CUDA_HOME%"=="" (
 
 
 :: Set some CFLAGS to make sure we're not causing side effects
-set "CFLAGS_CONDA_NVCC_TEST_BACKUP=%CFLAGS%"
-set "CFLAGS=%CFLAGS% -I\path\to\test\include"
-set "CFLAGS_CONDA_NVCC_TEST=%CFLAGS%"
+:: These paths might include double quotes, so we need this syntax
+:: to avoid quote poisoning
+(set CFLAGS_CONDA_NVCC_TEST_BACKUP=%CFLAGS%)
+(set CFLAGS=%CFLAGS% -I\path\to\test\include)
+(set CFLAGS_CONDA_NVCC_TEST=%CFLAGS%)
 
 :: Manually trigger the activation script
 call %PREFIX%\etc\conda\activate.d\%PKG_NAME%_activate.bat
@@ -62,10 +64,10 @@ call %PREFIX%\etc\conda\deactivate.d\%PKG_NAME%_deactivate.bat
 if errorlevel 1 exit 1
 
 :: Make sure there's no side effects
-if "%CFLAGS%"=="%CFLAGS_CONDA_NVCC_TEST%" (
+if "%CFLAGS:"=%"=="%CFLAGS_CONDA_NVCC_TEST:"=%" (
     echo "CFLAGS correctly maintained as '%CFLAGS%'"
     set "CFLAGS_CONDA_NVCC_TEST="
-    set "CFLAGS=%CFLAGS_CONDA_NVCC_TEST_BACKUP%"
+    (set CFLAGS=%CFLAGS_CONDA_NVCC_TEST_BACKUP%)
     set "CFLAGS_CONDA_NVCC_TEST_BACKUP="
 ) else (
     echo "CFLAGS is incorrectly set to '%CFLAGS%', should be set to '%CFLAGS_CONDA_NVCC_TEST%'"
@@ -85,3 +87,6 @@ if errorlevel 1 exit 1
 
 :: Try building something
 nvcc test.cu
+
+:: Try building something with CFLAGS
+nvcc %CFLAGS% test.cu

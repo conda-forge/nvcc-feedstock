@@ -11,15 +11,15 @@ if defined CUDA_PATH (
 )
 
 if defined CFLAGS (
-    set "CFLAGS_CONDA_NVCC_BACKUP=%CFLAGS%"
+    (set CFLAGS_CONDA_NVCC_BACKUP=%CFLAGS%)
 )
 
 if defined CPPFLAGS (
-    set "CPPFLAGS_CONDA_NVCC_BACKUP=%CPPFLAGS%"
+    (set CPPFLAGS_CONDA_NVCC_BACKUP=%CPPFLAGS%)
 )
 
 if defined CXXFLAGS (
-    set "CXXFLAGS_CONDA_NVCC_BACKUP=%CXXFLAGS%"
+    (set CXXFLAGS_CONDA_NVCC_BACKUP=%CXXFLAGS%)
 )
 
 :: Default to using nvcc.exe to specify %CUDA_PATH%
@@ -69,6 +69,8 @@ if errorlevel 1 (
 set "CUDA_PATH=%CUDA_PATH%"
 set "CUDA_HOME=%CUDA_PATH%"
 
+:: These paths might include double quotes, so we need this syntax
+:: to avoid quote poisoning
 (set CFLAGS=%CFLAGS% -I"%CUDA_HOME%\include")
 (set CPPFLAGS=%CPPFLAGS% -I"%CUDA_HOME%\include")
 (set CXXFLAGS=%CXXFLAGS% -I"%CUDA_HOME%\include")
