@@ -1,3 +1,5 @@
+@echo on
+
 :: Backup environment variables (only if the variables are set)
 if defined CUDA_HOME (
     set "CUDA_HOME_CONDA_NVCC_BACKUP=%CUDA_HOME%"
