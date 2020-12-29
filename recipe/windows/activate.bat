@@ -7,9 +7,6 @@ if defined CUDA_HOME (
 
 if defined CUDA_PATH (
     set "CUDA_PATH_CONDA_NVCC_BACKUP=%CUDA_PATH%"
-    if not defined CUDA_HOME (
-        set "CUDA_HOME=%CUDA_PATH%"
-    )
 )
 
 if defined CFLAGS (
@@ -23,6 +20,15 @@ if defined CPPFLAGS (
 if defined CXXFLAGS (
     (set CXXFLAGS_CONDA_NVCC_BACKUP=%CXXFLAGS%)
 )
+
+if defined INCLUDE (
+    (set INCLUDE_CONDA_NVCC_BACKUP=%INCLUDE%)
+)
+
+if defined CudaToolkitDir (
+    (set CudaToolkitDir_CONDA_NVCC_BACKUP=%CudaToolkitDir%)
+)
+
 
 :: Default to using nvcc.exe to specify %CUDA_PATH%
 :: Things we try:
@@ -70,12 +76,16 @@ if errorlevel 1 (
 
 set "CUDA_PATH=%CUDA_PATH%"
 set "CUDA_HOME=%CUDA_PATH%"
+set "CudaToolkitDir=%CUDA_PATH%"
 
 :: These paths might include double quotes, so we need this syntax
 :: to avoid quote poisoning
 (set CFLAGS=%CFLAGS% -I"%CUDA_HOME%\include")
 (set CPPFLAGS=%CPPFLAGS% -I"%CUDA_HOME%\include")
 (set CXXFLAGS=%CXXFLAGS% -I"%CUDA_HOME%\include")
+
+:: Other compiler vars
+set "INCLUDE=%CUDA_HOME%\include;%INCLUDE%"
 
 :: Add `cuda.lib` shared object stub to the compiler sysroot.
 :: Needed for things that want to link to `cuda.lib`.

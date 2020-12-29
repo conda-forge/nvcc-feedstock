@@ -13,6 +13,11 @@ then
   export CUDA_HOME_CONDA_NVCC_BACKUP="\${CUDA_HOME:-}"
 fi
 
+if [[ ! -z "\${CUDA_PATH+x}" ]]
+then
+  export CUDA_PATH_CONDA_NVCC_BACKUP="\${CUDA_PATH:-}"
+fi
+
 if [[ ! -z "\${CFLAGS+x}" ]]
 then
   export CFLAGS_CONDA_NVCC_BACKUP="\${CFLAGS:-}"
@@ -60,6 +65,7 @@ then
 fi
 
 export CUDA_HOME="\${CUDA_HOME}"
+export CUDA_PATH="\${CUDA_HOME}"
 export CFLAGS="\${CFLAGS} -I\${CUDA_HOME}/include"
 export CPPFLAGS="\${CPPFLAGS} -I\${CUDA_HOME}/include"
 export CXXFLAGS="\${CXXFLAGS} -I\${CUDA_HOME}/include"
@@ -90,6 +96,12 @@ if [[ ! -z "\${CUDA_HOME_CONDA_NVCC_BACKUP+x}" ]]
 then
   export CUDA_HOME="\${CUDA_HOME_CONDA_NVCC_BACKUP}"
   unset CUDA_HOME_CONDA_NVCC_BACKUP
+fi
+
+if [[ ! -z "\${CUDA_PATH_CONDA_NVCC_BACKUP+x}" ]]
+then
+  export CUDA_PATH="\${CUDA_PATH_CONDA_NVCC_BACKUP}"
+  unset CUDA_PATH_CONDA_NVCC_BACKUP
 fi
 
 if [[ ! -z "\${CFLAGS_CONDA_NVCC_BACKUP+x}" ]]
