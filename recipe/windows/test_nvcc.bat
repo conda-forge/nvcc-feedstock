@@ -1,3 +1,5 @@
+@echo on
+
 :: Verify the cuda stub library exists.
 if not exist "%LIBRARY_LIB%\cuda.lib" (
     echo "%LIBRARY_LIB%\cuda.lib is not a file"
