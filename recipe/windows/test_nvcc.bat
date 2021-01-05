@@ -23,6 +23,7 @@ if defined CUDA_HOME (
     echo "CUDA_HOME is unset after activation"
     exit 1
 )
+set "TEST_CUDA_HOME_INITIAL=%CUDA_HOME_CONDA_NVCC_BACKUP%"
 
 call %PREFIX%\etc\conda\deactivate.d\%PKG_NAME%_deactivate.bat
 if errorlevel 1 exit 1
