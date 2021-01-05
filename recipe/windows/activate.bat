@@ -9,24 +9,12 @@ if defined CUDA_PATH (
     set "CUDA_PATH_CONDA_NVCC_BACKUP=%CUDA_PATH%"
 )
 
-if defined CFLAGS (
-    (set CFLAGS_CONDA_NVCC_BACKUP=%CFLAGS%)
-)
-
-if defined CPPFLAGS (
-    (set CPPFLAGS_CONDA_NVCC_BACKUP=%CPPFLAGS%)
-)
-
-if defined CXXFLAGS (
-    (set CXXFLAGS_CONDA_NVCC_BACKUP=%CXXFLAGS%)
-)
-
 if defined INCLUDE (
-    (set INCLUDE_CONDA_NVCC_BACKUP=%INCLUDE%)
+    set "INCLUDE_CONDA_NVCC_BACKUP=%INCLUDE%"
 )
 
 if defined CudaToolkitDir (
-    (set CudaToolkitDir_CONDA_NVCC_BACKUP=%CudaToolkitDir%)
+    set "CudaToolkitDir_CONDA_NVCC_BACKUP=%CudaToolkitDir%"
 )
 
 
@@ -63,27 +51,19 @@ if not exist "%CUDA_PATH%\lib\x64\cuda.lib" (
     exit /b 1
 )
 
-findstr /C:"CUDA Version __PKG_VERSION__" "%CUDA_PATH%\version.txt"
+:: CUDA 11+ does not package a version.txt,
+:: so we check with the output of nvcc.exe --version
+"%CUDA_PATH%\bin\nvcc.exe" --version | findstr /C:"release __PKG_VERSION__"
 if errorlevel 1 (
-    :: CUDA 11 does not package a version.txt, so maybe it failed due to
-    :: that. Let's double check with the output of nvcc.exe --version
-    "%CUDA_PATH%\bin\nvcc.exe" --version | findstr /C:"release __PKG_VERSION__"
-    if errorlevel 1 (
-        echo "Version of installed CUDA didn't match package or could not be determined."
-        exit /b 1
-    )
+    echo "Version of installed CUDA didn't match package or could not be determined."
+    exit /b 1
 )
+
 
 set "CUDA_PATH=%CUDA_PATH%"
 set "CUDA_HOME=%CUDA_PATH%"
+:: Might be needed by the Visual Studio Integrations
 set "CudaToolkitDir=%CUDA_PATH%"
-
-:: These paths might include double quotes, so we need this syntax
-:: to avoid quote poisoning
-(set CFLAGS=%CFLAGS% -I"%CUDA_HOME%\include")
-(set CPPFLAGS=%CPPFLAGS% -I"%CUDA_HOME%\include")
-(set CXXFLAGS=%CXXFLAGS% -I"%CUDA_HOME%\include")
-
 :: Other compiler vars
 set "INCLUDE=%CUDA_HOME%\include;%INCLUDE%"
 
