@@ -83,8 +83,6 @@ CMAKE_ARGS="\${CMAKE_ARGS:-} -DCUDAToolkit_ROOT=\${CUDA_HOME}"
 # Old-style CUDA integrations in CMake
 ## See https://github.com/conda-forge/nvcc-feedstock/pull/58#issuecomment-752179349
 CMAKE_ARGS+=" -DCUDA_TOOLKIT_ROOT_DIR=\${CUDA_HOME}"
-## Prevent errors like https://github.com/floydhub/dl-docker/issues/59
-CMAKE_ARGS+=" -DCMAKE_LIBRARY_PATH=\${CUDA_HOME}/lib64/stubs"
 ## Avoid https://github.com/conda-forge/openmm-feedstock/pull/44#issuecomment-753560234
 CMAKE_ARGS+=" -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=BOTH"
 export CMAKE_ARGS="\${CMAKE_ARGS}"
