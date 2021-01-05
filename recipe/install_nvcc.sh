@@ -33,6 +33,11 @@ then
   export CXXFLAGS_CONDA_NVCC_BACKUP="\${CXXFLAGS:-}"
 fi
 
+if [[ ! -z "\${CMAKE_ARGS+x}" ]]
+then
+  export CMAKE_ARGS_CONDA_NVCC_BACKUP="\${CMAKE_ARGS:-}"
+fi
+
 # Default to using \$(cuda-gdb) to specify \$(CUDA_HOME).
 if [[ -z "\${CUDA_HOME+x}" ]]
 then
@@ -65,10 +70,26 @@ then
 fi
 
 export CUDA_HOME="\${CUDA_HOME}"
-export CUDA_PATH="\${CUDA_HOME}"
 export CFLAGS="\${CFLAGS} -I\${CUDA_HOME}/include"
 export CPPFLAGS="\${CPPFLAGS} -I\${CUDA_HOME}/include"
 export CXXFLAGS="\${CXXFLAGS} -I\${CUDA_HOME}/include"
+
+### CMake configurations
+
+# CMake looks up components in CUDA_PATH, not CUDA_HOME
+export CUDA_PATH="\${CUDA_HOME}"
+# New-style CUDA integrations in CMake
+CMAKE_ARGS="\${CMAKE_ARGS:-} -DCUDAToolkit_ROOT=\${CUDA_HOME}"
+# Old-style CUDA integrations in CMake
+## See https://github.com/conda-forge/nvcc-feedstock/pull/58#issuecomment-752179349
+CMAKE_ARGS+=" -DCUDA_TOOLKIT_ROOT_DIR=\${CUDA_HOME}"
+## Prevent errors like https://github.com/floydhub/dl-docker/issues/59
+CMAKE_ARGS+=" -DCMAKE_LIBRARY_PATH=\${CUDA_HOME}/lib64/stubs"
+## Avoid https://github.com/conda-forge/openmm-feedstock/pull/44#issuecomment-753560234
+CMAKE_ARGS+=" -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=BOTH"
+export CMAKE_ARGS="\${CMAKE_ARGS}"
+
+### /CMake configurations
 
 mkdir -p "\${CONDA_BUILD_SYSROOT}/lib"
 
@@ -120,6 +141,12 @@ if [[ ! -z "\${CXXFLAGS_CONDA_NVCC_BACKUP+x}" ]]
 then
   export CXXFLAGS="\${CXXFLAGS_CONDA_NVCC_BACKUP}"
   unset CXXFLAGS_CONDA_NVCC_BACKUP
+fi
+
+if [[ ! -z "\${CMAKE_ARGS_CONDA_NVCC_BACKUP+x}" ]]
+then
+  export CMAKE_ARGS="\${CMAKE_ARGS_CONDA_NVCC_BACKUP}"
+  unset CMAKE_ARGS_CONDA_NVCC_BACKUP
 fi
 
 # Remove or restore \$(libcuda.so) shared object stub from the compiler sysroot.
