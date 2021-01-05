@@ -58,10 +58,10 @@ then
     return 1
 fi
 
-if [[ \$(grep -q "CUDA Version ${PKG_VERSION}" \${CUDA_HOME}/version.txt) -ne 0 ]]
+if [[ -z "\$(\${CUDA_HOME}/bin/nvcc --version | grep "Cuda compilation tools, release ${PKG_VERSION}")" ]]
 then
-    echo "Version of installed CUDA didn't match package"
-    return 1
+  echo "Version of installed CUDA didn't match package"
+  return 1
 fi
 
 export CUDA_HOME="\${CUDA_HOME}"
