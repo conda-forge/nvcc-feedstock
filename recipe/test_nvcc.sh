@@ -44,13 +44,13 @@ fi
 
 # Check CMAKE_ARGS
 if [[
-    ${CMAKE_ARGS} != *-DCUDAToolkit_ROOT=${CUDA_HOME}* ||
-    ${CMAKE_ARGS} != *-DCUDA_TOOLKIT_ROOT_DIR=${CUDA_HOME}* ||
-    ${CMAKE_ARGS} != *-DCMAKE_FIND_ROOT_PATH=${CUDA_HOME}*
+    ${CMAKE_ARGS} == *-DCUDAToolkit_ROOT=${CUDA_HOME}* &&
+    ${CMAKE_ARGS} == *-DCUDA_TOOLKIT_ROOT_DIR=${CUDA_HOME}* &&
+    ${CMAKE_ARGS} == *-DCMAKE_FIND_ROOT_PATH=${CUDA_HOME}*
 ]]; then
-    echo "CMAKE_ARGS couldn't be correctly configured: $CMAKE_ARGS" && exit 1
-else
     echo "CMAKE_ARGS looks good: $CMAKE_ARGS"
+else
+    echo "CMAKE_ARGS couldn't be correctly configured: $CMAKE_ARGS" && exit 1
 fi
 
 source ${PREFIX}/etc/conda/deactivate.d/${PKG_NAME}_deactivate.sh

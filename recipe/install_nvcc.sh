@@ -85,7 +85,7 @@ CMAKE_ARGS="\${CMAKE_ARGS:-} -DCUDAToolkit_ROOT=\${CUDA_HOME}"
 CMAKE_ARGS+=" -DCUDA_TOOLKIT_ROOT_DIR=\${CUDA_HOME}"
 ## Avoid https://github.com/conda-forge/openmm-feedstock/pull/44#issuecomment-753560234
 ## We need CUDA_HOME in _front_ of CMAKE_FIND_ROOT_PATH
-CMAKE_ARGS="$(echo \${CMAKE_ARGS} | sed -E -e "s|(-DCMAKE_FIND_ROOT_PATH=)(\S+)|\1\$CUDA_HOME;\2|")"
+CMAKE_ARGS="\$(echo \${CMAKE_ARGS} | sed -E -e "s|(-DCMAKE_FIND_ROOT_PATH=)(\S+)|\1\$CUDA_HOME;\2|")"
 export CMAKE_ARGS="\${CMAKE_ARGS}"
 
 ### /CMake configurations
