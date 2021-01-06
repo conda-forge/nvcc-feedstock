@@ -44,7 +44,7 @@ fi
 
 # Check CMAKE_ARGS
 if [[
-    ${CMAKE_ARGS} != *-DCUDAToolkit_ROOT==${CUDA_HOME}* ||
+    ${CMAKE_ARGS} != *-DCUDAToolkit_ROOT=${CUDA_HOME}* ||
     ${CMAKE_ARGS} != *-DCUDA_TOOLKIT_ROOT_DIR=${CUDA_HOME}* ||
     ${CMAKE_ARGS} != *-DCMAKE_FIND_ROOT_PATH=${CUDA_HOME}*
 ]]; then
