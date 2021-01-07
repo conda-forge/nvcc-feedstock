@@ -13,6 +13,11 @@ then
   export CUDA_HOME_CONDA_NVCC_BACKUP="\${CUDA_HOME:-}"
 fi
 
+if [[ ! -z "\${CUDA_PATH+x}" ]]
+then
+  export CUDA_PATH_CONDA_NVCC_BACKUP="\${CUDA_PATH:-}"
+fi
+
 if [[ ! -z "\${CFLAGS+x}" ]]
 then
   export CFLAGS_CONDA_NVCC_BACKUP="\${CFLAGS:-}"
@@ -26,6 +31,11 @@ fi
 if [[ ! -z "\${CXXFLAGS+x}" ]]
 then
   export CXXFLAGS_CONDA_NVCC_BACKUP="\${CXXFLAGS:-}"
+fi
+
+if [[ ! -z "\${CMAKE_ARGS+x}" ]]
+then
+  export CMAKE_ARGS_CONDA_NVCC_BACKUP="\${CMAKE_ARGS:-}"
 fi
 
 # Default to using \$(cuda-gdb) to specify \$(CUDA_HOME).
@@ -53,16 +63,32 @@ then
     return 1
 fi
 
-if [[ \$(grep -q "CUDA Version ${PKG_VERSION}" \${CUDA_HOME}/version.txt) -ne 0 ]]
+if [[ -z "\$(\${CUDA_HOME}/bin/nvcc --version | grep "Cuda compilation tools, release ${PKG_VERSION}")" ]]
 then
-    echo "Version of installed CUDA didn't match package"
-    return 1
+  echo "Version of installed CUDA didn't match package"
+  return 1
 fi
 
 export CUDA_HOME="\${CUDA_HOME}"
 export CFLAGS="\${CFLAGS} -I\${CUDA_HOME}/include"
 export CPPFLAGS="\${CPPFLAGS} -I\${CUDA_HOME}/include"
 export CXXFLAGS="\${CXXFLAGS} -I\${CUDA_HOME}/include"
+
+### CMake configurations
+
+# CMake looks up components in CUDA_PATH, not CUDA_HOME
+export CUDA_PATH="\${CUDA_HOME}"
+# New-style CUDA integrations in CMake
+CMAKE_ARGS="\${CMAKE_ARGS:-} -DCUDAToolkit_ROOT=\${CUDA_HOME}"
+# Old-style CUDA integrations in CMake
+## See https://github.com/conda-forge/nvcc-feedstock/pull/58#issuecomment-752179349
+CMAKE_ARGS+=" -DCUDA_TOOLKIT_ROOT_DIR=\${CUDA_HOME}"
+## Avoid https://github.com/conda-forge/openmm-feedstock/pull/44#issuecomment-753560234
+## We need CUDA_HOME in _front_ of CMAKE_FIND_ROOT_PATH
+CMAKE_ARGS="\$(echo \${CMAKE_ARGS} | sed -E -e "s|(-DCMAKE_FIND_ROOT_PATH=)(\S+)|\1\$CUDA_HOME;\2|")"
+export CMAKE_ARGS="\${CMAKE_ARGS}"
+
+### /CMake configurations
 
 mkdir -p "\${CONDA_BUILD_SYSROOT}/lib"
 
@@ -92,6 +118,12 @@ then
   unset CUDA_HOME_CONDA_NVCC_BACKUP
 fi
 
+if [[ ! -z "\${CUDA_PATH_CONDA_NVCC_BACKUP+x}" ]]
+then
+  export CUDA_PATH="\${CUDA_PATH_CONDA_NVCC_BACKUP}"
+  unset CUDA_PATH_CONDA_NVCC_BACKUP
+fi
+
 if [[ ! -z "\${CFLAGS_CONDA_NVCC_BACKUP+x}" ]]
 then
   export CFLAGS="\${CFLAGS_CONDA_NVCC_BACKUP}"
@@ -108,6 +140,12 @@ if [[ ! -z "\${CXXFLAGS_CONDA_NVCC_BACKUP+x}" ]]
 then
   export CXXFLAGS="\${CXXFLAGS_CONDA_NVCC_BACKUP}"
   unset CXXFLAGS_CONDA_NVCC_BACKUP
+fi
+
+if [[ ! -z "\${CMAKE_ARGS_CONDA_NVCC_BACKUP+x}" ]]
+then
+  export CMAKE_ARGS="\${CMAKE_ARGS_CONDA_NVCC_BACKUP}"
+  unset CMAKE_ARGS_CONDA_NVCC_BACKUP
 fi
 
 # Remove or restore \$(libcuda.so) shared object stub from the compiler sysroot.

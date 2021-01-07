@@ -1,3 +1,5 @@
+@echo on
+
 :: Verify the cuda stub library exists.
 if not exist "%LIBRARY_LIB%\cuda.lib" (
     echo "%LIBRARY_LIB%\cuda.lib is not a file"
@@ -21,6 +23,7 @@ if defined CUDA_HOME (
     echo "CUDA_HOME is unset after activation"
     exit 1
 )
+set "TEST_CUDA_HOME_INITIAL=%CUDA_HOME_CONDA_NVCC_BACKUP%"
 
 call %PREFIX%\etc\conda\deactivate.d\%PKG_NAME%_deactivate.bat
 if errorlevel 1 exit 1
@@ -39,12 +42,6 @@ if "%CUDA_HOME%"=="" (
 
 )
 
-:: Set some CFLAGS to make sure we're not causing side effects
-:: These paths might include double quotes, so we need this syntax
-:: to avoid quote poisoning
-(set CFLAGS_CONDA_NVCC_TEST_BACKUP=%CFLAGS%)
-(set CFLAGS=%CFLAGS% -I\path\to\test\include)
-(set CFLAGS_CONDA_NVCC_TEST=%CFLAGS%)
 
 :: Manually trigger the activation script
 call %PREFIX%\etc\conda\activate.d\%PKG_NAME%_activate.bat
@@ -60,16 +57,6 @@ if "%CUDA_HOME%"=="" (
 call %PREFIX%\etc\conda\deactivate.d\%PKG_NAME%_deactivate.bat
 if errorlevel 1 exit 1
 
-:: Make sure there's no side effects
-if "%CFLAGS:"=%"=="%CFLAGS_CONDA_NVCC_TEST:"=%" (
-    echo CFLAGS correctly maintained as '%CFLAGS%'
-    set "CFLAGS_CONDA_NVCC_TEST="
-    (set CFLAGS=%CFLAGS_CONDA_NVCC_TEST_BACKUP%)
-    set "CFLAGS_CONDA_NVCC_TEST_BACKUP="
-) else (
-    echo CFLAGS is incorrectly set to '%CFLAGS%', should be set to '%CFLAGS_CONDA_NVCC_TEST%'
-    exit 1
-)
 :: If no previous cuda.lib was present, there shouldn't be any!
 if "%CUDALIB_CONDA_NVCC_BACKUP%" == "" (
     if exist "%LIBRARY_LIB%\cuda.lib" (

@@ -1,5 +1,5 @@
 {% set name = "nvcc" %}
-{% set number = 10 %}
+{% set number = 11 %}
 
 package:
   name: "{{ name }}"
@@ -30,6 +30,7 @@ outputs:
         - sysroot_linux-64 2.17  # [linux and cuda_compiler_version == "11.0"]
         - __glibc >=2.17         # [linux and cuda_compiler_version == "11.0"]
       run:
+        - sed                    # [linux]
         - sysroot_linux-64 2.17  # [linux and cuda_compiler_version == "11.0"]
         - __glibc >=2.17         # [linux and cuda_compiler_version == "11.0"]
     test:
