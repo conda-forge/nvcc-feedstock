@@ -71,3 +71,28 @@ if errorlevel 1 exit 1
 
 :: Try building something
 nvcc test.cu
+
+
+:: Try different CMake setups
+cd cmake-tests/
+
+:: Old-style CMake (deprecated FindCUDA)
+mkdir build
+cd build
+cmake %CMAKE_ARGS% -DMODERN_CUDA=OFF ..
+jom
+./diana
+cd ..
+rmdir /s /q build
+
+:: New-style CMake (FindCUDAToolkit)
+mkdir build
+cd build
+set "CUDACXX=%CUDA_PATH%\bin\nvcc.exe"
+set "CUDAHOSTCXX=%CC%"
+cmake -DMODERN_CUDA=ON ..
+:: -DCMAKE_CUDA_COMPILER="%CUDA_PATH%\bin\nvcc.exe" ^
+:: -DCMAKE_CUDA_HOST_COMPILER="%CC%" ^
+
+jom
+./diana
