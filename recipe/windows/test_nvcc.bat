@@ -76,23 +76,17 @@ nvcc test.cu
 :: Try different CMake setups
 cd cmake-tests/
 
-:: Old-style CMake (deprecated FindCUDA)
-mkdir build
-cd build
-cmake %CMAKE_ARGS% -DMODERN_CUDA=OFF ..
-jom
-./diana
-cd ..
-rmdir /s /q build
-
-:: New-style CMake (FindCUDAToolkit)
-mkdir build
-cd build
-set "CUDACXX=%CUDA_PATH%\bin\nvcc.exe"
-set "CUDAHOSTCXX=%CC%"
-cmake -DMODERN_CUDA=ON ..
-:: -DCMAKE_CUDA_COMPILER="%CUDA_PATH%\bin\nvcc.exe" ^
-:: -DCMAKE_CUDA_HOST_COMPILER="%CC%" ^
-
-jom
-./diana
+for %%F in (
+    "-DWITH_FINDCUDA=ON -DWITH_FINDCUDATOOLKIT=OFF -DWITH_ENABLE_LANGUAGE=OFF"
+    "-DWITH_FINDCUDA=ON -DWITH_FINDCUDATOOLKIT=OFF -DWITH_ENABLE_LANGUAGE=ON"
+    "-DWITH_FINDCUDA=OFF -DWITH_FINDCUDATOOLKIT=ON -DWITH_ENABLE_LANGUAGE=ON"
+) do (
+    echo Testing for %%~F
+    mkdir build
+    cd build
+    cmake %CMAKE_ARGS% %%~F ..
+    jom
+    ./diana
+    cd ..
+    rmdir /s /q build
+)
