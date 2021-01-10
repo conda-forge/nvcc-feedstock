@@ -41,7 +41,7 @@ else(WITH_ENABLE_LANGUAGE)
         # This example does not link to .cu libraries
         find_package("${CUDA_FINDER}" REQUIRED)
         target_link_libraries(diana CUDA::cudart)
-    endif("${CUDA_FINDER}" STREQUAL "CUDAToolkit")
+    endif("${CUDA_FINDER}" STREQUAL "CUDA")
 
 
 endif(WITH_ENABLE_LANGUAGE)
