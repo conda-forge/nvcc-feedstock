@@ -88,6 +88,7 @@ for flags in \
     "-DWITH_ENABLE_LANGUAGE=OFF -DCUDA_FINDER=CUDAToolkit" \
     "-DWITH_ENABLE_LANGUAGE=ON  -DCUDA_FINDER=CUDA       " \
     "-DWITH_ENABLE_LANGUAGE=ON  -DCUDA_FINDER=CUDAToolkit" \
+    "-DWITH_ENABLE_LANGUAGE=ON  -DCUDA_FINDER=OFF        " \
     ; do
         ((count+=1))
         echo -e "\n\n--------"
