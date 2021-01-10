@@ -78,21 +78,39 @@ nvcc $NVCC_FLAGS test.cu
 
 # Try different CMake setups
 cd cmake-tests/
-rm -rf build || true
 
+set +ex
+exitcode=0
+count=0
+summary=""
 for flags in \
-    "-DWITH_FINDCUDA=ON -DWITH_FINDCUDATOOLKIT=OFF -DWITH_ENABLE_LANGUAGE=OFF" \
-    "-DWITH_FINDCUDA=ON -DWITH_FINDCUDATOOLKIT=OFF -DWITH_ENABLE_LANGUAGE=ON" \
-    "-DWITH_FINDCUDA=OFF -DWITH_FINDCUDATOOLKIT=ON -DWITH_ENABLE_LANGUAGE=ON"; do
-
-        echo "Testing for" $flags
+    "-DWITH_FINDCUDA=ON  -DWITH_FINDCUDATOOLKIT=OFF -DWITH_ENABLE_LANGUAGE=OFF" \
+    "-DWITH_FINDCUDA=OFF -DWITH_FINDCUDATOOLKIT=ON  -DWITH_ENABLE_LANGUAGE=OFF" \
+    "-DWITH_FINDCUDA=ON  -DWITH_FINDCUDATOOLKIT=OFF -DWITH_ENABLE_LANGUAGE=ON " \
+    "-DWITH_FINDCUDA=OFF -DWITH_FINDCUDATOOLKIT=ON  -DWITH_ENABLE_LANGUAGE=ON " \
+    ; do
+        ((count+=1))
+        echo -e "\n\n--------"
+        echo -e "Test #$count:" $flags
+        echo -e "--------\n\n"
+        rm -rf build || true
         mkdir -p build
         cd build
         export CUDACXX=${CUDA_PATH}/bin/nvcc
         export CUDAHOSTCXX=${CC}
         cmake ${CMAKE_ARGS} .. $flags
-        make
+        make VERBOSE=1
         ./diana
+        thisexitcode=$?
+        ((exitcode+=$thisexitcode)) || true
+        summary+="\n#$count $flags: "
+        if [[ $thisexitcode != 0 ]]; then summary+="FAILED"; else summary+="OK"; fi
         cd ..
-        rm -rf build
+
 done
+
+echo -e "\n\n--------------------"
+echo        "Summary of run tests"
+echo        "--------------------"
+echo -e "$summary"
+exit $exitcode

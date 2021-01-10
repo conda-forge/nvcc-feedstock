@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cuda_runtime.h>
 #include "gpu.hpp"
 
 void printCudaVersion()
