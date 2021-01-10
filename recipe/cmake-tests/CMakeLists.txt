@@ -23,22 +23,23 @@ if(WITH_ENABLE_LANGUAGE)
     set(CMAKE_CUDA_STANDARD 14)
     set(CMAKE_CUDA_STANDARD_REQUIRED TRUE)
     find_package("${CUDA_FINDER}" REQUIRED)
+    add_definitions("-DWITHCUFILES")
     add_executable(diana ${cpu_source_files} ${gpu_source_files})
 
 else(WITH_ENABLE_LANGUAGE)
     add_executable(diana ${cpu_source_files})
 
     if("${CUDA_FINDER}" STREQUAL "CUDA")
-        message(STATUS "With CUDA")
         find_package("${CUDA_FINDER}" REQUIRED)
         set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -Xcompiler ,\"-std=c++14\"")
+        add_definitions("-DWITHCUFILES")
         CUDA_ADD_LIBRARY(diana_gpu ${gpu_source_files})
+        target_link_libraries(diana diana_gpu)
     else("${CUDA_FINDER}" STREQUAL "CUDA")
+        # This example does not link to .cu libraries
         find_package("${CUDA_FINDER}" REQUIRED)
-        add_library(diana_gpu ${gpu_source_files})
-        set_target_properties(diana_gpu PROPERTIES LINKER_LANGUAGE "CXX")
+        target_link_libraries(diana CUDA::cudart)
     endif("${CUDA_FINDER}" STREQUAL "CUDA")
 
-    target_link_libraries(diana diana_gpu)
 
 endif(WITH_ENABLE_LANGUAGE)
