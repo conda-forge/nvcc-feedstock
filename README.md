@@ -191,6 +191,7 @@ Feedstock Maintainers
 
 * [@dillon-cullinan](https://github.com/dillon-cullinan/)
 * [@isuruf](https://github.com/isuruf/)
+* [@jaimergp](https://github.com/jaimergp/)
 * [@jakirkham](https://github.com/jakirkham/)
 * [@kkraus14](https://github.com/kkraus14/)
 * [@mike-wendt](https://github.com/mike-wendt/)
