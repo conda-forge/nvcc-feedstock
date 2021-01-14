@@ -6,7 +6,7 @@ package:
 
 build:
   number: {{ number }}
-  skip: true  # [osx or cuda_compiler_version == "None"]
+  skip: true  # [cuda_compiler_version == "None"]
 
 outputs:
   - name: "{{ name }}_{{ target_platform }}"
