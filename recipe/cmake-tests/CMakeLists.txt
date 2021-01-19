@@ -49,9 +49,9 @@ endif(WITH_ENABLE_LANGUAGE)
 
 # Some more checks
 if(WIN32)
-    set(NVCC_WRAPPER "${PREFIX}/Library/bin/nvcc.bat")
+    set(NVCC_WRAPPER "$ENV{PREFIX}/Library/bin/nvcc.bat")
 else(WIN32)
-    set(NVCC_WRAPPER "${PREFIX}/bin/nvcc")
+    set(NVCC_WRAPPER "$ENV{PREFIX}/bin/nvcc")
 endif(WIN32)
 
 if("${CUDA_FINDER}" STREQUAL "CUDA")
