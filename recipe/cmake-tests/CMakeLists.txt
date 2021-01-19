@@ -45,3 +45,24 @@ else(WITH_ENABLE_LANGUAGE)
 
 
 endif(WITH_ENABLE_LANGUAGE)
+
+
+# Some more checks
+if(WIN32)
+    set(NVCC_WRAPPER "${PREFIX}/Library/bin/nvcc.bat")
+else(WIN32)
+    set(NVCC_WRAPPER "${PREFIX}/bin/nvcc")
+endif(WIN32)
+
+if("${CUDA_FINDER}" STREQUAL "CUDA")
+    set(FOUND_NVCC "${CMAKE_CUDA_COMPILER}")
+elseif("${CUDA_FINDER}" STREQUAL "CUDAToolkit")
+    set(FOUND_NVCC "${CUDAToolkit_NVCC_EXECUTABLE}")
+endif("${CUDA_FINDER}" STREQUAL "CUDA")
+
+
+if("${FOUND_NVCC}" STREQUAL "${NVCC_WRAPPER}")
+    message(STATUS "NVCC found at ${NVCC_WRAPPER}")
+else("${FOUND_NVCC}" STREQUAL "${NVCC_WRAPPER}")
+    message(FATAL_ERROR "NVCC found (${FOUND_NVCC}) is NOT ${NVCC_WRAPPER}!")
+endif("${FOUND_NVCC}" STREQUAL "${NVCC_WRAPPER}")
