@@ -97,7 +97,7 @@ for flags in \
         rm -rf build || true
         mkdir -p build
         cd build
-        export CUDACXX=${CUDA_PATH}/bin/nvcc
+        # export CUDACXX=${CUDA_PATH}/bin/nvcc
         cmake ${CMAKE_ARGS} .. $flags
         make VERBOSE=1
         ./diana
