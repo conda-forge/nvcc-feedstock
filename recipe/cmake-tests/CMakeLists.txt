@@ -48,6 +48,7 @@ endif(WITH_ENABLE_LANGUAGE)
 
 
 # Some more checks
+
 if(WIN32)
     set(NVCC_WRAPPER "$ENV{PREFIX}/Library/bin/nvcc.bat")
 else(WIN32)
@@ -57,21 +58,33 @@ endif(WIN32)
 if(CUDA_FINDER)
     if("${CUDA_FINDER}" STREQUAL "CUDA")
         set(FOUND_NVCC "${CUDA_NVCC_EXECUTABLE}")
+        set(FOUND_CUDA_ROOT "${CUDA_TOOLKIT_ROOT_DIR}")
     elseif("${CUDA_FINDER}" STREQUAL "CUDAToolkit")
         set(FOUND_NVCC "${CUDAToolkit_NVCC_EXECUTABLE}")
+        set(FOUND_CUDA_ROOT "${CUDAToolkit_LIBRARY_ROOT}")
     endif("${CUDA_FINDER}" STREQUAL "CUDA")
 
+    # Test CMake is using NVCC through our wrapper
     if("${FOUND_NVCC}" STREQUAL "${NVCC_WRAPPER}")
-        message(STATUS "NVCC found at ${NVCC_WRAPPER}")
+        message(STATUS "NVCC found at `${NVCC_WRAPPER}`")
     else("${FOUND_NVCC}" STREQUAL "${NVCC_WRAPPER}")
-        message(FATAL_ERROR "NVCC found (${FOUND_NVCC}) is NOT ${NVCC_WRAPPER}!")
+        message(FATAL_ERROR "NVCC found (${FOUND_NVCC}) is NOT `${NVCC_WRAPPER}!`")
     endif("${FOUND_NVCC}" STREQUAL "${NVCC_WRAPPER}")
+
+    # However, CUDA root should be the system location, not our PREFIX
+    if("${FOUND_CUDA_ROOT}" STREQUAL "$ENV{CUDA_PATH}")
+        message(STATUS "CUDA root found at `$ENV{CUDA_PATH}`")
+    else("${FOUND_CUDA_ROOT}" STREQUAL "$ENV{CUDA_PATH}")
+        message(FATAL_ERROR "CUDA root found (${FOUND_CUDA_ROOT}) is NOT `$ENV{CUDA_PATH}`!")
+    endif("${FOUND_CUDA_ROOT}" STREQUAL "$ENV{CUDA_PATH}")
+
 endif(CUDA_FINDER)
 
 if(WITH_ENABLE_LANGUAGE)
+    # Test CMake is using NVCC through our wrapper
     if("${CMAKE_CUDA_COMPILER}" STREQUAL "${NVCC_WRAPPER}")
-        message(STATUS "CMAKE_CUDA_COMPILER matches ${NVCC_WRAPPER}")
+        message(STATUS "CMAKE_CUDA_COMPILER matches `${NVCC_WRAPPER}`")
     else("${CMAKE_CUDA_COMPILER}" STREQUAL "${NVCC_WRAPPER}")
-        message(FATAL_ERROR "CMAKE_CUDA_COMPILER (${CMAKE_CUDA_COMPILER}) does NOT match ${NVCC_WRAPPER}!")
+        message(FATAL_ERROR "CMAKE_CUDA_COMPILER (${CMAKE_CUDA_COMPILER}) does NOT match `${NVCC_WRAPPER}`!")
     endif("${CMAKE_CUDA_COMPILER}" STREQUAL "${NVCC_WRAPPER}")
 endif(WITH_ENABLE_LANGUAGE)
