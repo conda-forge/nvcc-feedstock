@@ -64,8 +64,48 @@ if [[ "${CFLAGS}" == "${CFLAGS_CONDA_NVCC_TEST}" ]]; then
 else
     echo "CFLAGS is incorrectly set to '${CFLAGS}', should be set to '${CFLAGS_CONDA_NVCC_TEST}'" && exit 1
 fi
+
 # Reactivate
 source ${PREFIX}/etc/conda/activate.d/${PKG_NAME}_activate.sh
 
 # Try building something
 nvcc test.cu
+
+# Try different CMake setups
+cd cmake-tests/
+
+set +ex
+exitcode=0
+count=0
+summary=""
+for flags in \
+    "-DWITH_ENABLE_LANGUAGE=OFF -DCUDA_FINDER=CUDA       " \
+    "-DWITH_ENABLE_LANGUAGE=OFF -DCUDA_FINDER=CUDAToolkit" \
+    "-DWITH_ENABLE_LANGUAGE=ON  -DCUDA_FINDER=CUDA       " \
+    "-DWITH_ENABLE_LANGUAGE=ON  -DCUDA_FINDER=CUDAToolkit" \
+    "-DWITH_ENABLE_LANGUAGE=ON  -DCUDA_FINDER=OFF        " \
+    ; do
+        ((count+=1))
+        echo -e "\n\n--------"
+        echo -e "Test #$count:" $flags
+        echo -e "--------\n\n"
+        rm -rf build || true
+        mkdir -p build
+        cd build
+        # export CUDACXX=${CUDA_PATH}/bin/nvcc
+        cmake ${CMAKE_ARGS} .. $flags
+        make VERBOSE=1
+        ./diana
+        thisexitcode=$?
+        ((exitcode+=$thisexitcode)) || true
+        summary+="\n#$count $flags: "
+        if [[ $thisexitcode != 0 ]]; then summary+="FAILED"; else summary+="OK"; fi
+        cd ..
+
+done
+
+echo -e "\n\n--------------------"
+echo        "Summary of run tests"
+echo        "--------------------"
+echo -e "$summary"
+exit $exitcode

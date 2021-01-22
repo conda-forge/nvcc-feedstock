@@ -1,5 +1,5 @@
 {% set name = "nvcc" %}
-{% set number = 11 %}
+{% set number = 12 %}
 
 package:
   name: "{{ name }}"
@@ -38,9 +38,13 @@ outputs:
         - {{ compiler("c") }}
         # Host code is forwarded to a C++ compiler
         - {{ compiler("cxx") }}
+        - cmake
+        - jom  # [win]
+        - ninja  # [win]
         - sysroot_linux-64 2.17  # [linux and cuda_compiler_version == "11.0"]
       files:
         - test.cu
+        - cmake-tests
         - test_nvcc.sh  # [linux]
         - windows\test_nvcc.bat  # [win]
       commands:

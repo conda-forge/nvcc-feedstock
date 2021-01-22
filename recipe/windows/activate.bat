@@ -17,6 +17,10 @@ if defined CudaToolkitDir (
     set "CudaToolkitDir_CONDA_NVCC_BACKUP=%CudaToolkitDir%"
 )
 
+if defined CUDAHOSTCXX (
+    set "CUDAHOSTCXX_CONDA_NVCC_BACKUP=%CUDAHOSTCXX%"
+)
+
 
 :: Default to using nvcc.exe to specify %CUDA_PATH%
 :: Things we try:
@@ -66,6 +70,7 @@ set "CUDA_HOME=%CUDA_PATH%"
 set "CudaToolkitDir=%CUDA_PATH%"
 :: Other compiler vars
 set "INCLUDE=%CUDA_HOME%\include;%INCLUDE%"
+set "CUDAHOSTCXX=%CC%"
 
 :: Add `cuda.lib` shared object stub to the compiler sysroot.
 :: Needed for things that want to link to `cuda.lib`.

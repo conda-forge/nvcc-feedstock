@@ -7,6 +7,8 @@ set "INCLUDE=%INCLUDE_CONDA_NVCC_BACKUP%"
 set "INCLUDE_CONDA_NVCC_BACKUP="
 set "CudaToolkitDir=%CudaToolkitDir_CONDA_NVCC_BACKUP%"
 set "CudaToolkitDir_CONDA_NVCC_BACKUP="
+set "CUDAHOSTCXX=%CUDAHOSTCXX_CONDA_NVCC_BACKUP%"
+set "CUDAHOSTCXX_CONDA_NVCC_BACKUP="
 
 :: Remove or restore `cuda.lib` from the compiler sysroot.
 set "CUDALIB_CONDA_NVCC_BACKUP=%CONDA_PREFIX%\Library\lib\cuda.lib-conda-nvcc-backup"

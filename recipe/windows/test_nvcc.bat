@@ -70,4 +70,59 @@ call %PREFIX%\etc\conda\activate.d\%PKG_NAME%_activate.bat
 if errorlevel 1 exit 1
 
 :: Try building something
-nvcc test.cu
+call nvcc test.cu
+
+:: Try different CMake setups
+cd cmake-tests/
+
+SETLOCAL EnableDelayedExpansion
+set count=0
+set exitcode=0
+set summary=
+
+:: This hack is required to store newlines... T_T
+(set \n=^
+%=This is Mandatory Space=%
+)
+for %%F in (
+    "-DWITH_ENABLE_LANGUAGE=OFF -DCUDA_FINDER=CUDA"
+    "-DWITH_ENABLE_LANGUAGE=OFF -DCUDA_FINDER=CUDAToolkit"
+    "-DWITH_ENABLE_LANGUAGE=ON -DCUDA_FINDER=CUDA"
+    "-DWITH_ENABLE_LANGUAGE=ON -DCUDA_FINDER=CUDAToolkit"
+    "-DWITH_ENABLE_LANGUAGE=ON -DCUDA_FINDER=OFF"
+) do (
+    for %%G in (
+        "Visual Studio 15 2017"
+        "NMake Makefiles JOM"
+        "Ninja"
+    ) do (
+        set /a count=!count!+1
+        echo;
+        echo;
+        echo --------
+        echo Test #!count!: %%~F -G"%%~G"
+        echo --------
+        echo;
+        echo;
+
+        rmdir /s /q build
+        mkdir build
+        cd build
+        :: set "CUDACXX=%CUDA_PATH%/bin/nvcc.exe"
+        cmake !CMAKE_ARGS! %%~F -G"%%~G" ..
+        cmake --build .
+        .\diana
+        set thisexitcode=!errorlevel!
+        set summary=!summary!#!count!: %%~F -G="%%~G":
+        if "!thisexitcode!" == "0" ( set "summary=!summary! OK!\n!" ) else ( set "summary=!summary! FAILED!\n!" )
+        set /a exitcode=!exitcode!+!thisexitcode!
+        cd ..
+    )
+)
+echo;
+echo --------------------
+echo Summary of run tests
+echo --------------------
+echo;
+echo !summary!
+exit %exitcode%
