@@ -38,6 +38,11 @@ then
   export CMAKE_ARGS_CONDA_NVCC_BACKUP="\${CMAKE_ARGS:-}"
 fi
 
+if [[ ! -z "\${CUDAHOSTCXX+x}" ]]
+then
+  export CUDAHOSTCXX_CONDA_NVCC_BACKUP="\${CUDAHOSTCXX:-}"
+fi
+
 # Default to using \$(cuda-gdb) to specify \$(CUDA_HOME).
 if [[ -z "\${CUDA_HOME+x}" ]]
 then
@@ -73,6 +78,7 @@ export CUDA_HOME="\${CUDA_HOME}"
 export CFLAGS="\${CFLAGS} -I\${CUDA_HOME}/include"
 export CPPFLAGS="\${CPPFLAGS} -I\${CUDA_HOME}/include"
 export CXXFLAGS="\${CXXFLAGS} -I\${CUDA_HOME}/include"
+export CUDAHOSTCXX="\${CC}"
 
 ### CMake configurations
 
@@ -146,6 +152,12 @@ if [[ ! -z "\${CMAKE_ARGS_CONDA_NVCC_BACKUP+x}" ]]
 then
   export CMAKE_ARGS="\${CMAKE_ARGS_CONDA_NVCC_BACKUP}"
   unset CMAKE_ARGS_CONDA_NVCC_BACKUP
+fi
+
+if [[ ! -z "\${CUDAHOSTCXX_CONDA_NVCC_BACKUP+x}" ]]
+then
+  export CUDAHOSTCXX="\${CUDAHOSTCXX_CONDA_NVCC_BACKUP}"
+  unset CUDAHOSTCXX_CONDA_NVCC_BACKUP
 fi
 
 # Remove or restore \$(libcuda.so) shared object stub from the compiler sysroot.

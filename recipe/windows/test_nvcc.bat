@@ -109,7 +109,6 @@ for %%F in (
         mkdir build
         cd build
         set "CUDACXX=%CUDA_PATH%/bin/nvcc.exe"
-        set "CUDAHOSTCXX=%CC%"
         cmake !CMAKE_ARGS! %%~F -G"%%~G" ..
         cmake --build .
         .\diana
