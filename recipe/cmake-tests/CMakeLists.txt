@@ -56,7 +56,7 @@ endif(WIN32)
 
 if(CUDA_FINDER)
     if("${CUDA_FINDER}" STREQUAL "CUDA")
-        set(FOUND_NVCC "${CMAKE_CUDA_COMPILER}")
+        set(FOUND_NVCC "${CUDA_NVCC_EXECUTABLE}")
     elseif("${CUDA_FINDER}" STREQUAL "CUDAToolkit")
         set(FOUND_NVCC "${CUDAToolkit_NVCC_EXECUTABLE}")
     endif("${CUDA_FINDER}" STREQUAL "CUDA")
