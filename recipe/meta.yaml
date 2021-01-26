@@ -33,7 +33,7 @@ outputs:
         strong:
           - cudatoolkit {{ cuda_compiler_version }}|{{ cuda_compiler_version }}.*
 {% if cuda_major_minor >= (11, 0) %}
-          - __glibc >=2.17
+          - __glibc >=2.17        # [linux]
 {% endif %}
     requirements:
       build:      # [win]
@@ -42,14 +42,14 @@ outputs:
         # Needed to symlink libcuda into sysroot libs.
         - {{ compiler("c") }}
 {% if cuda_major_minor >= (11, 0) %}
-        - sysroot_linux-64 2.17
-        - __glibc >=2.17
+        - sysroot_linux-64 2.17   # [linux]
+        - __glibc >=2.17          # [linux]
 {% endif %}
       run:
         - sed                     # [linux]
 {% if cuda_major_minor >= (11, 0) %}
-        - sysroot_linux-64 2.17
-        - __glibc >=2.17
+        - sysroot_linux-64 2.17   # [linux]
+        - __glibc >=2.17          # [linux]
 {% endif %}
     test:
       requires:
@@ -57,7 +57,7 @@ outputs:
         # Host code is forwarded to a C++ compiler
         - {{ compiler("cxx") }}
 {% if cuda_major_minor >= (11, 0) %}
-        - sysroot_linux-64 2.17
+        - sysroot_linux-64 2.17   # [linux]
 {% endif %}
       files:
         - test.cu
