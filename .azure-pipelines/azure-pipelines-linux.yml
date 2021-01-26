@@ -24,6 +24,10 @@ jobs:
         CONFIG: linux_64_cuda_compiler_version11.0
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.0
+      linux_64_cuda_compiler_version11.1:
+        CONFIG: linux_64_cuda_compiler_version11.1
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.1
       linux_64_cuda_compiler_version9.2:
         CONFIG: linux_64_cuda_compiler_version9.2
         UPLOAD_PACKAGES: 'True'
