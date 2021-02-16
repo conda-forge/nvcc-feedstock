@@ -1,0 +1,63 @@
+# When adding or removing cuda versions, make sure that the following entries are "zipped";
+# e.g. each entry in cuda_compiler_version must have a matching entry in the other keys,
+# considering the effect of the selector:
+#   cuda_compiler_version
+#   cudnn
+#   cdt_name
+#   docker_image
+
+cuda_compiler_version:
+  - None
+
+  - 9.2    # [linux64]
+  - 10.0   # [linux64 or win]
+  - 10.1   # [linux64 or win]
+  - 10.2   # [linux64 or win]
+  - 11.0   # [linux64 or win]
+  - 11.1   # [linux64 or win]
+  - 11.2   # [linux64 or win]
+
+docker_image:                                   # [os.environ.get("BUILD_PLATFORM", "").startswith("linux-")]
+  # start cuda_compiler_version == None
+  - quay.io/condaforge/linux-anvil-comp7        # [os.environ.get("BUILD_PLATFORM") == "linux-64"]
+  - quay.io/condaforge/linux-anvil-aarch64      # [os.environ.get("BUILD_PLATFORM") == "linux-aarch64"]
+  - quay.io/condaforge/linux-anvil-ppc64le      # [os.environ.get("BUILD_PLATFORM") == "linux-ppc64le"]
+  - quay.io/condaforge/linux-anvil-armv7l       # [os.environ.get("BUILD_PLATFORM") == "linux-armv7l"]
+  # end of cuda_compiler_version == None
+
+  - quay.io/condaforge/linux-anvil-cuda:9.2     # [linux64 and os.environ.get("BUILD_PLATFORM") == "linux-64"]
+  - quay.io/condaforge/linux-anvil-cuda:10.0    # [linux64 and os.environ.get("BUILD_PLATFORM") == "linux-64"]
+  - quay.io/condaforge/linux-anvil-cuda:10.1    # [linux64 and os.environ.get("BUILD_PLATFORM") == "linux-64"]
+  - quay.io/condaforge/linux-anvil-cuda:10.2    # [linux64 and os.environ.get("BUILD_PLATFORM") == "linux-64"]
+  - quay.io/condaforge/linux-anvil-cuda:11.0    # [linux64 and os.environ.get("BUILD_PLATFORM") == "linux-64"]
+  - quay.io/condaforge/linux-anvil-cuda:11.1    # [linux64 and os.environ.get("BUILD_PLATFORM") == "linux-64"]
+  - quay.io/condaforge/linux-anvil-cuda:11.2    # [linux64 and os.environ.get("BUILD_PLATFORM") == "linux-64"]
+
+cudnn:
+  # start for cuda_compiler_version == None
+  - undefined
+  # end of cuda_compiler_version == None
+
+  - 7      # [linux64]                  # CUDA 9.2
+  - 7      # [linux64 or win]           # CUDA 10.0
+  - 7      # [linux64 or win]           # CUDA 10.1
+  - 7      # [linux64 or win]           # CUDA 10.2
+  - 8      # [linux64 or win]           # CUDA 11.0
+  - 8      # [linux64 or win]           # CUDA 11.1
+  - 8      # [linux64 or win]           # CUDA 11.2
+
+cdt_name:  # [linux]
+  # start cuda_compiler_version == None
+  - cos6   # [linux64]
+  - cos7   # [linux and aarch64]
+  - cos7   # [linux and ppc64le]
+  - cos7   # [linux and armv7l]
+  # end of cuda_compiler_version == None
+
+  - cos6   # [linux64]                  # CUDA 9.2
+  - cos6   # [linux64]                  # CUDA 10.0
+  - cos6   # [linux64]                  # CUDA 10.1
+  - cos6   # [linux64]                  # CUDA 10.2
+  - cos7   # [linux64]                  # CUDA 11.0
+  - cos7   # [linux64]                  # CUDA 11.1
+  - cos7   # [linux64]                  # CUDA 11.2
