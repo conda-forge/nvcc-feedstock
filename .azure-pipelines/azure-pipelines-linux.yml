@@ -8,14 +8,6 @@ jobs:
     vmImage: ubuntu-16.04
   strategy:
     matrix:
-      linux_64_cuda_compiler_version10.0:
-        CONFIG: linux_64_cuda_compiler_version10.0
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:10.0
-      linux_64_cuda_compiler_version10.1:
-        CONFIG: linux_64_cuda_compiler_version10.1
-        UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:10.1
       linux_64_cuda_compiler_version10.2:
         CONFIG: linux_64_cuda_compiler_version10.2
         UPLOAD_PACKAGES: 'True'
@@ -24,10 +16,14 @@ jobs:
         CONFIG: linux_64_cuda_compiler_version11.0
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.0
-      linux_64_cuda_compiler_version9.2:
-        CONFIG: linux_64_cuda_compiler_version9.2
+      linux_64_cuda_compiler_version11.1:
+        CONFIG: linux_64_cuda_compiler_version11.1
         UPLOAD_PACKAGES: 'True'
-        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:9.2
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.1
+      linux_64_cuda_compiler_version11.2:
+        CONFIG: linux_64_cuda_compiler_version11.2
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.2
   timeoutInMinutes: 360
 
   steps:
