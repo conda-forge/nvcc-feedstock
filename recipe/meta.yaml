@@ -42,13 +42,13 @@ outputs:
         # Needed to symlink libcuda into sysroot libs.
         - {{ compiler("c") }}
 {% if cuda_major_minor >= (11, 0) %}
-        - sysroot_linux-64 2.17   # [linux]
+        - sysroot_linux-64 2.17   # [linux64]
         - __glibc >=2.17          # [linux]
 {% endif %}
       run:
         - sed                     # [linux]
 {% if cuda_major_minor >= (11, 0) %}
-        - sysroot_linux-64 2.17   # [linux]
+        - sysroot_linux-64 2.17   # [linux64]
         - __glibc >=2.17          # [linux]
 {% endif %}
     test:
@@ -57,7 +57,7 @@ outputs:
         # Host code is forwarded to a C++ compiler
         - {{ compiler("cxx") }}
 {% if cuda_major_minor >= (11, 0) %}
-        - sysroot_linux-64 2.17   # [linux]
+        - sysroot_linux-64 2.17   # [linux64]
 {% endif %}
       files:
         - test.cu
