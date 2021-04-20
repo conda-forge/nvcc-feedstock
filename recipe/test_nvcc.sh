@@ -70,7 +70,7 @@ source ${PREFIX}/etc/conda/activate.d/${PKG_NAME}_activate.sh
 # Try building something
 NVCC_FLAGS=""
 # Workaround __ieee128 error; see https://github.com/LLNL/blt/issues/341
-if [[ $target_platform == linux-ppc64le && $PKG_VERSION == 10.* ]];
+if [[ $target_platform == linux-ppc64le && $PKG_VERSION == 10.* ]]; then
     NVCC_FLAGS+=" -Xcompiler -mno-float128"
 fi
 nvcc $NVCC_FLAGS test.cu
