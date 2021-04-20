@@ -83,6 +83,27 @@ Current build status
                 </a>
               </td>
             </tr><tr>
+              <td>linux_ppc64le_cuda_compiler_version11.0</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=master&jobName=linux&configuration=linux_ppc64le_cuda_compiler_version11.0" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_ppc64le_cuda_compiler_version11.1</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=master&jobName=linux&configuration=linux_ppc64le_cuda_compiler_version11.1" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_ppc64le_cuda_compiler_version11.2</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=master&jobName=linux&configuration=linux_ppc64le_cuda_compiler_version11.2" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
               <td>win_64_cuda_compiler_version10.0</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=master">

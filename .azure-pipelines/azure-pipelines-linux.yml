@@ -40,6 +40,18 @@ jobs:
         CONFIG: linux_ppc64le_cuda_compiler_version10.2
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-ppc64le-cuda:10.2
+      linux_ppc64le_cuda_compiler_version11.0:
+        CONFIG: linux_ppc64le_cuda_compiler_version11.0
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-ppc64le-cuda:11.0
+      linux_ppc64le_cuda_compiler_version11.1:
+        CONFIG: linux_ppc64le_cuda_compiler_version11.1
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-ppc64le-cuda:11.1
+      linux_ppc64le_cuda_compiler_version11.2:
+        CONFIG: linux_ppc64le_cuda_compiler_version11.2
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-ppc64le-cuda:11.2
   timeoutInMinutes: 360
 
   steps:
