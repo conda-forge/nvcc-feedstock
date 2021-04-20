@@ -8,10 +8,11 @@
 #   docker_image
 
 zip_keys:
-  - cuda_compiler_version   # [linux64 or (linux and ppc64le)]
-  - cdt_name                # [linux64 or (linux and ppc64le)]
-  - docker_image            # [linux64 or (linux and ppc64le)]
-  - cudnn                   # [linux64 or (linux and ppc64le)]
+  - - cuda_compiler_version   # [linux64 or (linux and ppc64le)]
+    - cdt_name                # [linux64 or (linux and ppc64le)]
+    - docker_image            # [linux64 and os.environ.get("BUILD_PLATFORM") == "linux-64"]
+    - docker_image            # [linux and ppc64le and os.environ.get("BUILD_PLATFORM") == "linux-ppc64le"]
+    - cudnn                   # [linux64 or (linux and ppc64le)]
 
 cuda_compiler:  # [linux64 or win or (linux and ppc64le)]
   - nvcc        # [linux64 or win or (linux and ppc64le)]
