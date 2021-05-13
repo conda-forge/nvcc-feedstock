@@ -1,3 +1,4 @@
+
 # When adding or removing cuda versions, make sure that the following entries are "zipped";
 # e.g. each entry in cuda_compiler_version must have a matching entry in the other keys,
 # considering the effect of the selector:
@@ -6,16 +7,34 @@
 #   cdt_name
 #   docker_image
 
+zip_keys:
+  - - cuda_compiler_version   # [linux64 or (linux and ppc64le)]
+    - cdt_name                # [linux64 or (linux and ppc64le)]
+    - docker_image            # [linux64 and os.environ.get("BUILD_PLATFORM") == "linux-64"]
+    - docker_image            # [linux and ppc64le and os.environ.get("BUILD_PLATFORM") == "linux-ppc64le"]
+    - cudnn                   # [linux64 or (linux and ppc64le)]
+
+cuda_compiler:  # [linux64 or win or (linux and ppc64le)]
+  - nvcc        # [linux64 or win or (linux and ppc64le)]
+
 cuda_compiler_version:
   - None
 
   - 9.2    # [linux64]
   - 10.0   # [linux64 or win]
   - 10.1   # [linux64 or win]
-  - 10.2   # [linux64 or win]
-  - 11.0   # [linux64 or win]
-  - 11.1   # [linux64 or win]
-  - 11.2   # [linux64 or win]
+  - 10.2   # [linux64 or win or (linux and ppc64le)]
+  - 11.0   # [linux64 or win or (linux and ppc64le)]
+  - 11.1   # [linux64 or win or (linux and ppc64le)]
+  - 11.2   # [linux64 or win or (linux and ppc64le)]
+
+c_compiler_version:  # [os.environ.get("BUILD_PLATFORM", "").startswith(("linux-64", "linux-ppc64le"))]
+  - 7  # [os.environ.get("BUILD_PLATFORM") == "linux-64"]
+  - 8  # [os.environ.get("BUILD_PLATFORM") == "linux-ppc64le"]
+
+cxx_compiler_version:  # [os.environ.get("BUILD_PLATFORM", "").startswith(("linux-64", "linux-ppc64le"))]
+  - 7  # [os.environ.get("BUILD_PLATFORM") == "linux-64"]
+  - 8  # [os.environ.get("BUILD_PLATFORM") == "linux-ppc64le"]
 
 docker_image:                                   # [os.environ.get("BUILD_PLATFORM", "").startswith("linux-")]
   # start cuda_compiler_version == None
@@ -33,6 +52,11 @@ docker_image:                                   # [os.environ.get("BUILD_PLATFOR
   - quay.io/condaforge/linux-anvil-cuda:11.1    # [linux64 and os.environ.get("BUILD_PLATFORM") == "linux-64"]
   - quay.io/condaforge/linux-anvil-cuda:11.2    # [linux64 and os.environ.get("BUILD_PLATFORM") == "linux-64"]
 
+  - quay.io/condaforge/linux-anvil-ppc64le-cuda:10.2   # [linux and ppc64le and os.environ.get("BUILD_PLATFORM") == "linux-ppc64le"]
+  - quay.io/condaforge/linux-anvil-ppc64le-cuda:11.0   # [linux and ppc64le and os.environ.get("BUILD_PLATFORM") == "linux-ppc64le"]
+  - quay.io/condaforge/linux-anvil-ppc64le-cuda:11.1   # [linux and ppc64le and os.environ.get("BUILD_PLATFORM") == "linux-ppc64le"]
+  - quay.io/condaforge/linux-anvil-ppc64le-cuda:11.2   # [linux and ppc64le and os.environ.get("BUILD_PLATFORM") == "linux-ppc64le"]
+
 cudnn:
   # start for cuda_compiler_version == None
   - undefined
@@ -45,6 +69,11 @@ cudnn:
   - 8      # [linux64 or win]           # CUDA 11.0
   - 8      # [linux64 or win]           # CUDA 11.1
   - 8      # [linux64 or win]           # CUDA 11.2
+
+  - undefined   # [linux and ppc64le]        # CUDA 10.2
+  - undefined   # [linux and ppc64le]        # CUDA 11.0
+  - undefined   # [linux and ppc64le]        # CUDA 11.1
+  - undefined   # [linux and ppc64le]        # CUDA 11.2
 
 cdt_name:  # [linux]
   # start cuda_compiler_version == None
@@ -61,3 +90,8 @@ cdt_name:  # [linux]
   - cos7   # [linux64]                  # CUDA 11.0
   - cos7   # [linux64]                  # CUDA 11.1
   - cos7   # [linux64]                  # CUDA 11.2
+
+  - cos7   # [linux and ppc64le]        # CUDA 10.2
+  - cos8   # [linux and ppc64le]        # CUDA 11.0
+  - cos8   # [linux and ppc64le]        # CUDA 11.1
+  - cos8   # [linux and ppc64le]        # CUDA 11.2

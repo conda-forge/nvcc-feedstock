@@ -1,1 +1,2 @@
 conda_forge_output_validation: true
+provider: {linux_ppc64le: azure}
