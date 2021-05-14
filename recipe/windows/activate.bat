@@ -1,5 +1,11 @@
 @echo on
 
+:: Only allow the nvcc wrapper to be used in a build environment
+if not defined CONDA_BUILD_STATE (
+    echo "conda-forge's nvcc is not allowed to be used outside of a conda-build environment"
+    exit /b 1
+)
+
 :: Backup environment variables (only if the variables are set)
 if defined CUDA_HOME (
     set "CUDA_HOME_CONDA_NVCC_BACKUP=%CUDA_HOME%"

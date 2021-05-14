@@ -1,6 +1,13 @@
 #!/bin/bash
 
 
+# Only allow the nvcc wrapper to be used in a build environment
+if [[ ! -z "\${CONDA_BUILD_STATE+x}" ]]
+then
+  echo "conda-forge's nvcc is not allowed to be used outside of a conda-build environment"
+  exit 1
+fi
+
 # Backup environment variables (only if the variables are set)
 if [[ ! -z "\${CUDA_HOME+x}" ]]
 then
