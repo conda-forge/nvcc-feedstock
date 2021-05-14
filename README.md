@@ -230,6 +230,7 @@ Feedstock Maintainers
 * [@jaimergp](https://github.com/jaimergp/)
 * [@jakirkham](https://github.com/jakirkham/)
 * [@kkraus14](https://github.com/kkraus14/)
+* [@leofang](https://github.com/leofang/)
 * [@mike-wendt](https://github.com/mike-wendt/)
 * [@raydouglass](https://github.com/raydouglass/)
 
