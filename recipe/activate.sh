@@ -5,7 +5,7 @@
 if [[ ! -z "\${CONDA_BUILD_STATE+x}" ]]
 then
   echo "conda-forge's nvcc is not allowed to be used outside of a conda-build environment"
-  exit 1
+  return 1
 fi
 
 # Backup environment variables (only if the variables are set)
