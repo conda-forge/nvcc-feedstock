@@ -4,11 +4,11 @@ set -xeuo pipefail
 
 # Set `CUDA_HOME` in an activation script.
 mkdir -p "${PREFIX}/etc/conda/activate.d"
-cp activate.sh ${PREFIX}/etc/conda/activate.d/${PKG_NAME}_activate.sh
+cp $RECIPE_DIR/activate.sh ${PREFIX}/etc/conda/activate.d/${PKG_NAME}_activate.sh
 
 # Unset `CUDA_HOME` in a deactivation script.
 mkdir -p "${PREFIX}/etc/conda/deactivate.d"
-cp deactivate.sh ${PREFIX}/etc/conda/deactivate.d/${PKG_NAME}_deactivate.sh
+cp $RECIPE_DIR/deactivate.sh ${PREFIX}/etc/conda/deactivate.d/${PKG_NAME}_deactivate.sh
 
 # Create `nvcc` script in `bin` so it can be easily run.
 mkdir -p "${PREFIX}/bin"
