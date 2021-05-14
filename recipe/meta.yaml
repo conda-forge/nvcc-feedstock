@@ -1,5 +1,5 @@
 {% set name = "nvcc" %}
-{% set number = 13 %}
+{% set number = 14 %}
 
 {% if cuda_compiler_version in (None, "None", True, False) %}
 {% set cuda_major = 0 %}
@@ -87,3 +87,4 @@ extra:
     - mike-wendt
     - raydouglass
     - jaimergp
+    - leofang
