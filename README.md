@@ -76,6 +76,13 @@ Current build status
                 </a>
               </td>
             </tr><tr>
+              <td>linux_64_cdt_namecos7cuda_compiler_version11.3</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=master&jobName=linux&configuration=linux_64_cdt_namecos7cuda_compiler_version11.3" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
               <td>linux_ppc64le_cdt_namecos7cuda_compiler_version10.2</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=master">
@@ -124,6 +131,13 @@ Current build status
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=master&jobName=win&configuration=win_64_cuda_compiler_version11.2" alt="variant">
                 </a>
               </td>
+            </tr><tr>
+              <td>win_64_cuda_compiler_version11.3</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=master">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=master&jobName=win&configuration=win_64_cuda_compiler_version11.3" alt="variant">
+                </a>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -137,7 +151,7 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-nvcc_linux--64-green.svg)](https://anaconda.org/conda-forge/nvcc_linux-64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/nvcc_linux-64.svg)](https://anaconda.org/conda-forge/nvcc_linux-64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/nvcc_linux-64.svg)](https://anaconda.org/conda-forge/nvcc_linux-64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/nvcc_linux-64.svg)](https://anaconda.org/conda-forge/nvcc_linux-64) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-nvcc_osx--arm64-green.svg)](https://anaconda.org/conda-forge/nvcc_osx-arm64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/nvcc_osx-arm64.svg)](https://anaconda.org/conda-forge/nvcc_osx-arm64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/nvcc_osx-arm64.svg)](https://anaconda.org/conda-forge/nvcc_osx-arm64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/nvcc_osx-arm64.svg)](https://anaconda.org/conda-forge/nvcc_osx-arm64) |
 
 Installing nvcc
 ===============
@@ -149,16 +163,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `nvcc_linux-64` can be installed with:
+Once the `conda-forge` channel has been enabled, `nvcc_osx-arm64` can be installed with:
 
 ```
-conda install nvcc_linux-64
+conda install nvcc_osx-arm64
 ```
 
-It is possible to list all of the versions of `nvcc_linux-64` available on your platform with:
+It is possible to list all of the versions of `nvcc_osx-arm64` available on your platform with:
 
 ```
-conda search nvcc_linux-64 --channel conda-forge
+conda search nvcc_osx-arm64 --channel conda-forge
 ```
 
 
