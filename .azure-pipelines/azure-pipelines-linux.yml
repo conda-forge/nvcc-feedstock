@@ -40,6 +40,10 @@ jobs:
         CONFIG: linux_64_cdt_namecos7cuda_compiler_version11.3
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.3
+      linux_64_cdt_namecos7cuda_compiler_version11.4:
+        CONFIG: linux_64_cdt_namecos7cuda_compiler_version11.4
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.4
       linux_ppc64le_cdt_namecos7cuda_compiler_version10.2:
         CONFIG: linux_ppc64le_cdt_namecos7cuda_compiler_version10.2
         UPLOAD_PACKAGES: 'True'
