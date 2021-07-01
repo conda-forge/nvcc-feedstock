@@ -6,8 +6,8 @@
 {% set cuda_minor = 0 %}
 {% set cuda_major_minor = (0, 0) %}
 {% else %}
-{% set cuda_major = environ.get("cuda_compiler_version", "11.3").split(".")[0]|int %}
-{% set cuda_minor = environ.get("cuda_compiler_version", "11.3").split(".")[1]|int %}
+{% set cuda_major = environ.get("cuda_compiler_version", "11.4").split(".")[0]|int %}
+{% set cuda_minor = environ.get("cuda_compiler_version", "11.4").split(".")[1]|int %}
 {% set cuda_major_minor = (cuda_major, cuda_minor) %}
 {% endif %}
 
