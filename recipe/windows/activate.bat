@@ -74,7 +74,7 @@ set "CUDA_HOME=%CUDA_PATH%"
 set "CudaToolkitDir=%CUDA_PATH%"
 :: Other compiler vars
 set "INCLUDE=%CUDA_HOME%\include;%INCLUDE%"
-set "CUDACXX=%CUDA_PATH%/bin/nvcc.exe"
+:: set "CUDACXX=%CUDA_PATH%/bin/nvcc.exe"
 set "CUDAHOSTCXX=%CC%"
 
 :: Add `cuda.lib` shared object stub to the compiler sysroot.
