@@ -187,8 +187,8 @@ mkdir -p "${PREFIX}/bin"
 cat > "${PREFIX}/bin/nvcc" <<'EOF'
 #!/bin/bash
 for arg in "${@}" ; do
-  case ${arg} in -ccbin)
-    # If -ccbin argument is already provided, don't add an additional one.
+  case ${arg} in -ccbin|--compiler-bindir)
+    # If -ccbin/--compiler-bindir argument is already provided, don't add an additional one.
     exec "${CUDA_HOME}/bin/nvcc" "${@}"
   esac
 done
