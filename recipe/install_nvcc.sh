@@ -38,6 +38,11 @@ then
   export CMAKE_ARGS_CONDA_NVCC_BACKUP="\${CMAKE_ARGS:-}"
 fi
 
+if [[ ! -z "\${CUDACXX+x}" ]]
+then
+  export CUDACXX_CONDA_NVCC_BACKUP="\${CUDACXX:-}"
+fi
+
 if [[ ! -z "\${CUDAHOSTCXX+x}" ]]
 then
   export CUDAHOSTCXX_CONDA_NVCC_BACKUP="\${CUDAHOSTCXX:-}"
@@ -78,6 +83,7 @@ export CUDA_HOME="\${CUDA_HOME}"
 export CFLAGS="\${CFLAGS} -I\${CUDA_HOME}/include"
 export CPPFLAGS="\${CPPFLAGS} -I\${CUDA_HOME}/include"
 export CXXFLAGS="\${CXXFLAGS} -I\${CUDA_HOME}/include"
+export CUDACXX="\${CUDA_HOME}/bin/nvcc"
 export CUDAHOSTCXX="\${CC}"
 
 ### CMake configurations
@@ -152,6 +158,12 @@ if [[ ! -z "\${CMAKE_ARGS_CONDA_NVCC_BACKUP+x}" ]]
 then
   export CMAKE_ARGS="\${CMAKE_ARGS_CONDA_NVCC_BACKUP}"
   unset CMAKE_ARGS_CONDA_NVCC_BACKUP
+fi
+
+if [[ ! -z "\${CUDACXX_CONDA_NVCC_BACKUP+x}" ]]
+then
+  export CUDACXX="\${CUDACXX_CONDA_NVCC_BACKUP}"
+  unset CUDACXX_CONDA_NVCC_BACKUP
 fi
 
 if [[ ! -z "\${CUDAHOSTCXX_CONDA_NVCC_BACKUP+x}" ]]
