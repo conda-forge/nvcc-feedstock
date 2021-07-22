@@ -64,12 +64,12 @@ if(CUDA_FINDER)
         set(FOUND_CUDA_ROOT "${CUDAToolkit_LIBRARY_ROOT}")
     endif("${CUDA_FINDER}" STREQUAL "CUDA")
 
-    # Test CMake is using NVCC through our wrapper
-    if("${FOUND_NVCC}" STREQUAL "${NVCC_WRAPPER}")
-        message(STATUS "NVCC found at `${NVCC_WRAPPER}`")
-    else("${FOUND_NVCC}" STREQUAL "${NVCC_WRAPPER}")
-        message(FATAL_ERROR "NVCC found (${FOUND_NVCC}) is NOT `${NVCC_WRAPPER}!`")
-    endif("${FOUND_NVCC}" STREQUAL "${NVCC_WRAPPER}")
+    # # Test CMake is using NVCC through our wrapper
+    # if("${FOUND_NVCC}" STREQUAL "${NVCC_WRAPPER}")
+    #     message(STATUS "NVCC found at `${NVCC_WRAPPER}`")
+    # else("${FOUND_NVCC}" STREQUAL "${NVCC_WRAPPER}")
+    #     message(FATAL_ERROR "NVCC found (${FOUND_NVCC}) is NOT `${NVCC_WRAPPER}!`")
+    # endif("${FOUND_NVCC}" STREQUAL "${NVCC_WRAPPER}")
 
     # However, CUDA root should be the system location, not our PREFIX
     if("${FOUND_CUDA_ROOT}" STREQUAL "$ENV{CUDA_PATH}")
@@ -80,11 +80,11 @@ if(CUDA_FINDER)
 
 endif(CUDA_FINDER)
 
-if(WITH_ENABLE_LANGUAGE)
-    # Test CMake is using NVCC through our wrapper
-    if("${CMAKE_CUDA_COMPILER}" STREQUAL "${NVCC_WRAPPER}")
-        message(STATUS "CMAKE_CUDA_COMPILER matches `${NVCC_WRAPPER}`")
-    else("${CMAKE_CUDA_COMPILER}" STREQUAL "${NVCC_WRAPPER}")
-        message(FATAL_ERROR "CMAKE_CUDA_COMPILER (${CMAKE_CUDA_COMPILER}) does NOT match `${NVCC_WRAPPER}`!")
-    endif("${CMAKE_CUDA_COMPILER}" STREQUAL "${NVCC_WRAPPER}")
-endif(WITH_ENABLE_LANGUAGE)
+# if(WITH_ENABLE_LANGUAGE)
+#     # Test CMake is using NVCC through our wrapper
+#     if("${CMAKE_CUDA_COMPILER}" STREQUAL "${NVCC_WRAPPER}")
+#         message(STATUS "CMAKE_CUDA_COMPILER matches `${NVCC_WRAPPER}`")
+#     else("${CMAKE_CUDA_COMPILER}" STREQUAL "${NVCC_WRAPPER}")
+#         message(FATAL_ERROR "CMAKE_CUDA_COMPILER (${CMAKE_CUDA_COMPILER}) does NOT match `${NVCC_WRAPPER}`!")
+#     endif("${CMAKE_CUDA_COMPILER}" STREQUAL "${NVCC_WRAPPER}")
+# endif(WITH_ENABLE_LANGUAGE)
