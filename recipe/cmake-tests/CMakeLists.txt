@@ -71,6 +71,13 @@ if(CUDA_FINDER)
     #     message(FATAL_ERROR "NVCC found (${FOUND_NVCC}) is NOT `${NVCC_WRAPPER}!`")
     # endif("${FOUND_NVCC}" STREQUAL "${NVCC_WRAPPER}")
 
+    # Test CMake is using conda's host compiler for nvcc
+    if("${CUDA_HOST_COMPILER}" STREQUAL "${CMAKE_CXX_COMPILER}")
+        message(STATUS "CUDA host compiler found at `${CMAKE_CXX_COMPILER}`")
+    else("${CUDA_HOST_COMPILER}" STREQUAL "${CMAKE_CXX_COMPILER}")
+        message(FATAL_ERROR "CUDA host compiler found (${CUDA_HOST_COMPILER}) is NOT `${CMAKE_CXX_COMPILER}!`")
+    endif("${CUDA_HOST_COMPILER}" STREQUAL "${CMAKE_CXX_COMPILER}")
+
     # However, CUDA root should be the system location, not our PREFIX
     if("${FOUND_CUDA_ROOT}" STREQUAL "$ENV{CUDA_PATH}")
         message(STATUS "CUDA root found at `$ENV{CUDA_PATH}`")
@@ -80,11 +87,19 @@ if(CUDA_FINDER)
 
 endif(CUDA_FINDER)
 
-# if(WITH_ENABLE_LANGUAGE)
-#     # Test CMake is using NVCC through our wrapper
-#     if("${CMAKE_CUDA_COMPILER}" STREQUAL "${NVCC_WRAPPER}")
-#         message(STATUS "CMAKE_CUDA_COMPILER matches `${NVCC_WRAPPER}`")
-#     else("${CMAKE_CUDA_COMPILER}" STREQUAL "${NVCC_WRAPPER}")
-#         message(FATAL_ERROR "CMAKE_CUDA_COMPILER (${CMAKE_CUDA_COMPILER}) does NOT match `${NVCC_WRAPPER}`!")
-#     endif("${CMAKE_CUDA_COMPILER}" STREQUAL "${NVCC_WRAPPER}")
-# endif(WITH_ENABLE_LANGUAGE)
+if(WITH_ENABLE_LANGUAGE)
+    # # Test CMake is using NVCC through our wrapper
+    # if("${CMAKE_CUDA_COMPILER}" STREQUAL "${NVCC_WRAPPER}")
+    #     message(STATUS "CMAKE_CUDA_COMPILER matches `${NVCC_WRAPPER}`")
+    # else("${CMAKE_CUDA_COMPILER}" STREQUAL "${NVCC_WRAPPER}")
+    #     message(FATAL_ERROR "CMAKE_CUDA_COMPILER (${CMAKE_CUDA_COMPILER}) does NOT match `${NVCC_WRAPPER}`!")
+    # endif("${CMAKE_CUDA_COMPILER}" STREQUAL "${NVCC_WRAPPER}")
+
+    # Test CMake is using conda's host compiler for nvcc
+    if("${CMAKE_CUDA_HOST_COMPILER}" STREQUAL "${CMAKE_CXX_COMPILER}")
+        message(STATUS "CMAKE_CUDA_HOST_COMPILER matches `${CMAKE_CXX_COMPILER}`")
+    else("${CMAKE_CUDA_HOST_COMPILER}" STREQUAL "${CMAKE_CXX_COMPILER}")
+        message(FATAL_ERROR "CMAKE_CUDA_HOST_COMPILER (${CMAKE_CUDA_HOST_COMPILER}) does NOT match `${CMAKE_CXX_COMPILER}`!")
+    endif("${CMAKE_CUDA_HOST_COMPILER}" STREQUAL "${CMAKE_CXX_COMPILER}")
+
+endif(WITH_ENABLE_LANGUAGE)
