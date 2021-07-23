@@ -50,9 +50,12 @@ endif(WITH_ENABLE_LANGUAGE)
 # Some more checks
 
 if(WIN32)
-    set(NVCC_WRAPPER "$ENV{PREFIX}/Library/bin/nvcc.bat")
+    string(REGEX REPLACE "\\" "/" ENV_PREFIX "$ENV{PREFIX}")
+    set(NVCC_WRAPPER "${ENV_PREFIX}/Library/bin/nvcc.bat")
+    string(REGEX REPLACE "\\" "/" ENV_CUDA_PATH "$ENV{CUDA_PATH}")
 else(WIN32)
     set(NVCC_WRAPPER "$ENV{PREFIX}/bin/nvcc")
+    set(ENV_CUDA_PATH "$ENV{CUDA_PATH}")
 endif(WIN32)
 
 if(CUDA_FINDER)
@@ -72,20 +75,20 @@ if(CUDA_FINDER)
     # endif("${FOUND_NVCC}" STREQUAL "${NVCC_WRAPPER}")
 
     # Test CMake is using conda's host compiler for nvcc
-    if("${CUDA_FINDER}" STREQUAL "CUDA")
+    if((NOT WIN32) AND ("${CUDA_FINDER}" STREQUAL "CUDA"))
         if("${CUDA_HOST_COMPILER}" STREQUAL "${CMAKE_CXX_COMPILER}")
             message(STATUS "CUDA host compiler found at `${CMAKE_CXX_COMPILER}`")
         else("${CUDA_HOST_COMPILER}" STREQUAL "${CMAKE_CXX_COMPILER}")
             message(FATAL_ERROR "CUDA host compiler found (${CUDA_HOST_COMPILER}) is NOT `${CMAKE_CXX_COMPILER}!`")
         endif("${CUDA_HOST_COMPILER}" STREQUAL "${CMAKE_CXX_COMPILER}")
-    endif("${CUDA_FINDER}" STREQUAL "CUDA")
+    endif((NOT WIN32) AND ("${CUDA_FINDER}" STREQUAL "CUDA"))
 
     # However, CUDA root should be the system location, not our PREFIX
-    if("${FOUND_CUDA_ROOT}" STREQUAL "$ENV{CUDA_PATH}")
-        message(STATUS "CUDA root found at `$ENV{CUDA_PATH}`")
-    else("${FOUND_CUDA_ROOT}" STREQUAL "$ENV{CUDA_PATH}")
-        message(FATAL_ERROR "CUDA root found (${FOUND_CUDA_ROOT}) is NOT `$ENV{CUDA_PATH}`!")
-    endif("${FOUND_CUDA_ROOT}" STREQUAL "$ENV{CUDA_PATH}")
+    if("${FOUND_CUDA_ROOT}" STREQUAL "${ENV_CUDA_PATH}")
+        message(STATUS "CUDA root found at `${ENV_CUDA_PATH}`")
+    else("${FOUND_CUDA_ROOT}" STREQUAL "${ENV_CUDA_PATH}")
+        message(FATAL_ERROR "CUDA root found (${FOUND_CUDA_ROOT}) is NOT `${ENV_CUDA_PATH}`!")
+    endif("${FOUND_CUDA_ROOT}" STREQUAL "${ENV_CUDA_PATH}")
 
 endif(CUDA_FINDER)
 
@@ -98,10 +101,13 @@ if(WITH_ENABLE_LANGUAGE)
     # endif("${CMAKE_CUDA_COMPILER}" STREQUAL "${NVCC_WRAPPER}")
 
     # Test CMake is using conda's host compiler for nvcc
-    if("${CMAKE_CUDA_HOST_COMPILER}" STREQUAL "${CMAKE_CXX_COMPILER}")
-        message(STATUS "CMAKE_CUDA_HOST_COMPILER matches `${CMAKE_CXX_COMPILER}`")
-    else("${CMAKE_CUDA_HOST_COMPILER}" STREQUAL "${CMAKE_CXX_COMPILER}")
-        message(FATAL_ERROR "CMAKE_CUDA_HOST_COMPILER (${CMAKE_CUDA_HOST_COMPILER}) does NOT match `${CMAKE_CXX_COMPILER}`!")
-    endif("${CMAKE_CUDA_HOST_COMPILER}" STREQUAL "${CMAKE_CXX_COMPILER}")
+    # This test does not make sense on Windows
+    if(NOT WIN32)
+        if("${CMAKE_CUDA_HOST_COMPILER}" STREQUAL "${CMAKE_CXX_COMPILER}")
+            message(STATUS "CMAKE_CUDA_HOST_COMPILER matches `${CMAKE_CXX_COMPILER}`")
+        else("${CMAKE_CUDA_HOST_COMPILER}" STREQUAL "${CMAKE_CXX_COMPILER}")
+            message(FATAL_ERROR "CMAKE_CUDA_HOST_COMPILER (${CMAKE_CUDA_HOST_COMPILER}) does NOT match `${CMAKE_CXX_COMPILER}`!")
+        endif("${CMAKE_CUDA_HOST_COMPILER}" STREQUAL "${CMAKE_CXX_COMPILER}")
+    else(NOT WIN32)
 
 endif(WITH_ENABLE_LANGUAGE)
