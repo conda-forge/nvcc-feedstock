@@ -84,7 +84,7 @@ export CFLAGS="\${CFLAGS} -I\${CUDA_HOME}/include"
 export CPPFLAGS="\${CPPFLAGS} -I\${CUDA_HOME}/include"
 export CXXFLAGS="\${CXXFLAGS} -I\${CUDA_HOME}/include"
 export CUDACXX="\${CONDA_PREFIX}/bin/nvcc"
-export CUDAHOSTCXX="\${CC}"
+export CUDAHOSTCXX="\${CXX}"
 
 ### CMake configurations
 
