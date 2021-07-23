@@ -72,11 +72,13 @@ if(CUDA_FINDER)
     # endif("${FOUND_NVCC}" STREQUAL "${NVCC_WRAPPER}")
 
     # Test CMake is using conda's host compiler for nvcc
-    if("${CUDA_HOST_COMPILER}" STREQUAL "${CMAKE_CXX_COMPILER}")
-        message(STATUS "CUDA host compiler found at `${CMAKE_CXX_COMPILER}`")
-    else("${CUDA_HOST_COMPILER}" STREQUAL "${CMAKE_CXX_COMPILER}")
-        message(FATAL_ERROR "CUDA host compiler found (${CUDA_HOST_COMPILER}) is NOT `${CMAKE_CXX_COMPILER}!`")
-    endif("${CUDA_HOST_COMPILER}" STREQUAL "${CMAKE_CXX_COMPILER}")
+    if("${CUDA_FINDER}" STREQUAL "CUDA")
+        if("${CUDA_HOST_COMPILER}" STREQUAL "${CMAKE_CXX_COMPILER}")
+            message(STATUS "CUDA host compiler found at `${CMAKE_CXX_COMPILER}`")
+        else("${CUDA_HOST_COMPILER}" STREQUAL "${CMAKE_CXX_COMPILER}")
+            message(FATAL_ERROR "CUDA host compiler found (${CUDA_HOST_COMPILER}) is NOT `${CMAKE_CXX_COMPILER}!`")
+        endif("${CUDA_HOST_COMPILER}" STREQUAL "${CMAKE_CXX_COMPILER}")
+    endif("${CUDA_FINDER}" STREQUAL "CUDA")
 
     # However, CUDA root should be the system location, not our PREFIX
     if("${FOUND_CUDA_ROOT}" STREQUAL "$ENV{CUDA_PATH}")
