@@ -48,15 +48,14 @@ endif(WITH_ENABLE_LANGUAGE)
 
 
 # Some more checks
-
+cmake_path(SET ENV_PREFIX "$ENV{PREFIX}")
+cmake_path(SET ENV_CUDA_PATH "$ENV{CUDA_PATH}")
 if(WIN32)
-    string(REGEX REPLACE "\\" "/" ENV_PREFIX "$ENV{PREFIX}")
-    set(NVCC_WRAPPER "${ENV_PREFIX}/Library/bin/nvcc.bat")
-    string(REGEX REPLACE "\\" "/" ENV_CUDA_PATH "$ENV{CUDA_PATH}")
+    cmake_path(SET NVCC_WRAPPER "$ENV{PREFIX}/Library/bin/nvcc.bat")
 else(WIN32)
-    set(NVCC_WRAPPER "$ENV{PREFIX}/bin/nvcc")
-    set(ENV_CUDA_PATH "$ENV{CUDA_PATH}")
+    cmake_path(SET NVCC_WRAPPER "$ENV{PREFIX}bin/nvcc")
 endif(WIN32)
+
 
 if(CUDA_FINDER)
     if("${CUDA_FINDER}" STREQUAL "CUDA")
