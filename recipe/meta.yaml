@@ -18,7 +18,7 @@ build:
   number: {{ number }}
 {% if cuda_major == 0
     or (target_platform == "linux-ppc64le" and cuda_major_minor != (10, 2))
-    or (target_platform == "linux-aarch64" and (cuda_major_minor != (10, 2) or arm_variant_type != "sbsa")) %}
+    or (target_platform == "linux-aarch64" and (cuda_major_minor < (11, 0) or arm_variant_type != "sbsa")) %}
   skip: true
 {% endif %}
 
