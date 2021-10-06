@@ -1,5 +1,5 @@
 {% set name = "nvcc" %}
-{% set number = 14 %}
+{% set number = 15 %}
 
 {% if cuda_compiler_version in (None, "None", True, False) %}
 {% set cuda_major = 0 %}
@@ -33,7 +33,11 @@ outputs:
         - libgcc-ng
       run_exports:
         strong:
+{% if cuda_major_minor < (11, 2) %}
           - cudatoolkit {{ cuda_compiler_version }}|{{ cuda_compiler_version }}.*
+{% else %}
+          - cudatoolkit >={{ cuda_compiler_version }},<{{ cuda_major + 1 }}
+{% endif %}
 {% if cdt_name == "cos7" %}       # [linux]
           - __glibc >=2.17        # [linux]
 {% endif %}                       # [linux]
