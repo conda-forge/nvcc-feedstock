@@ -129,16 +129,16 @@ cdt_name:  # [linux]
   - cos7   # [linux64]                  # CUDA 11.5
 
   - cos7   # [linux and ppc64le]        # CUDA 10.2
-  - cos8   # [linux and ppc64le]        # CUDA 11.0
-  - cos8   # [linux and ppc64le]        # CUDA 11.1
-  - cos8   # [linux and ppc64le]        # CUDA 11.2
-  - cos8   # [linux and ppc64le]        # CUDA 11.3
-  - cos8   # [linux and ppc64le]        # CUDA 11.4
-  - cos8   # [linux and ppc64le]        # CUDA 11.5
+  - cos7   # [linux and ppc64le]        # CUDA 11.0
+  - cos7   # [linux and ppc64le]        # CUDA 11.1
+  - cos7   # [linux and ppc64le]        # CUDA 11.2
+  - cos7   # [linux and ppc64le]        # CUDA 11.3
+  - cos7   # [linux and ppc64le]        # CUDA 11.4
+  - cos7   # [linux and ppc64le]        # CUDA 11.5
 
-  - cos8   # [linux and aarch64]        # CUDA 11.0
-  - cos8   # [linux and aarch64]        # CUDA 11.1
-  - cos8   # [linux and aarch64]        # CUDA 11.2
-  - cos8   # [linux and aarch64]        # CUDA 11.3
-  - cos8   # [linux and aarch64]        # CUDA 11.4
-  - cos8   # [linux and aarch64]        # CUDA 11.5
+  - cos7   # [linux and aarch64]        # CUDA 11.0
+  - cos7   # [linux and aarch64]        # CUDA 11.1
+  - cos7   # [linux and aarch64]        # CUDA 11.2
+  - cos7   # [linux and aarch64]        # CUDA 11.3
+  - cos7   # [linux and aarch64]        # CUDA 11.4
+  - cos7   # [linux and aarch64]        # CUDA 11.5
