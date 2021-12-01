@@ -52,6 +52,18 @@ jobs:
         CONFIG: linux_ppc64le_cdt_namecos7cuda_compiler_version10.2
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-ppc64le-cuda:10.2
+      linux_ppc64le_cdt_namecos8cuda_compiler_version11.0:
+        CONFIG: linux_ppc64le_cdt_namecos8cuda_compiler_version11.0
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-ppc64le-cuda:11.0
+      linux_ppc64le_cdt_namecos8cuda_compiler_version11.1:
+        CONFIG: linux_ppc64le_cdt_namecos8cuda_compiler_version11.1
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-ppc64le-cuda:11.1
+      linux_ppc64le_cdt_namecos8cuda_compiler_version11.2:
+        CONFIG: linux_ppc64le_cdt_namecos8cuda_compiler_version11.2
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-ppc64le-cuda:11.2
   timeoutInMinutes: 360
 
   steps:
@@ -72,6 +84,11 @@ jobs:
         export CI=azure
         export GIT_BRANCH=$BUILD_SOURCEBRANCHNAME
         export FEEDSTOCK_NAME=$(basename ${BUILD_REPOSITORY_NAME})
+        if [[ "${BUILD_REASON:-}" == "PullRequest" ]]; then
+          export IS_PR_BUILD="True"
+        else
+          export IS_PR_BUILD="False"
+        fi
         .scripts/run_docker_build.sh
     displayName: Run docker build
     env:
