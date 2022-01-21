@@ -7,7 +7,7 @@ channel_targets:
 cuda_compiler:
 - nvcc
 cuda_compiler_version:
-- '10.2'
+- '11.5'
 cxx_compiler:
 - vs2017
 target_platform:
