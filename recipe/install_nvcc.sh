@@ -38,6 +38,16 @@ then
   export CMAKE_ARGS_CONDA_NVCC_BACKUP="\${CMAKE_ARGS:-}"
 fi
 
+if [[ ! -z "\${CUDACXX+x}" ]]
+then
+  export CUDACXX_CONDA_NVCC_BACKUP="\${CUDACXX:-}"
+fi
+
+if [[ ! -z "\${CUDAHOSTCXX+x}" ]]
+then
+  export CUDAHOSTCXX_CONDA_NVCC_BACKUP="\${CUDAHOSTCXX:-}"
+fi
+
 # Default to using \$(cuda-gdb) to specify \$(CUDA_HOME).
 if [[ -z "\${CUDA_HOME+x}" ]]
 then
@@ -73,6 +83,8 @@ export CUDA_HOME="\${CUDA_HOME}"
 export CFLAGS="\${CFLAGS} -I\${CUDA_HOME}/include"
 export CPPFLAGS="\${CPPFLAGS} -I\${CUDA_HOME}/include"
 export CXXFLAGS="\${CXXFLAGS} -I\${CUDA_HOME}/include"
+export CUDACXX="\${CONDA_PREFIX}/bin/nvcc"
+export CUDAHOSTCXX="\${CXX}"
 
 ### CMake configurations
 
@@ -83,6 +95,8 @@ CMAKE_ARGS="\${CMAKE_ARGS:-} -DCUDAToolkit_ROOT=\${CUDA_HOME}"
 # Old-style CUDA integrations in CMake
 ## See https://github.com/conda-forge/nvcc-feedstock/pull/58#issuecomment-752179349
 CMAKE_ARGS+=" -DCUDA_TOOLKIT_ROOT_DIR=\${CUDA_HOME}"
+## same as CUDAHOSTCXX and -ccbin option in nvcc
+CMAKE_ARGS+=" -DCMAKE_CUDA_HOST_COMPILER=\${CXX}"
 ## Avoid https://github.com/conda-forge/openmm-feedstock/pull/44#issuecomment-753560234
 ## We need CUDA_HOME in _front_ of CMAKE_FIND_ROOT_PATH
 CMAKE_ARGS="\$(echo \${CMAKE_ARGS} | sed -E -e "s|(-DCMAKE_FIND_ROOT_PATH=)(\S+)|\1\$CUDA_HOME;\2|")"
@@ -148,6 +162,18 @@ then
   unset CMAKE_ARGS_CONDA_NVCC_BACKUP
 fi
 
+if [[ ! -z "\${CUDACXX_CONDA_NVCC_BACKUP+x}" ]]
+then
+  export CUDACXX="\${CUDACXX_CONDA_NVCC_BACKUP}"
+  unset CUDACXX_CONDA_NVCC_BACKUP
+fi
+
+if [[ ! -z "\${CUDAHOSTCXX_CONDA_NVCC_BACKUP+x}" ]]
+then
+  export CUDAHOSTCXX="\${CUDAHOSTCXX_CONDA_NVCC_BACKUP}"
+  unset CUDAHOSTCXX_CONDA_NVCC_BACKUP
+fi
+
 # Remove or restore \$(libcuda.so) shared object stub from the compiler sysroot.
 LIBCUDA_SO_CONDA_NVCC_BACKUP="\${CONDA_BUILD_SYSROOT}/lib/libcuda.so-conda-nvcc-backup"
 if [[ -f ""\${LIBCUDA_SO_CONDA_NVCC_BACKUP}"" ]]
@@ -163,10 +189,10 @@ mkdir -p "${PREFIX}/bin"
 cat > "${PREFIX}/bin/nvcc" <<'EOF'
 #!/bin/bash
 for arg in "${@}" ; do
-  case ${arg} in -ccbin)
-    # If -ccbin argument is already provided, don't add an additional one.
+  # If -ccbin/--compiler-bindir argument is already provided, don't add an additional one.
+  if [[ ${arg} =~ (-ccbin.*|--compiler-bindir.*) ]]; then
     exec "${CUDA_HOME}/bin/nvcc" "${@}"
-  esac
+  fi
 done
 exec "${CUDA_HOME}/bin/nvcc" -ccbin "${CXX}" "${@}"
 EOF
