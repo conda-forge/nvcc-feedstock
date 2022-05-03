@@ -70,9 +70,9 @@ then
 fi
 
 export CUDA_HOME="\${CUDA_HOME}"
-export CFLAGS="\${CFLAGS} -isystem\${CUDA_HOME}/include"
-export CPPFLAGS="\${CPPFLAGS} -isystem\${CUDA_HOME}/include"
-export CXXFLAGS="\${CXXFLAGS} -isystem\${CUDA_HOME}/include"
+export CFLAGS="\${CFLAGS} -isystem \${CUDA_HOME}/include"
+export CPPFLAGS="\${CPPFLAGS} -isystem \${CUDA_HOME}/include"
+export CXXFLAGS="\${CXXFLAGS} -isystem \${CUDA_HOME}/include"
 
 ### CMake configurations
 
