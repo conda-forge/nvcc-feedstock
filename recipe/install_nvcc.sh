@@ -104,8 +104,10 @@ then
 fi
 if [[ "${CONDA_BUILD}" == 1 ]]
 then
+  echo "BUILDING"
   ln -s "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
 else
+  echo "NON-BUILD"
   ln -s "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_PREFIX}/lib/libcuda.so"
 fi
 
