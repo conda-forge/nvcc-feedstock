@@ -102,7 +102,12 @@ then
   LIBCUDA_SO_CONDA_NVCC_BACKUP="\${CONDA_BUILD_SYSROOT}/lib/libcuda.so-conda-nvcc-backup"
   mv "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so" "\${LIBCUDA_SO_CONDA_NVCC_BACKUP}"
 fi
-ln -s "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
+if [[ "${CONDA_BUILD}" == 1 ]]
+then
+  ln -s "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
+else
+  ln -s "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_PREFIX}/lib/libcuda.so"
+fi
 
 EOF
 
