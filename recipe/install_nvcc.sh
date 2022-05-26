@@ -108,7 +108,8 @@ then
   ln -s "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
 else
   echo "NON-BUILD"
-  ln -s "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_PREFIX}/lib/libcuda.so"
+  mkdir -p "\${CONDA_PREFIX}/lib/stubs"
+  ln -s "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_PREFIX}/lib/stubs/libcuda.so"
 fi
 
 EOF
