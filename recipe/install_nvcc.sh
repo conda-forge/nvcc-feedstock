@@ -91,24 +91,29 @@ export CMAKE_ARGS="\${CMAKE_ARGS}"
 ### /CMake configurations
 
 mkdir -p "\${CONDA_BUILD_SYSROOT}/lib"
+mkdir -p "\${CONDA_PREFIX}/lib/stubs"
 
 # Add \$(libcuda.so) shared object stub to the compiler sysroot.
 # Needed for things that want to link to \$(libcuda.so).
 # Stub is used to avoid getting driver code linked into binaries.
 
-# Make a backup of \$(libcuda.so) if it exists
-if [[ -f "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so" ]]
-then
-  LIBCUDA_SO_CONDA_NVCC_BACKUP="\${CONDA_BUILD_SYSROOT}/lib/libcuda.so-conda-nvcc-backup"
-  mv "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so" "\${LIBCUDA_SO_CONDA_NVCC_BACKUP}"
-fi
+
 if [[ "\${CONDA_BUILD}" == 1 ]]
 then
-  echo "BUILDING"
+  # Make a backup of \$(libcuda.so) if it exists
+  if [[ -f "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so" ]]
+  then
+    LIBCUDA_SO_CONDA_NVCC_BACKUP="\${CONDA_BUILD_SYSROOT}/lib/libcuda.so-conda-nvcc-backup"
+    mv "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so" "\${LIBCUDA_SO_CONDA_NVCC_BACKUP}"
+  fi
   ln -s "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
 else
-  echo "NON-BUILD"
-  mkdir -p "\${CONDA_PREFIX}/lib/stubs"
+  # Make a backup of \$(libcuda.so) if it exists
+  if [[ -f "\${CONDA_PREFIX}/lib/stubs/libcuda.so" ]]
+  then
+    LIBCUDA_SO_CONDA_NVCC_BACKUP="\${CONDA_PREFIX}/lib/stubs/libcuda.so-conda-nvcc-backup"
+    mv "\${CONDA_PREFIX}/lib/stubs/libcuda.so" "\${LIBCUDA_SO_CONDA_NVCC_BACKUP}"
+  fi
   ln -s "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_PREFIX}/lib/stubs/libcuda.so"
 fi
 
@@ -157,12 +162,20 @@ then
 fi
 
 # Remove or restore \$(libcuda.so) shared object stub from the compiler sysroot.
-LIBCUDA_SO_CONDA_NVCC_BACKUP="\${CONDA_BUILD_SYSROOT}/lib/libcuda.so-conda-nvcc-backup"
+if [[ "\${CONDA_BUILD}" == 1 ]]
+then
+  LIBCUDA_SO_CONDA_NVCC_BACKUP="\${CONDA_BUILD_SYSROOT}/lib/libcuda.so-conda-nvcc-backup"
+  LIBCUDA_SO_CONDA_NVCC_SYMLINK="\${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
+else
+  LIBCUDA_SO_CONDA_NVCC_BACKUP="\${CONDA_PREFIX}/lib/stubs/libcuda.so-conda-nvcc-backup"
+  LIBCUDA_SO_CONDA_NVCC_SYMLINK="\${CONDA_PREFIX}/lib/stubs/libcuda.so"
+fi
+
 if [[ -f ""\${LIBCUDA_SO_CONDA_NVCC_BACKUP}"" ]]
 then
-  mv -f "\${LIBCUDA_SO_CONDA_NVCC_BACKUP}" "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
+  mv -f "\${LIBCUDA_SO_CONDA_NVCC_BACKUP}" "\${LIBCUDA_SO_CONDA_NVCC_SYMLINK}"
 else
-  rm -f "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
+  rm -f "\${LIBCUDA_SO_CONDA_NVCC_SYMLINK}"
 fi
 EOF
 
