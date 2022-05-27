@@ -63,6 +63,10 @@ jobs:
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.6
         SHORT_CONFIG: linux_64_cdt_namecos7cuda_compiler_version11.6
+      linux_64_cdt_namecos7cuda_compiler_version11.7:
+        CONFIG: linux_64_cdt_namecos7cuda_compiler_version11.7
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.7
       linux_aarch64_cuda_compiler_version11.0:
         CONFIG: linux_aarch64_cuda_compiler_version11.0
         UPLOAD_PACKAGES: 'True'
@@ -98,6 +102,10 @@ jobs:
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64-cuda:11.6
         SHORT_CONFIG: linux_aarch64_cuda_compiler_version11.6
+      linux_aarch64_cuda_compiler_version11.7:
+        CONFIG: linux_aarch64_cuda_compiler_version11.7
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-aarch64-cuda:11.7
       linux_ppc64le_cuda_compiler_version10.2:
         CONFIG: linux_ppc64le_cuda_compiler_version10.2
         UPLOAD_PACKAGES: 'True'
@@ -138,6 +146,10 @@ jobs:
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-ppc64le-cuda:11.6
         SHORT_CONFIG: linux_ppc64le_cuda_compiler_version11.6
+      linux_ppc64le_cuda_compiler_version11.7:
+        CONFIG: linux_ppc64le_cuda_compiler_version11.7
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-ppc64le-cuda:11.7
   timeoutInMinutes: 360
 
   steps:
