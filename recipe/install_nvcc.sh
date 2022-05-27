@@ -169,6 +169,8 @@ else
   fi
 fi
 
+EOF
+
 # Create `nvcc` script in `bin` so it can be easily run.
 mkdir -p "${PREFIX}/bin"
 cat > "${PREFIX}/bin/nvcc" <<'EOF'
