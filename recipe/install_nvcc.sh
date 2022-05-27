@@ -108,13 +108,7 @@ then
   fi
   ln -s "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
 else
-  # Make a backup of \$(libcuda.so) if it exists
-  if [[ -f "\${CONDA_PREFIX}/lib/stubs/libcuda.so" ]]
-  then
-    LIBCUDA_SO_CONDA_NVCC_BACKUP="\${CONDA_PREFIX}/lib/stubs/libcuda.so-conda-nvcc-backup"
-    mv "\${CONDA_PREFIX}/lib/stubs/libcuda.so" "\${LIBCUDA_SO_CONDA_NVCC_BACKUP}"
-  fi
-  ln -s "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_PREFIX}/lib/stubs/libcuda.so"
+  ln -sf "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_PREFIX}/lib/stubs/libcuda.so"
 fi
 
 EOF
@@ -162,22 +156,18 @@ then
 fi
 
 # Remove or restore \$(libcuda.so) shared object stub from the compiler sysroot.
-if [[ "\${CONDA_BUILD}" == 1 ]]
-then
-  LIBCUDA_SO_CONDA_NVCC_BACKUP="\${CONDA_BUILD_SYSROOT}/lib/libcuda.so-conda-nvcc-backup"
-  LIBCUDA_SO_CONDA_NVCC_SYMLINK="\${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
-else
-  LIBCUDA_SO_CONDA_NVCC_BACKUP="\${CONDA_PREFIX}/lib/stubs/libcuda.so-conda-nvcc-backup"
-  LIBCUDA_SO_CONDA_NVCC_SYMLINK="\${CONDA_PREFIX}/lib/stubs/libcuda.so"
-fi
-
+LIBCUDA_SO_CONDA_NVCC_BACKUP="\${CONDA_BUILD_SYSROOT}/lib/libcuda.so-conda-nvcc-backup"
 if [[ -f ""\${LIBCUDA_SO_CONDA_NVCC_BACKUP}"" ]]
 then
-  mv -f "\${LIBCUDA_SO_CONDA_NVCC_BACKUP}" "\${LIBCUDA_SO_CONDA_NVCC_SYMLINK}"
+  mv -f "\${LIBCUDA_SO_CONDA_NVCC_BACKUP}" "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
 else
-  rm -f "\${LIBCUDA_SO_CONDA_NVCC_SYMLINK}"
+  if [[ "\${CONDA_BUILD}" == 1 ]]
+  then
+    rm -f "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
+  else
+    rm -f "\${CONDA_PREFIX}/lib/stubs/libcuda.so"
+  fi
 fi
-EOF
 
 # Create `nvcc` script in `bin` so it can be easily run.
 mkdir -p "${PREFIX}/bin"
