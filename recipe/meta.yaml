@@ -1,5 +1,5 @@
 {% set name = "nvcc" %}
-{% set number = 19 %}
+{% set number = 18 %}
 
 {% if cuda_compiler_version in (None, "None", True, False) %}
 {% set cuda_major = 0 %}
