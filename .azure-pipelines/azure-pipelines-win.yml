@@ -102,6 +102,7 @@ jobs:
       displayName: Build recipe
       env:
         PYTHONUNBUFFERED: 1
+
     - script: |
         set CI=azure
         set CI_RUN_ID=$(build.BuildNumber).$(system.JobAttempt)
@@ -129,6 +130,7 @@ jobs:
       inputs:
         targetPath: $(ENV_ARTIFACT_PATH)
         artifactName: $(ENV_ARTIFACT_NAME)
+
     - script: |
         set "FEEDSTOCK_NAME=%BUILD_REPOSITORY_NAME:*/=%"
         call activate base
