@@ -90,7 +90,6 @@ export CMAKE_ARGS="\${CMAKE_ARGS}"
 
 ### /CMake configurations
 
-mkdir -p "\${CONDA_BUILD_SYSROOT}/lib"
 mkdir -p "\${CONDA_PREFIX}/lib/stubs"
 
 # Add \$(libcuda.so) shared object stub to the compiler sysroot.
@@ -100,6 +99,7 @@ mkdir -p "\${CONDA_PREFIX}/lib/stubs"
 
 if [[ ! -z "\${CONDA_BUILD_SYSROOT+x}" ]]
 then
+  mkdir -p "\${CONDA_BUILD_SYSROOT}/lib"
   # Make a backup of \$(libcuda.so)
   LIBCUDA_SO_CONDA_NVCC_BACKUP="\${CONDA_BUILD_SYSROOT}/lib/libcuda.so-conda-nvcc-backup"
   if [[ -f "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so" ]]
