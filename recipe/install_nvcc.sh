@@ -98,11 +98,14 @@ mkdir -p "\${CONDA_PREFIX}/lib/stubs"
 # Stub is used to avoid getting driver code linked into binaries.
 
 
-if [[ "\${CONDA_BUILD_SYSROOT}" != "" ]]
+if [[ ! -z "\${CONDA_BUILD_SYSROOT+x}" ]]
 then
   # Make a backup of \$(libcuda.so)
   LIBCUDA_SO_CONDA_NVCC_BACKUP="\${CONDA_BUILD_SYSROOT}/lib/libcuda.so-conda-nvcc-backup"
-  mv -f "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so" "\${LIBCUDA_SO_CONDA_NVCC_BACKUP}"
+  if [[ -f "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so" ]]
+  then
+    mv -f "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so" "\${LIBCUDA_SO_CONDA_NVCC_BACKUP}"
+  fi
   ln -s "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
 else
   ln -sf "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_PREFIX}/lib/stubs/libcuda.so"
