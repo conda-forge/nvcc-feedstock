@@ -161,7 +161,7 @@ if [[ -f ""\${LIBCUDA_SO_CONDA_NVCC_BACKUP}"" ]]
 then
   mv -f "\${LIBCUDA_SO_CONDA_NVCC_BACKUP}" "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
 else
-  if [[ "\${CONDA_BUILD_SYSROOT}" != "" ]]
+  if [[ ! -z "\${CONDA_BUILD_SYSROOT+x}" ]]
   then
     rm -f "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
   else
