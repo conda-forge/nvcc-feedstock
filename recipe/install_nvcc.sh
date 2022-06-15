@@ -90,11 +90,9 @@ export CMAKE_ARGS="\${CMAKE_ARGS}"
 
 ### /CMake configurations
 
-
 # Add \$(libcuda.so) shared object stub to the compiler sysroot.
 # Needed for things that want to link to \$(libcuda.so).
 # Stub is used to avoid getting driver code linked into binaries.
-
 
 if [[ ! -z "\${CONDA_BUILD_SYSROOT+x}" ]]
 then
