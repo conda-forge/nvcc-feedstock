@@ -3,5 +3,3 @@ provider: {linux_ppc64le: azure, linux_aarch64: azure}
 github:
   branch_name: main
   tooling_branch_name: main
-azure:
-  store_build_artifacts: True
