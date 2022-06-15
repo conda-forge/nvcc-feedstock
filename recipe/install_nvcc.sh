@@ -90,7 +90,6 @@ export CMAKE_ARGS="\${CMAKE_ARGS}"
 
 ### /CMake configurations
 
-mkdir -p "\${CONDA_PREFIX}/lib/stubs"
 
 # Add \$(libcuda.so) shared object stub to the compiler sysroot.
 # Needed for things that want to link to \$(libcuda.so).
@@ -108,6 +107,7 @@ then
   fi
   ln -s "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
 else
+  mkdir -p "\${CONDA_PREFIX}/lib/stubs"
   ln -sf "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_PREFIX}/lib/stubs/libcuda.so"
 fi
 
