@@ -90,19 +90,24 @@ export CMAKE_ARGS="\${CMAKE_ARGS}"
 
 ### /CMake configurations
 
-mkdir -p "\${CONDA_BUILD_SYSROOT}/lib"
-
 # Add \$(libcuda.so) shared object stub to the compiler sysroot.
 # Needed for things that want to link to \$(libcuda.so).
 # Stub is used to avoid getting driver code linked into binaries.
 
-# Make a backup of \$(libcuda.so) if it exists
-if [[ -f "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so" ]]
+if [[ ! -z "\${CONDA_BUILD_SYSROOT+x}" ]]
 then
+  mkdir -p "\${CONDA_BUILD_SYSROOT}/lib"
+  # Make a backup of \$(libcuda.so)
   LIBCUDA_SO_CONDA_NVCC_BACKUP="\${CONDA_BUILD_SYSROOT}/lib/libcuda.so-conda-nvcc-backup"
-  mv "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so" "\${LIBCUDA_SO_CONDA_NVCC_BACKUP}"
+  if [[ -f "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so" ]]
+  then
+    mv -f "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so" "\${LIBCUDA_SO_CONDA_NVCC_BACKUP}"
+  fi
+  ln -s "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
+else
+  mkdir -p "\${CONDA_PREFIX}/lib/stubs"
+  ln -sf "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_PREFIX}/lib/stubs/libcuda.so"
 fi
-ln -s "\${CUDA_HOME}/lib64/stubs/libcuda.so" "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
 
 EOF
 
@@ -154,8 +159,14 @@ if [[ -f ""\${LIBCUDA_SO_CONDA_NVCC_BACKUP}"" ]]
 then
   mv -f "\${LIBCUDA_SO_CONDA_NVCC_BACKUP}" "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
 else
-  rm -f "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
+  if [[ ! -z "\${CONDA_BUILD_SYSROOT+x}" ]]
+  then
+    rm -f "\${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
+  else
+    rm -f "\${CONDA_PREFIX}/lib/stubs/libcuda.so"
+  fi
 fi
+
 EOF
 
 # Create `nvcc` script in `bin` so it can be easily run.
