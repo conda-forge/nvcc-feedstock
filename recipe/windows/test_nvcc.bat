@@ -70,4 +70,4 @@ call %PREFIX%\etc\conda\activate.d\%PKG_NAME%_activate.bat
 if errorlevel 1 exit 1
 
 :: Try building something
-nvcc.bat test.cu
+nvcc test.cu -o test
