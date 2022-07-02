@@ -320,6 +320,9 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-nvcc_linux--64-green.svg)](https://anaconda.org/conda-forge/nvcc_linux-64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/nvcc_linux-64.svg)](https://anaconda.org/conda-forge/nvcc_linux-64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/nvcc_linux-64.svg)](https://anaconda.org/conda-forge/nvcc_linux-64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/nvcc_linux-64.svg)](https://anaconda.org/conda-forge/nvcc_linux-64) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-nvcc_linux--aarch64-green.svg)](https://anaconda.org/conda-forge/nvcc_linux-aarch64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/nvcc_linux-aarch64.svg)](https://anaconda.org/conda-forge/nvcc_linux-aarch64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/nvcc_linux-aarch64.svg)](https://anaconda.org/conda-forge/nvcc_linux-aarch64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/nvcc_linux-aarch64.svg)](https://anaconda.org/conda-forge/nvcc_linux-aarch64) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-nvcc_linux--ppc64le-green.svg)](https://anaconda.org/conda-forge/nvcc_linux-ppc64le) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/nvcc_linux-ppc64le.svg)](https://anaconda.org/conda-forge/nvcc_linux-ppc64le) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/nvcc_linux-ppc64le.svg)](https://anaconda.org/conda-forge/nvcc_linux-ppc64le) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/nvcc_linux-ppc64le.svg)](https://anaconda.org/conda-forge/nvcc_linux-ppc64le) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-nvcc_win--64-green.svg)](https://anaconda.org/conda-forge/nvcc_win-64) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/nvcc_win-64.svg)](https://anaconda.org/conda-forge/nvcc_win-64) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/nvcc_win-64.svg)](https://anaconda.org/conda-forge/nvcc_win-64) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/nvcc_win-64.svg)](https://anaconda.org/conda-forge/nvcc_win-64) |
 
 Installing nvcc
 ===============
@@ -331,16 +334,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `nvcc_linux-64` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `nvcc_linux-64, nvcc_linux-aarch64, nvcc_linux-ppc64le, nvcc_win-64` can be installed with `conda`:
 
 ```
-conda install nvcc_linux-64
+conda install nvcc_linux-64 nvcc_linux-aarch64 nvcc_linux-ppc64le nvcc_win-64
 ```
 
 or with `mamba`:
 
 ```
-mamba install nvcc_linux-64
+mamba install nvcc_linux-64 nvcc_linux-aarch64 nvcc_linux-ppc64le nvcc_win-64
 ```
 
 It is possible to list all of the versions of `nvcc_linux-64` available on your platform with `conda`:
