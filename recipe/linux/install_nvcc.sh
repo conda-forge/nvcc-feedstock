@@ -4,7 +4,7 @@ set -xeuo pipefail
 
 # Activation script
 mkdir -p "${PREFIX}/etc/conda/activate.d"
-sed -i "s/__PKG_VERSION__/$PKG_VERSION/g" linux/activate.sh
+sed -i "s/__PKG_VERSION__/$PKG_VERSION/g" $RECIPE_DIR/linux/activate.sh
 cp $RECIPE_DIR/linux/activate.sh "${PREFIX}/etc/conda/activate.d/${PKG_NAME}_activate.sh"
 
 # Deactivation script
