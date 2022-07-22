@@ -67,7 +67,7 @@ if [[ -z "\$(\${CUDA_HOME}/bin/nvcc --version | grep "Cuda compilation tools, re
 then
   if [[ "\${CONDA_BUILD}" = "1" ]]
   then
-    echo "Version of installed CUDA didn't match package"
+    echo "Error: Version of installed CUDA didn't match package"
     return 1
   else
     echo "Warning: Version of installed CUDA didn't match package"
