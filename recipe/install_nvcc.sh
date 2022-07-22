@@ -65,7 +65,7 @@ fi
 
 if [[ -z "\$(\${CUDA_HOME}/bin/nvcc --version | grep "Cuda compilation tools, release ${PKG_VERSION}")" ]]
 then
-  if [[ ! -z "\${CONDA_BUILD+x}" ]]
+  if [[ "\${CONDA_BUILD}"="1" ]]
   then
     echo "Version of installed CUDA didn't match package"
     return 1
