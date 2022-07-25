@@ -70,7 +70,7 @@ outputs:
         - linux/test_nvcc.sh     # [linux]
         - windows\test_nvcc.bat  # [win]
       commands:
-        - linux/bash test_nvcc.sh  # [linux]
+        - bash linux/test_nvcc.sh  # [linux]
         - windows\test_nvcc.bat    # [win]
     about:
       home: https://github.com/conda-forge/nvcc-feedstock
