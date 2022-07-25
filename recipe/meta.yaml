@@ -67,11 +67,11 @@ outputs:
 {% endif %}                                    # [linux]
       files:
         - test.cu
-        - test_nvcc.sh  # [linux]
+        - linux/test_nvcc.sh     # [linux]
         - windows\test_nvcc.bat  # [win]
       commands:
-        - bash test_nvcc.sh  # [linux]
-        - windows\test_nvcc.bat  # [win]
+        - linux/bash test_nvcc.sh  # [linux]
+        - windows\test_nvcc.bat    # [win]
     about:
       home: https://github.com/conda-forge/nvcc-feedstock
       license: BSD-3-Clause
