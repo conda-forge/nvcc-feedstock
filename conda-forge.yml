@@ -2,7 +2,7 @@ conda_forge_output_validation: true
 provider: {linux_ppc64le: azure, linux_aarch64: azure}
 # remove the `azure` section and re-render before merging
 azure:
-  store_build_artifacts: False
+  store_build_artifacts: true
 github:
   branch_name: main
   tooling_branch_name: main
