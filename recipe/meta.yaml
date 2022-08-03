@@ -1,5 +1,5 @@
 {% set name = "nvcc" %}
-{% set number = 20 %}
+{% set number = 21 %}
 
 {% if cuda_compiler_version in (None, "None", True, False) %}
 {% set cuda_major = 0 %}
@@ -26,7 +26,7 @@ outputs:
   - name: "{{ name }}_{{ target_platform }}"
     version: "{{ cuda_compiler_version }}"
     number: {{ number }}
-    script: install_nvcc.sh   # [linux]
+    script: linux/install_nvcc.sh     # [linux]
     script: windows/install_nvcc.bat  # [win]
     build:
       ignore_run_exports:
@@ -67,11 +67,11 @@ outputs:
 {% endif %}                                    # [linux]
       files:
         - test.cu
-        - test_nvcc.sh  # [linux]
+        - linux/test_nvcc.sh     # [linux]
         - windows\test_nvcc.bat  # [win]
       commands:
-        - bash test_nvcc.sh  # [linux]
-        - windows\test_nvcc.bat  # [win]
+        - bash linux/test_nvcc.sh  # [linux]
+        - windows\test_nvcc.bat    # [win]
     about:
       home: https://github.com/conda-forge/nvcc-feedstock
       license: BSD-3-Clause
