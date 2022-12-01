@@ -24,7 +24,7 @@ cuda_compiler_version:
   - None
 
   - 9.2    # [linux64]
-  - 10.0   # [linux64 or win]
+  - 10.0   # [linux64]
   - 10.1   # [linux64 or win]
   - 10.2   # [linux64 or win or (linux and ppc64le)]
   - 11.0   # [linux64 or win or (linux and ppc64le) or (linux and aarch64)]
