@@ -1,5 +1,5 @@
 c_compiler:
-- vs2017
+- vs2019
 channel_sources:
 - conda-forge
 channel_targets:
@@ -7,8 +7,8 @@ channel_targets:
 cuda_compiler:
 - nvcc
 cuda_compiler_version:
-- '10.0'
+- '11.8'
 cxx_compiler:
-- vs2017
+- vs2019
 target_platform:
 - win-64

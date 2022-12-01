@@ -1,13 +1,13 @@
 {% set name = "nvcc" %}
-{% set number = 21 %}
+{% set number = 22 %}
 
 {% if cuda_compiler_version in (None, "None", True, False) %}
 {% set cuda_major = 0 %}
 {% set cuda_minor = 0 %}
 {% set cuda_major_minor = (0, 0) %}
 {% else %}
-{% set cuda_major = environ.get("cuda_compiler_version", "11.7").split(".")[0]|int %}
-{% set cuda_minor = environ.get("cuda_compiler_version", "11.7").split(".")[1]|int %}
+{% set cuda_major = environ.get("cuda_compiler_version", "11.8").split(".")[0]|int %}
+{% set cuda_minor = environ.get("cuda_compiler_version", "11.8").split(".")[1]|int %}
 {% set cuda_major_minor = (cuda_major, cuda_minor) %}
 {% endif %}
 

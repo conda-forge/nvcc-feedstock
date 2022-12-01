@@ -8,9 +8,6 @@ jobs:
     vmImage: windows-2019
   strategy:
     matrix:
-      win_64_cuda_compiler_version10.0:
-        CONFIG: win_64_cuda_compiler_version10.0
-        UPLOAD_PACKAGES: 'True'
       win_64_cuda_compiler_version10.1:
         CONFIG: win_64_cuda_compiler_version10.1
         UPLOAD_PACKAGES: 'True'
@@ -41,6 +38,9 @@ jobs:
       win_64_cuda_compiler_version11.7:
         CONFIG: win_64_cuda_compiler_version11.7
         UPLOAD_PACKAGES: 'True'
+      win_64_cuda_compiler_version11.8:
+        CONFIG: win_64_cuda_compiler_version11.8
+        UPLOAD_PACKAGES: 'True'
   timeoutInMinutes: 360
   variables:
     CONDA_BLD_PATH: D:\\bld\\
@@ -65,7 +65,7 @@ jobs:
 
     - script: |
         call activate base
-        mamba.exe install 'python=3.9' conda-build conda pip boa 'conda-forge-ci-setup=3' -c conda-forge --strict-channel-priority --yes
+        mamba.exe install "python=3.9" conda-build conda pip boa conda-forge-ci-setup=3 "py-lief<0.12" -c conda-forge --strict-channel-priority --yes
       displayName: Install conda-build
 
     - script: set PYTHONUNBUFFERED=1

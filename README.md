@@ -30,280 +30,301 @@ Current build status
               <td>linux_64_cdt_namecos6cuda_compiler_version10.0</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_64_cdt_namecos6cuda_compiler_version10.0" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cdt_namecos6cuda_compiler_version10.0" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_64_cdt_namecos6cuda_compiler_version10.1</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_64_cdt_namecos6cuda_compiler_version10.1" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cdt_namecos6cuda_compiler_version10.1" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_64_cdt_namecos6cuda_compiler_version10.2</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_64_cdt_namecos6cuda_compiler_version10.2" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cdt_namecos6cuda_compiler_version10.2" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_64_cdt_namecos6cuda_compiler_version9.2</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_64_cdt_namecos6cuda_compiler_version9.2" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cdt_namecos6cuda_compiler_version9.2" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_64_cdt_namecos7cuda_compiler_version11.0</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_64_cdt_namecos7cuda_compiler_version11.0" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cdt_namecos7cuda_compiler_version11.0" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_64_cdt_namecos7cuda_compiler_version11.1</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_64_cdt_namecos7cuda_compiler_version11.1" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cdt_namecos7cuda_compiler_version11.1" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_64_cdt_namecos7cuda_compiler_version11.2</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_64_cdt_namecos7cuda_compiler_version11.2" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cdt_namecos7cuda_compiler_version11.2" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_64_cdt_namecos7cuda_compiler_version11.3</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_64_cdt_namecos7cuda_compiler_version11.3" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cdt_namecos7cuda_compiler_version11.3" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_64_cdt_namecos7cuda_compiler_version11.4</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_64_cdt_namecos7cuda_compiler_version11.4" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cdt_namecos7cuda_compiler_version11.4" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_64_cdt_namecos7cuda_compiler_version11.5</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_64_cdt_namecos7cuda_compiler_version11.5" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cdt_namecos7cuda_compiler_version11.5" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_64_cdt_namecos7cuda_compiler_version11.6</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_64_cdt_namecos7cuda_compiler_version11.6" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cdt_namecos7cuda_compiler_version11.6" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_64_cdt_namecos7cuda_compiler_version11.7</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_64_cdt_namecos7cuda_compiler_version11.7" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cdt_namecos7cuda_compiler_version11.7" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_64_cdt_namecos7cuda_compiler_version11.8</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_cdt_namecos7cuda_compiler_version11.8" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_aarch64_cuda_compiler_version11.0</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_aarch64_cuda_compiler_version11.0" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_cuda_compiler_version11.0" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_aarch64_cuda_compiler_version11.1</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_aarch64_cuda_compiler_version11.1" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_cuda_compiler_version11.1" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_aarch64_cuda_compiler_version11.2</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_aarch64_cuda_compiler_version11.2" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_cuda_compiler_version11.2" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_aarch64_cuda_compiler_version11.3</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_aarch64_cuda_compiler_version11.3" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_cuda_compiler_version11.3" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_aarch64_cuda_compiler_version11.4</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_aarch64_cuda_compiler_version11.4" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_cuda_compiler_version11.4" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_aarch64_cuda_compiler_version11.5</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_aarch64_cuda_compiler_version11.5" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_cuda_compiler_version11.5" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_aarch64_cuda_compiler_version11.6</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_aarch64_cuda_compiler_version11.6" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_cuda_compiler_version11.6" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_aarch64_cuda_compiler_version11.7</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_aarch64_cuda_compiler_version11.7" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_cuda_compiler_version11.7" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>linux_aarch64_cuda_compiler_version11.8</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_aarch64_cuda_compiler_version11.8" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_ppc64le_cuda_compiler_version10.2</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_ppc64le_cuda_compiler_version10.2" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_cuda_compiler_version10.2" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_ppc64le_cuda_compiler_version11.0</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_ppc64le_cuda_compiler_version11.0" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_cuda_compiler_version11.0" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_ppc64le_cuda_compiler_version11.1</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_ppc64le_cuda_compiler_version11.1" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_cuda_compiler_version11.1" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_ppc64le_cuda_compiler_version11.2</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_ppc64le_cuda_compiler_version11.2" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_cuda_compiler_version11.2" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_ppc64le_cuda_compiler_version11.3</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_ppc64le_cuda_compiler_version11.3" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_cuda_compiler_version11.3" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_ppc64le_cuda_compiler_version11.4</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_ppc64le_cuda_compiler_version11.4" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_cuda_compiler_version11.4" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_ppc64le_cuda_compiler_version11.5</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_ppc64le_cuda_compiler_version11.5" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_cuda_compiler_version11.5" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_ppc64le_cuda_compiler_version11.6</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_ppc64le_cuda_compiler_version11.6" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_cuda_compiler_version11.6" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>linux_ppc64le_cuda_compiler_version11.7</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux_ppc64le_cuda_compiler_version11.7" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_cuda_compiler_version11.7" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>win_64_cuda_compiler_version10.0</td>
+              <td>linux_ppc64le_cuda_compiler_version11.8</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win_64_cuda_compiler_version10.0" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_ppc64le_cuda_compiler_version11.8" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64_cuda_compiler_version10.1</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win_64_cuda_compiler_version10.1" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win%20win_64_cuda_compiler_version10.1" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64_cuda_compiler_version10.2</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win_64_cuda_compiler_version10.2" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win%20win_64_cuda_compiler_version10.2" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64_cuda_compiler_version11.0</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win_64_cuda_compiler_version11.0" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win%20win_64_cuda_compiler_version11.0" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64_cuda_compiler_version11.1</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win_64_cuda_compiler_version11.1" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win%20win_64_cuda_compiler_version11.1" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64_cuda_compiler_version11.2</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win_64_cuda_compiler_version11.2" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win%20win_64_cuda_compiler_version11.2" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64_cuda_compiler_version11.3</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win_64_cuda_compiler_version11.3" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win%20win_64_cuda_compiler_version11.3" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64_cuda_compiler_version11.4</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win_64_cuda_compiler_version11.4" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win%20win_64_cuda_compiler_version11.4" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64_cuda_compiler_version11.5</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win_64_cuda_compiler_version11.5" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win%20win_64_cuda_compiler_version11.5" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64_cuda_compiler_version11.6</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win_64_cuda_compiler_version11.6" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win%20win_64_cuda_compiler_version11.6" alt="variant">
                 </a>
               </td>
             </tr><tr>
               <td>win_64_cuda_compiler_version11.7</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win_64_cuda_compiler_version11.7" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win%20win_64_cuda_compiler_version11.7" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>win_64_cuda_compiler_version11.8</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=7480&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/nvcc-feedstock?branchName=main&jobName=win&configuration=win%20win_64_cuda_compiler_version11.8" alt="variant">
                 </a>
               </td>
             </tr>
