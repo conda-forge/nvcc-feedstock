@@ -96,7 +96,7 @@ cudnn:
   # end of cuda_compiler_version == None
 
   - 7      # [linux64]                  # CUDA 9.2
-  - 7      # [linux64 or win]           # CUDA 10.0
+  - 7      # [linux64]                  # CUDA 10.0
   - 7      # [linux64 or win]           # CUDA 10.1
   - 7      # [linux64 or win]           # CUDA 10.2
   - 8      # [linux64 or win]           # CUDA 11.0
