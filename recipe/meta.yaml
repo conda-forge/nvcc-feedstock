@@ -11,6 +11,10 @@
 {% set cuda_major_minor = (cuda_major, cuda_minor) %}
 {% endif %}
 
+{% if cross_target_platform is undefined %}
+{% set cross_target_platform = target_platform %}
+{% endif %}
+
 package:
   name: "{{ name }}"
 
@@ -19,10 +23,10 @@ build:
 {% if cuda_major == 0
     or (cross_target_platform == "linux-ppc64le" and cuda_major_minor < (10, 2))
     or (cross_target_platform == "linux-aarch64" and (cuda_major_minor < (11, 0) or arm_variant_type != "sbsa"))
-    or (cross_target_platform != target_platform and cuda_major_minor != (11, 2))
-    %}
+    or (cross_target_platform != target_platform and cuda_compiler_version != "11.2") %}
   skip: true
 {% endif %}
+
 
 outputs:
   - name: "{{ name }}_{{ cross_target_platform }}"
