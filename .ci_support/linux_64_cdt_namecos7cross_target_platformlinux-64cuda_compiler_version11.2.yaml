@@ -1,7 +1,7 @@
 c_compiler:
 - gcc
 c_compiler_version:
-- '8'
+- '7'
 cdt_name:
 - cos7
 channel_sources:
@@ -9,7 +9,7 @@ channel_sources:
 channel_targets:
 - conda-forge main
 cross_target_platform:
-- linux-ppc64le
+- linux-64
 cuda_compiler:
 - nvcc
 cuda_compiler_version:
@@ -17,11 +17,11 @@ cuda_compiler_version:
 cxx_compiler:
 - gxx
 cxx_compiler_version:
-- '8'
+- '7'
 docker_image:
-- quay.io/condaforge/linux-anvil-ppc64le-cuda:11.2
+- quay.io/condaforge/linux-anvil-cuda:11.2
 target_platform:
-- linux-ppc64le
+- linux-64
 zip_keys:
 - - c_compiler_version
   - cxx_compiler_version

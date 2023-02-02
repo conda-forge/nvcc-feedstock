@@ -8,56 +8,160 @@ jobs:
     vmImage: ubuntu-latest
   strategy:
     matrix:
-      linux_64_cdt_namecos6cuda_compiler_version10.0:
-        CONFIG: linux_64_cdt_namecos6cuda_compiler_version10.0
+      linux_64_cdt_namecos6cross_target_platformlinux-64cuda_compiler_version10.0:
+        CONFIG: linux_64_cdt_namecos6cross_target_platformlinux-64cuda_compiler_version10.0
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-cuda:10.0
-      linux_64_cdt_namecos6cuda_compiler_version10.1:
-        CONFIG: linux_64_cdt_namecos6cuda_compiler_version10.1
+      linux_64_cdt_namecos6cross_target_platformlinux-64cuda_compiler_version10.1:
+        CONFIG: linux_64_cdt_namecos6cross_target_platformlinux-64cuda_compiler_version10.1
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-cuda:10.1
-      linux_64_cdt_namecos6cuda_compiler_version10.2:
-        CONFIG: linux_64_cdt_namecos6cuda_compiler_version10.2
+      linux_64_cdt_namecos6cross_target_platformlinux-64cuda_compiler_version10.2:
+        CONFIG: linux_64_cdt_namecos6cross_target_platformlinux-64cuda_compiler_version10.2
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-cuda:10.2
-      linux_64_cdt_namecos6cuda_compiler_version9.2:
-        CONFIG: linux_64_cdt_namecos6cuda_compiler_version9.2
+      linux_64_cdt_namecos6cross_target_platformlinux-64cuda_compiler_version9.2:
+        CONFIG: linux_64_cdt_namecos6cross_target_platformlinux-64cuda_compiler_version9.2
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-cuda:9.2
-      linux_64_cdt_namecos7cuda_compiler_version11.0:
-        CONFIG: linux_64_cdt_namecos7cuda_compiler_version11.0
+      linux_64_cdt_namecos6cross_target_platformlinux-aarch64cuda_compiler_version10.0:
+        CONFIG: linux_64_cdt_namecos6cross_target_platformlinux-aarch64cuda_compiler_version10.0
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-cuda:10.0
+      linux_64_cdt_namecos6cross_target_platformlinux-aarch64cuda_compiler_version10.1:
+        CONFIG: linux_64_cdt_namecos6cross_target_platformlinux-aarch64cuda_compiler_version10.1
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-cuda:10.1
+      linux_64_cdt_namecos6cross_target_platformlinux-aarch64cuda_compiler_version10.2:
+        CONFIG: linux_64_cdt_namecos6cross_target_platformlinux-aarch64cuda_compiler_version10.2
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-cuda:10.2
+      linux_64_cdt_namecos6cross_target_platformlinux-aarch64cuda_compiler_version9.2:
+        CONFIG: linux_64_cdt_namecos6cross_target_platformlinux-aarch64cuda_compiler_version9.2
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-cuda:9.2
+      linux_64_cdt_namecos6cross_target_platformlinux-ppc64lecuda_compiler_version10.0:
+        CONFIG: linux_64_cdt_namecos6cross_target_platformlinux-ppc64lecuda_compiler_version10.0
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-cuda:10.0
+      linux_64_cdt_namecos6cross_target_platformlinux-ppc64lecuda_compiler_version10.1:
+        CONFIG: linux_64_cdt_namecos6cross_target_platformlinux-ppc64lecuda_compiler_version10.1
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-cuda:10.1
+      linux_64_cdt_namecos6cross_target_platformlinux-ppc64lecuda_compiler_version10.2:
+        CONFIG: linux_64_cdt_namecos6cross_target_platformlinux-ppc64lecuda_compiler_version10.2
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-cuda:10.2
+      linux_64_cdt_namecos6cross_target_platformlinux-ppc64lecuda_compiler_version9.2:
+        CONFIG: linux_64_cdt_namecos6cross_target_platformlinux-ppc64lecuda_compiler_version9.2
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cos7-cuda:9.2
+      linux_64_cdt_namecos7cross_target_platformlinux-64cuda_compiler_version11.0:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-64cuda_compiler_version11.0
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.0
-      linux_64_cdt_namecos7cuda_compiler_version11.1:
-        CONFIG: linux_64_cdt_namecos7cuda_compiler_version11.1
+      linux_64_cdt_namecos7cross_target_platformlinux-64cuda_compiler_version11.1:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-64cuda_compiler_version11.1
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.1
-      linux_64_cdt_namecos7cuda_compiler_version11.2:
-        CONFIG: linux_64_cdt_namecos7cuda_compiler_version11.2
+      linux_64_cdt_namecos7cross_target_platformlinux-64cuda_compiler_version11.2:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-64cuda_compiler_version11.2
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.2
-      linux_64_cdt_namecos7cuda_compiler_version11.3:
-        CONFIG: linux_64_cdt_namecos7cuda_compiler_version11.3
+      linux_64_cdt_namecos7cross_target_platformlinux-64cuda_compiler_version11.3:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-64cuda_compiler_version11.3
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.3
-      linux_64_cdt_namecos7cuda_compiler_version11.4:
-        CONFIG: linux_64_cdt_namecos7cuda_compiler_version11.4
+      linux_64_cdt_namecos7cross_target_platformlinux-64cuda_compiler_version11.4:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-64cuda_compiler_version11.4
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.4
-      linux_64_cdt_namecos7cuda_compiler_version11.5:
-        CONFIG: linux_64_cdt_namecos7cuda_compiler_version11.5
+      linux_64_cdt_namecos7cross_target_platformlinux-64cuda_compiler_version11.5:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-64cuda_compiler_version11.5
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.5
-      linux_64_cdt_namecos7cuda_compiler_version11.6:
-        CONFIG: linux_64_cdt_namecos7cuda_compiler_version11.6
+      linux_64_cdt_namecos7cross_target_platformlinux-64cuda_compiler_version11.6:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-64cuda_compiler_version11.6
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.6
-      linux_64_cdt_namecos7cuda_compiler_version11.7:
-        CONFIG: linux_64_cdt_namecos7cuda_compiler_version11.7
+      linux_64_cdt_namecos7cross_target_platformlinux-64cuda_compiler_version11.7:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-64cuda_compiler_version11.7
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.7
-      linux_64_cdt_namecos7cuda_compiler_version11.8:
-        CONFIG: linux_64_cdt_namecos7cuda_compiler_version11.8
+      linux_64_cdt_namecos7cross_target_platformlinux-64cuda_compiler_version11.8:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-64cuda_compiler_version11.8
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.8
+      linux_64_cdt_namecos7cross_target_platformlinux-aarch64cuda_compiler_version11.0:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-aarch64cuda_compiler_version11.0
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.0
+      linux_64_cdt_namecos7cross_target_platformlinux-aarch64cuda_compiler_version11.1:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-aarch64cuda_compiler_version11.1
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.1
+      linux_64_cdt_namecos7cross_target_platformlinux-aarch64cuda_compiler_version11.2:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-aarch64cuda_compiler_version11.2
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.2
+      linux_64_cdt_namecos7cross_target_platformlinux-aarch64cuda_compiler_version11.3:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-aarch64cuda_compiler_version11.3
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.3
+      linux_64_cdt_namecos7cross_target_platformlinux-aarch64cuda_compiler_version11.4:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-aarch64cuda_compiler_version11.4
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.4
+      linux_64_cdt_namecos7cross_target_platformlinux-aarch64cuda_compiler_version11.5:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-aarch64cuda_compiler_version11.5
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.5
+      linux_64_cdt_namecos7cross_target_platformlinux-aarch64cuda_compiler_version11.6:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-aarch64cuda_compiler_version11.6
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.6
+      linux_64_cdt_namecos7cross_target_platformlinux-aarch64cuda_compiler_version11.7:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-aarch64cuda_compiler_version11.7
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.7
+      linux_64_cdt_namecos7cross_target_platformlinux-aarch64cuda_compiler_version11.8:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-aarch64cuda_compiler_version11.8
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.8
+      linux_64_cdt_namecos7cross_target_platformlinux-ppc64lecuda_compiler_version11.0:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-ppc64lecuda_compiler_version11.0
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.0
+      linux_64_cdt_namecos7cross_target_platformlinux-ppc64lecuda_compiler_version11.1:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-ppc64lecuda_compiler_version11.1
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.1
+      linux_64_cdt_namecos7cross_target_platformlinux-ppc64lecuda_compiler_version11.2:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-ppc64lecuda_compiler_version11.2
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.2
+      linux_64_cdt_namecos7cross_target_platformlinux-ppc64lecuda_compiler_version11.3:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-ppc64lecuda_compiler_version11.3
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.3
+      linux_64_cdt_namecos7cross_target_platformlinux-ppc64lecuda_compiler_version11.4:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-ppc64lecuda_compiler_version11.4
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.4
+      linux_64_cdt_namecos7cross_target_platformlinux-ppc64lecuda_compiler_version11.5:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-ppc64lecuda_compiler_version11.5
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.5
+      linux_64_cdt_namecos7cross_target_platformlinux-ppc64lecuda_compiler_version11.6:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-ppc64lecuda_compiler_version11.6
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.6
+      linux_64_cdt_namecos7cross_target_platformlinux-ppc64lecuda_compiler_version11.7:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-ppc64lecuda_compiler_version11.7
+        UPLOAD_PACKAGES: 'True'
+        DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.7
+      linux_64_cdt_namecos7cross_target_platformlinux-ppc64lecuda_compiler_version11.8:
+        CONFIG: linux_64_cdt_namecos7cross_target_platformlinux-ppc64lecuda_compiler_version11.8
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-cuda:11.8
       linux_aarch64_cuda_compiler_version11.0:
@@ -136,6 +240,7 @@ jobs:
         CONFIG: linux_ppc64le_cuda_compiler_version11.8
         UPLOAD_PACKAGES: 'True'
         DOCKER_IMAGE: quay.io/condaforge/linux-anvil-ppc64le-cuda:11.8
+    maxParallel: 42
   timeoutInMinutes: 360
 
   steps:
