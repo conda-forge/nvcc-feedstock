@@ -52,9 +52,25 @@ then
     return 1
 fi
 
-if [[ ! -f "${CUDA_HOME}/lib64/stubs/libcuda.so" ]]
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" == "1" ]]; then
+    if [[ "${target_platform:-}" == "linux-aarch64" ]]; then
+        LIBCUDA_STUB_FILE="${CUDA_HOME}/targets/sbsa-linux/lib/stubs/libcuda.so"
+        CUDA_INCLUDE_DIR="${CUDA_HOME}/targets/sbsa-linux/include"
+    elif [[ "${target_platform:-}" == "linux-ppc64le" ]]; then
+        LIBCUDA_STUB_FILE="${CUDA_HOME}/targets/ppc64le-linux/lib/stubs/libcuda.so"
+        CUDA_INCLUDE_DIR="${CUDA_HOME}/targets/ppc64le-linux/include"
+    elif [[ "${target_platform:-}" == "linux-64" ]]; then
+        LIBCUDA_STUB_FILE="${CUDA_HOME}/targets/x86_64-linux/lib/stubs/libcuda.so"
+        CUDA_INCLUDE_DIR="${CUDA_HOME}/targets/x86_64-linux/include"
+    fi
+else
+    LIBCUDA_STUB_FILE="${CUDA_HOME}/lib64/stubs/libcuda.so"
+    CUDA_INCLUDE_DIR="${CUDA_HOME}/include"
+fi
+
+if [[ ! -f "${LIBCUDA_STUB_FILE}" ]]
 then
-    echo "File ${CUDA_HOME}/lib64/stubs/libcuda.so doesn't exist"
+    echo "File ${LIBCUDA_STUB_FILE} doesn't exist"
     return 1
 fi
 
@@ -70,9 +86,9 @@ then
 fi
 
 export CUDA_HOME="${CUDA_HOME}"
-export CFLAGS="${CFLAGS} -isystem ${CUDA_HOME}/include"
-export CPPFLAGS="${CPPFLAGS} -isystem ${CUDA_HOME}/include"
-export CXXFLAGS="${CXXFLAGS} -isystem ${CUDA_HOME}/include"
+export CFLAGS="${CFLAGS} -isystem ${CUDA_INCLUDE_DIR}"
+export CPPFLAGS="${CPPFLAGS} -isystem ${CUDA_INCLUDE_DIR}"
+export CXXFLAGS="${CXXFLAGS} -isystem ${CUDA_INCLUDE_DIR}"
 
 ### CMake configurations
 
@@ -103,8 +119,8 @@ then
   then
     mv -f "${CONDA_BUILD_SYSROOT}/lib/libcuda.so" "${LIBCUDA_SO_CONDA_NVCC_BACKUP}"
   fi
-  ln -s "${CUDA_HOME}/lib64/stubs/libcuda.so" "${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
+  ln -s "${LIBCUDA_STUB_FILE}" "${CONDA_BUILD_SYSROOT}/lib/libcuda.so"
 else
   mkdir -p "${CONDA_PREFIX}/lib/stubs"
-  ln -sf "${CUDA_HOME}/lib64/stubs/libcuda.so" "${CONDA_PREFIX}/lib/stubs/libcuda.so"
+  ln -sf "${LIBCUDA_STUB_FILE}" "${CONDA_PREFIX}/lib/stubs/libcuda.so"
 fi

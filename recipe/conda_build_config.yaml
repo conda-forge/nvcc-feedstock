@@ -172,3 +172,11 @@ cdt_name:  # [linux]
   - cos7   # [linux and aarch64]        # CUDA 11.6
   - cos7   # [linux and aarch64]        # CUDA 11.7
   - cos7   # [linux and aarch64]        # CUDA 11.8
+
+cross_target_platform:
+  - linux-64        # [linux and x86_64]
+  - linux-aarch64   # [linux and (x86_64 or aarch64)]
+  - linux-ppc64le   # [linux and (x86_64 or ppc64le)]
+  - win-64          # [win and x86_64]
+  - osx-64          # [osx and x86_64]
+  - osx-arm64       # [osx and arm64]
