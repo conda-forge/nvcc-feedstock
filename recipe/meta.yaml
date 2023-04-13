@@ -11,19 +11,25 @@
 {% set cuda_major_minor = (cuda_major, cuda_minor) %}
 {% endif %}
 
+{% if cross_target_platform is undefined %}
+{% set cross_target_platform = target_platform %}
+{% endif %}
+
 package:
   name: "{{ name }}"
 
 build:
   number: {{ number }}
 {% if cuda_major == 0
-    or (target_platform == "linux-ppc64le" and cuda_major_minor < (10, 2))
-    or (target_platform == "linux-aarch64" and (cuda_major_minor < (11, 0) or arm_variant_type != "sbsa")) %}
+    or (cross_target_platform == "linux-ppc64le" and cuda_major_minor < (10, 2))
+    or (cross_target_platform == "linux-aarch64" and (cuda_major_minor < (11, 0) or arm_variant_type != "sbsa"))
+    or (cross_target_platform != target_platform and cuda_compiler_version != "11.2") %}
   skip: true
 {% endif %}
 
+
 outputs:
-  - name: "{{ name }}_{{ target_platform }}"
+  - name: "{{ name }}_{{ cross_target_platform }}"
     version: "{{ cuda_compiler_version }}"
     number: {{ number }}
     script: linux/install_nvcc.sh     # [linux]
@@ -38,40 +44,36 @@ outputs:
 {% else %}
           - cudatoolkit >={{ cuda_compiler_version }},<{{ cuda_major + 1 }}
 {% endif %}
-{% if cdt_name == "cos7" %}       # [linux]
-          - __glibc >=2.17        # [linux]
-{% endif %}                       # [linux]
+          - __glibc >=2.17                           # [linux and cdt_name == "cos7"]
     requirements:
       build:      # [win]
         - m2-sed  # [win]
       host:
         # Needed to symlink libcuda into sysroot libs.
-        - {{ compiler("c") }}
-{% if cdt_name == "cos7" %}                    # [linux]
-        - sysroot_{{ target_platform }} 2.17   # [linux]
-        - __glibc >=2.17                       # [linux]
-{% endif %}                                    # [linux]
+        - {{ c_compiler }}_{{ cross_target_platform }} {{ c_compiler_version }}.*       # [linux]
+        - {{ c_compiler }}_{{ cross_target_platform }}                                  # [win]
+        - sysroot_{{ cross_target_platform }} 2.17   # [linux and cdt_name == "cos7"]
+        - __glibc >=2.17                             # [linux and cdt_name == "cos7"]
       run:
-        - sed                                  # [linux]
-{% if cdt_name == "cos7" %}                    # [linux]
-        - sysroot_{{ target_platform }} 2.17   # [linux]
-        - __glibc >=2.17                       # [linux]
-{% endif %}                                    # [linux]
+        - sed                                        # [linux]
+        - sysroot_{{ cross_target_platform }} 2.17   # [linux and cdt_name == "cos7"]
+        - __glibc >=2.17                             # [linux and cdt_name == "cos7"]
     test:
       requires:
-        - {{ compiler("c") }}
+        - {{ c_compiler }}_{{ cross_target_platform }} {{ c_compiler_version }}.*       # [linux]
+        - {{ c_compiler }}_{{ cross_target_platform }}                                  # [win]
         # Host code is forwarded to a C++ compiler
-        - {{ compiler("cxx") }}
-{% if cdt_name == "cos7" %}                    # [linux]
-        - sysroot_{{ target_platform }} 2.17   # [linux]
-{% endif %}                                    # [linux]
+        - {{ cxx_compiler }}_{{ cross_target_platform }} {{ cxx_compiler_version }}.*   # [linux]
+        - {{ cxx_compiler }}_{{ cross_target_platform }}                                # [win]
+        - sysroot_{{ cross_target_platform }} 2.17   # [linux and cdt_name == "cos7"]
+        - __glibc >=2.17                             # [linux and cdt_name == "cos7"]
       files:
         - test.cu
         - linux/test_nvcc.sh     # [linux]
         - windows\test_nvcc.bat  # [win]
       commands:
-        - bash linux/test_nvcc.sh  # [linux]
-        - windows\test_nvcc.bat    # [win]
+        - bash linux/test_nvcc.sh  # [linux and target_platform == cross_target_platform]
+        - windows\test_nvcc.bat    # [win and target_platform == cross_target_platform]
     about:
       home: https://github.com/conda-forge/nvcc-feedstock
       license: BSD-3-Clause
