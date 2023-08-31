@@ -1,11 +1,11 @@
-About nvcc
-==========
+About nvcc-feedstock
+====================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/nvcc-feedstock/blob/main/LICENSE.txt)
 
 Home: https://github.com/conda-forge/nvcc-feedstock
 
 Package license: BSD-3-Clause
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/nvcc-feedstock/blob/main/LICENSE.txt)
 
 Summary: A meta-package to enable the right nvcc.
 
