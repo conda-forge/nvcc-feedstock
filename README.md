@@ -650,6 +650,3 @@ Feedstock Maintainers
 * [@mike-wendt](https://github.com/mike-wendt/)
 * [@raydouglass](https://github.com/raydouglass/)
 
-
-<!-- dummy commit to enable rerendering -->
-
