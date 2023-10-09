@@ -54,16 +54,20 @@ fi
 
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-0}" == "1" ]]; then
     if [[ "${target_platform:-}" == "linux-aarch64" ]]; then
+        TARGET_ROOT=/targets/sbsa-linux
         LIBCUDA_STUB_FILE="${CUDA_HOME}/targets/sbsa-linux/lib/stubs/libcuda.so"
         CUDA_INCLUDE_DIR="${CUDA_HOME}/targets/sbsa-linux/include"
     elif [[ "${target_platform:-}" == "linux-ppc64le" ]]; then
+        TARGET_ROOT=/targets/ppc64le-linux
         LIBCUDA_STUB_FILE="${CUDA_HOME}/targets/ppc64le-linux/lib/stubs/libcuda.so"
         CUDA_INCLUDE_DIR="${CUDA_HOME}/targets/ppc64le-linux/include"
     elif [[ "${target_platform:-}" == "linux-64" ]]; then
+        TARGET_ROOT=/targets/x86_64-linux
         LIBCUDA_STUB_FILE="${CUDA_HOME}/targets/x86_64-linux/lib/stubs/libcuda.so"
         CUDA_INCLUDE_DIR="${CUDA_HOME}/targets/x86_64-linux/include"
     fi
 else
+    TARGET_ROOT=""
     LIBCUDA_STUB_FILE="${CUDA_HOME}/lib64/stubs/libcuda.so"
     CUDA_INCLUDE_DIR="${CUDA_HOME}/include"
 fi
@@ -95,7 +99,7 @@ export CXXFLAGS="${CXXFLAGS} -isystem ${CUDA_INCLUDE_DIR}"
 # CMake looks up components in CUDA_PATH, not CUDA_HOME
 export CUDA_PATH="${CUDA_HOME}"
 # New-style CUDA integrations in CMake
-CMAKE_ARGS="${CMAKE_ARGS:-} -DCUDAToolkit_ROOT=${CUDA_HOME}"
+CMAKE_ARGS="${CMAKE_ARGS:-} -DCUDAToolkit_ROOT=${CUDA_HOME}${TARGET_ROOT}"
 # Old-style CUDA integrations in CMake
 ## See https://github.com/conda-forge/nvcc-feedstock/pull/58#issuecomment-752179349
 CMAKE_ARGS+=" -DCUDA_TOOLKIT_ROOT_DIR=${CUDA_HOME}"
