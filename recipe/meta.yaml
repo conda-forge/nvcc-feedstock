@@ -1,5 +1,3 @@
-{% set number = 23 %}
-
 {% if cuda_compiler_version in (None, "None", True, False) %}
 {% set cuda_major = 0 %}
 {% else %}
@@ -15,13 +13,12 @@ package:
   version: {{ cuda_compiler_version }}
 
 build:
-  number: {{ number }}
+  number: 24
   skip: true  # [cuda_compiler_version != "11.8"]
 
 
 outputs:
   - name: nvcc_{{ cross_target_platform }}
-    number: {{ number }}
     script: linux/install_nvcc.sh     # [linux]
     script: windows/install_nvcc.bat  # [win]
     build:
