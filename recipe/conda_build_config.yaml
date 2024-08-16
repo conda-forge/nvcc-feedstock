@@ -7,15 +7,10 @@ cuda_compiler:  # [linux64 or win or (linux and ppc64le) or (linux and aarch64)]
 cuda_compiler_version:
   - 11.8   # [linux64 or win or (linux and ppc64le) or (linux and aarch64)]
 
-c_compiler_version:  # [os.environ.get("BUILD_PLATFORM", "").startswith("linux")]
-  - 7  # [os.environ.get("BUILD_PLATFORM") == "linux-64"]
-  - 8  # [os.environ.get("BUILD_PLATFORM") == "linux-ppc64le"]
-  - 8  # [os.environ.get("BUILD_PLATFORM") == "linux-aarch64"]
-
-cxx_compiler_version:  # [os.environ.get("BUILD_PLATFORM", "").startswith("linux")]
-  - 7  # [os.environ.get("BUILD_PLATFORM") == "linux-64"]
-  - 8  # [os.environ.get("BUILD_PLATFORM") == "linux-ppc64le"]
-  - 8  # [os.environ.get("BUILD_PLATFORM") == "linux-aarch64"]
+c_compiler_version:     # [os.environ.get("BUILD_PLATFORM", "").startswith("linux")]
+  - 11                  # [os.environ.get("BUILD_PLATFORM", "").startswith("linux")]
+cxx_compiler_version:   # [os.environ.get("BUILD_PLATFORM", "").startswith("linux")]
+  - 11                  # [os.environ.get("BUILD_PLATFORM", "").startswith("linux")]
 
 docker_image:                                   # [os.environ.get("BUILD_PLATFORM", "").startswith("linux-")]
   - quay.io/condaforge/linux-anvil-cuda:11.8    # [linux64 and os.environ.get("BUILD_PLATFORM") == "linux-64"]
