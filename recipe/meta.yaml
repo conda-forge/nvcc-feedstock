@@ -13,7 +13,7 @@ package:
   version: {{ cuda_compiler_version }}
 
 build:
-  number: 24
+  number: 25
   skip: true  # [cuda_compiler_version != "11.8"]
 
 
@@ -38,6 +38,7 @@ outputs:
         - {{ c_compiler }}_{{ cross_target_platform }}                                  # [win]
         - sysroot_{{ cross_target_platform }} >={{ c_stdlib_version }}  # [linux]
       run:
+        - cudatoolkit >={{ cuda_compiler_version }},<{{ cuda_major + 1 }}
         - sed                                                           # [linux]
         - sysroot_{{ cross_target_platform }} >={{ c_stdlib_version }}  # [linux]
     test:
