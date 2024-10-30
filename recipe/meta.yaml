@@ -13,7 +13,7 @@ package:
   version: {{ cuda_compiler_version }}
 
 build:
-  number: 24
+  number: 25
   skip: true  # [cuda_compiler_version != "11.8"]
 
 
