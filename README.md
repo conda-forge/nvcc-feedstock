@@ -200,6 +200,7 @@ In order to produce a uniquely identifiable distribution:
 Feedstock Maintainers
 =====================
 
+* [@conda-forge/cuda](https://github.com/orgs/conda-forge/teams/cuda/)
 * [@dillon-cullinan](https://github.com/dillon-cullinan/)
 * [@isuruf](https://github.com/isuruf/)
 * [@jaimergp](https://github.com/jaimergp/)

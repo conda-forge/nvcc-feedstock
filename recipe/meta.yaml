@@ -69,6 +69,7 @@ about:
 
 extra:
   recipe-maintainers:
+    - conda-forge/cuda
     - dillon-cullinan
     - isuruf
     - jakirkham
