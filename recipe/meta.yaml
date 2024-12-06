@@ -14,8 +14,7 @@ package:
 
 build:
   number: 25
-  skip: true  # [cuda_compiler_version != "11.8"]
-
+  skip: {{ not (compiler("cuda").startswith("nvcc") and cuda_compiler_version == "11.8") }}
 
 outputs:
   - name: nvcc_{{ cross_target_platform }}

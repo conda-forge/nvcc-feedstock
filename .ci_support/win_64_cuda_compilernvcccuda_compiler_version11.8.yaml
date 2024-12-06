@@ -16,3 +16,6 @@ cxx_compiler:
 - vs2019
 target_platform:
 - win-64
+zip_keys:
+- - cuda_compiler
+  - cuda_compiler_version
