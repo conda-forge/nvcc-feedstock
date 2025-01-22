@@ -18,8 +18,9 @@ build:
 
 outputs:
   - name: nvcc_{{ cross_target_platform }}
-    script: linux/install_nvcc.sh     # [linux]
-    script: windows/install_nvcc.bat  # [win]
+    {% set script = "linux/install_nvcc.sh" %}     # [linux]
+    {% set script = "windows/install_nvcc.bat" %}  # [win]
+    script: {{ script }}
     build:
       ignore_run_exports_from:
         - {{ c_compiler }}_{{ cross_target_platform }}
