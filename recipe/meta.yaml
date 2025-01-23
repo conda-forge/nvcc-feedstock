@@ -1,9 +1,3 @@
-{% if cuda_compiler_version in (None, "None", True, False) %}
-{% set cuda_major = 0 %}
-{% else %}
-{% set cuda_major = environ.get("cuda_compiler_version", "11.8").split(".")[0]|int %}
-{% endif %}
-
 {% if cross_target_platform is undefined %}
 {% set cross_target_platform = target_platform %}
 {% endif %}
@@ -13,33 +7,35 @@ package:
   version: {{ cuda_compiler_version }}
 
 build:
-  number: 25
+  number: 26
   skip: {{ not (compiler("cuda").startswith("nvcc") and cuda_compiler_version == "11.8") }}
 
 outputs:
-  - name: nvcc_{{ cross_target_platform }}
-    script: linux/install_nvcc.sh     # [linux]
-    script: windows/install_nvcc.bat  # [win]
+  - name: {{ cuda_compiler }}_{{ cross_target_platform }}
+    {% set script = "linux/install_nvcc.sh" %}     # [linux]
+    {% set script = "windows/install_nvcc.bat" %}  # [win]
+    script: {{ script }}
     build:
       ignore_run_exports_from:
         - {{ c_compiler }}_{{ cross_target_platform }}
       run_exports:
         strong:
-          - cudatoolkit >={{ cuda_compiler_version }},<{{ cuda_major + 1 }}
-          - sysroot_{{ cross_target_platform }} >={{ c_stdlib_version }}    # [linux]
+          - {{ pin_compatible("cudatoolkit") }}
+          - {{ pin_compatible(c_stdlib ~ "_" ~ cross_target_platform) }}  # [linux]
     requirements:
       build:      # [win]
         - m2-sed  # [win]
       host:
-        - {{ stdlib("c") }}
         # Needed to symlink libcuda into sysroot libs.
         - {{ c_compiler }}_{{ cross_target_platform }} {{ c_compiler_version }}.*       # [linux]
         - {{ c_compiler }}_{{ cross_target_platform }}                                  # [win]
-        - sysroot_{{ cross_target_platform }} >={{ c_stdlib_version }}  # [linux]
+        - {{ c_stdlib }}_{{ cross_target_platform }} {{ c_stdlib_version }}             # [linux]
+        - {{ c_stdlib }}_{{ cross_target_platform }}                                    # [win]
+        - cudatoolkit {{ cuda_compiler_version }}
       run:
-        - cudatoolkit >={{ cuda_compiler_version }},<{{ cuda_major + 1 }}
-        - sed                                                           # [linux]
-        - sysroot_{{ cross_target_platform }} >={{ c_stdlib_version }}  # [linux]
+        - {{ pin_compatible("cudatoolkit") }}
+        - sed                                                                           # [linux]
+        - {{ pin_compatible(c_stdlib ~ "_" ~ cross_target_platform) }}                  # [linux]
     test:
       requires:
         - {{ c_compiler }}_{{ cross_target_platform }} {{ c_compiler_version }}.*       # [linux]
